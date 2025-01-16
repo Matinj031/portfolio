@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,8 +12,8 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 7
-      - run: pnpm install
-      - run: pnpm generate
+      - run: npm install
+      - run: npm run generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
