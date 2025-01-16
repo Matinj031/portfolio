@@ -9,9 +9,7 @@
           Matin jahi
         </NuxtLink>
       </div>
-      <ClientOnly>
         <color-mode-selector />
-      </ClientOnly>
     </header>
     <main class="p-2 mt-10">
       <slot />
