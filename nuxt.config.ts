@@ -12,7 +12,19 @@ export default defineNuxtConfig({
           name: "google-site-verification",
           content: "XOpaSrEBAEL48Ewy6W4gArvI1oW1d5qWVQKcQH3pTgI",
         },
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "format-detection", content: "telephone=no" },
+        { name: "theme-color", content: "#ffffff" },
+        { name: "robots", content: "index, follow" },
       ],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "canonical", href: "https://matinjahi.netlify.app" },
+      ],
+      htmlAttrs: {
+        lang: "en",
+      },
     },
 
     pageTransition: { name: "page", mode: "out-in" },
