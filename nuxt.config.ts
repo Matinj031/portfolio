@@ -7,7 +7,14 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
+      meta: [
+        {
+          name: "google-site-verification",
+          content: "XOpaSrEBAEL48Ewy6W4gArvI1oW1d5qWVQKcQH3pTgI",
+        },
+      ],
     },
+
     pageTransition: { name: "page", mode: "out-in" },
   },
 
