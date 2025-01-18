@@ -2,19 +2,32 @@ import { serverQueryContent } from "#content/server";
 import { SitemapStream, streamToPromise } from "sitemap";
 
 export default defineEventHandler(async (event) => {
-  // Fetch all documents
-  const docs = await serverQueryContent(event).find();
-  const sitemap = new SitemapStream({
-    hostname: "http://localhost:3000",
-  });
-
-  for (const doc of docs) {
-    sitemap.write({
-      url: doc._path,
-      changefreq: "monthly",
+  try {
+    const docs = await serverQueryContent(event).find();
+    const sitemap = new SitemapStream({
+      hostname: process.env.HOSTNAME || "https://matinjahi.netlify.app",
     });
-  }
-  sitemap.end();
 
-  return streamToPromise(sitemap);
+    // Always add homepage
+    sitemap.write({
+      url: "/",
+      priority: 1,
+    });
+
+    // Add blog posts only if they exist
+    if (docs && docs.length > 0) {
+      docs.forEach((doc) => {
+        sitemap.write({
+          url: doc._path,
+          priority: 0.5,
+        });
+      });
+    }
+
+    sitemap.end();
+    return streamToPromise(sitemap);
+  } catch (error) {
+    console.error("Error generating sitemap:", error);
+    throw error;
+  }
 });
