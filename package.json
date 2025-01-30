@@ -15,7 +15,10 @@
     "@nuxtjs/i18n": "^9.0.0-rc.2",
     "@nuxtjs/robots": "^5.1.1",
     "@nuxtjs/seo": "^2.0.3",
+    "gsap": "^3.12.7",
+    "lenis": "^1.1.20",
     "nuxt": "^3.14.1592",
+    "simplex-noise": "^4.0.3",
     "vue": "latest",
     "vue-router": "latest"
   },

@@ -1,10 +1,23 @@
 <template>
   <NuxtLayout>
+    <loading-screen />
+    <custom-cursor />
     <NuxtPage />
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+const nuxtApp = useNuxtApp();
+const { start, finish } = useUseLoadingScreen();
+
+nuxtApp.hook("page:start", () => {
+  start();
+});
+
+nuxtApp.hook("page:finish", () => {
+  finish();
+});
+
 useHead({
   titleTemplate: "%s - Matin Jahi Portfolio",
   htmlAttrs: {
@@ -16,12 +29,6 @@ useHead({
       rel: "icon",
       type: "image/ico",
       href: "/images/MatinJahi.ico",
-    },
-    {
-      rel: "preload",
-      href: "https://fonts.googleapis.com/css2?family=Roboto&display=swap",
-      as: "style",
-      crossorigin: "anonymous",
     },
   ],
   meta: [
@@ -99,5 +106,18 @@ body {
 .page-leave-to {
   opacity: 0;
   filter: blur(1rem);
+}
+
+* {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
+  .cursor-wrapper {
+    display: none !important;
+  }
+  * {
+    cursor: auto !important;
+  }
 }
 </style>

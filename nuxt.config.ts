@@ -21,6 +21,10 @@ export default defineNuxtConfig({
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "canonical", href: "https://matinjahi.netlify.app" },
+        {
+          rel: "stylesheet",
+          href: "/fonts/fonts.css",
+        },
       ],
       htmlAttrs: {
         lang: "en",
