@@ -1,88 +1,88 @@
-<template>
-  <div class="cursor-wrapper" v-show="cursorVisible">
-    <div class="cursor" ref="cursor"></div>
-    <div class="cursor-follower" ref="cursorFollower"></div>
-  </div>
-</template>
-
 <script setup>
-const cursor = ref(null);
-const cursorFollower = ref(null);
-const cursorVisible = ref(false);
+const cursor = ref(null)
+const cursorFollower = ref(null)
+const cursorVisible = ref(false)
 
 onMounted(() => {
-  const { $gsap: gsap } = useNuxtApp();
+    const { $gsap: gsap } = useNuxtApp()
 
-  // Set initial position
-  gsap.set([cursor.value, cursorFollower.value], {
-    xPercent: -50,
-    yPercent: -50,
-  });
+    // Set initial position
+    gsap.set([cursor.value, cursorFollower.value], {
+        xPercent: -50,
+        yPercent: -50,
+    })
 
-  // Animation variables
-  let xTo = gsap.quickTo(cursor.value, "x", { duration: 0.2, ease: "power3" }),
-    yTo = gsap.quickTo(cursor.value, "y", { duration: 0.2, ease: "power3" }),
-    xFollower = gsap.quickTo(cursorFollower.value, "x", {
-      duration: 0.6,
-      ease: "power3",
-    }),
-    yFollower = gsap.quickTo(cursorFollower.value, "y", {
-      duration: 0.6,
-      ease: "power3",
-    });
+    // Animation variables
+    let xTo = gsap.quickTo(cursor.value, 'x', { duration: 0.2, ease: 'power3' })
+    let yTo = gsap.quickTo(cursor.value, 'y', { duration: 0.2, ease: 'power3' })
+    let xFollower = gsap.quickTo(cursorFollower.value, 'x', {
+        duration: 0.6,
+        ease: 'power3',
+    })
+    let yFollower = gsap.quickTo(cursorFollower.value, 'y', {
+        duration: 0.6,
+        ease: 'power3',
+    })
 
-  // Mouse move handler
-  window.addEventListener("mousemove", (e) => {
-    cursorVisible.value = true;
-    xTo(e.clientX);
-    yTo(e.clientY);
-    xFollower(e.clientX);
-    yFollower(e.clientY);
-  });
+    // Mouse move handler
+    window.addEventListener('mousemove', (e) => {
+        cursorVisible.value = true
+        xTo(e.clientX)
+        yTo(e.clientY)
+        xFollower(e.clientX)
+        yFollower(e.clientY)
+    })
 
-  window.addEventListener("mousedown", () => {
-    gsap.to([cursor.value, cursorFollower.value], {
-      scale: 1.5,
-      duration: 0.3,
-    });
-  });
+    window.addEventListener('mousedown', () => {
+        gsap.to([cursor.value, cursorFollower.value], {
+            scale: 1.5,
+            duration: 0.3,
+        })
+    })
 
-  window.addEventListener("mouseup", () => {
-    gsap.to([cursor.value, cursorFollower.value], {
-      scale: 1,
-      duration: 0.3,
-    });
-  });
+    window.addEventListener('mouseup', () => {
+        gsap.to([cursor.value, cursorFollower.value], {
+            scale: 1,
+            duration: 0.3,
+        })
+    })
 
-  window.addEventListener("mouseout", () => {
-    gsap.to([cursor.value, cursorFollower.value], {
-      scale: 1,
-      duration: 0.3,
-    });
-  });
+    window.addEventListener('mouseout', () => {
+        gsap.to([cursor.value, cursorFollower.value], {
+            scale: 1,
+            duration: 0.3,
+        })
+    })
 
-  // Add hover effect for links
-  const links = document.querySelectorAll("a, button");
-  links.forEach((link) => {
-    link.addEventListener("mouseenter", () => {
-      gsap.to([cursor.value, cursorFollower.value], {
-        scale: 1.5,
-        duration: 0.3,
-        css: { backgroundColor: "rgba(255, 255, 255, 0.3)" },
-        ease: "power3",
-        
-      });
-    });
-    link.addEventListener("mouseleave", () => {
-      gsap.to([cursor.value, cursorFollower.value], {
-        scale: 1,
-        duration: 0.3,
-        css: { backgroundColor: "unset" },
-      });
-    });
-  });
-});
+    // Add hover effect for links
+    const links = document.querySelectorAll('a, button')
+    links.forEach((link) => {
+        link.addEventListener('mouseenter', () => {
+            gsap.to([cursor.value, cursorFollower.value], {
+                scale: 1.5,
+                duration: 0.3,
+                css: { backgroundColor: 'rgba(255, 255, 255, 0.3)' },
+                ease: 'power3',
+
+            })
+        })
+        link.addEventListener('mouseleave', () => {
+            gsap.to([cursor.value, cursorFollower.value], {
+                scale: 1,
+                duration: 0.3,
+                css: { backgroundColor: 'unset' },
+            })
+        })
+    })
+})
 </script>
+
+<template>
+    <div v-show="cursorVisible" class="cursor-wrapper">
+        <div ref="cursor" class="cursor" />
+        <div ref="cursorFollower" class="cursor-follower" />
+    </div>
+</template>
 
 <style scoped>
 .cursor-wrapper {

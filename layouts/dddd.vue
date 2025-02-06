@@ -1,12 +1,5 @@
 <template>
-  <div>
+  <div class="w-screen h-screen bg-black overflow-hidden">
     <slot />
   </div>
 </template>
-
-<script lang="ts" setup>
-
-</script>
-
-<style  >
-</style>

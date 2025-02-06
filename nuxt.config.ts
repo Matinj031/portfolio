@@ -40,7 +40,9 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/robots",
     "@nuxtjs/seo",
+    '@nuxt/image',
   ],
+
   content: {
     highlight: {
       theme: {

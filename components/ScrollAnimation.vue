@@ -1,23 +1,23 @@
-<template>
-  <div ref="box" class="box"></div>
-</template>
-
 <script setup>
-const box = ref(null);
+const box = ref(null)
 
 onMounted(() => {
-  gsap.to(box.value, {
-    x: 300,
-    rotation: 360,
-    scrollTrigger: {
-      trigger: box.value, // Element to trigger the animation
-      start: "top center", // When the top of the element hits the center of the viewport
-      end: "bottom center", // When the bottom of the element hits the center of the viewport
-      scrub: true, // Smoothly scrub through the animation on scroll
-    },
-  });
-});
+    gsap.to(box.value, {
+        x: 300,
+        rotation: 360,
+        scrollTrigger: {
+            trigger: box.value, // Element to trigger the animation
+            start: 'top center', // When the top of the element hits the center of the viewport
+            end: 'bottom center', // When the bottom of the element hits the center of the viewport
+            scrub: true, // Smoothly scrub through the animation on scroll
+        },
+    })
+})
 </script>
+
+<template>
+    <div ref="box" class="box" />
+</template>
 
 <style scoped>
 .box {
