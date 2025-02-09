@@ -40,7 +40,7 @@ const timelineData = ref([
 </script>
 
 <template>
-    <div class="timeline">
+    <!-- <div class="timeline">
         <div v-for="(item, index) in timelineData" :key="index" class="timeline-item">
             <div class="timeline-title">
                 {{ item.title }}
@@ -107,6 +107,18 @@ const timelineData = ref([
                 </template>
             </div>
         </div>
+    </div> -->
+    <div>
+        <CardItem
+            as="div"
+            class-name="bg-gray-100 rounded-md shadow-md p-4 hover:bg-gray-200"
+            translate-x="10px"
+            translate-y="5px"
+            rotate-x="5deg"
+        >
+            <h3>Example Card</h3>
+            <p>This is an example of how to use the CardItem component.</p>
+        </CardItem>
     </div>
 </template>
 
