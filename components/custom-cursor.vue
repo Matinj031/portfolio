@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
+const { $gsap: gsap } = useNuxtApp()
+
 const cursor = ref(null)
 const cursorFollower = ref(null)
 const cursorVisible = ref(false)
 
 onMounted(() => {
-    const { $gsap: gsap } = useNuxtApp()
-
     // Set initial position
     gsap.set([cursor.value, cursorFollower.value], {
         xPercent: -50,
@@ -13,13 +13,13 @@ onMounted(() => {
     })
 
     // Animation variables
-    let xTo = gsap.quickTo(cursor.value, 'x', { duration: 0.2, ease: 'power3' })
-    let yTo = gsap.quickTo(cursor.value, 'y', { duration: 0.2, ease: 'power3' })
-    let xFollower = gsap.quickTo(cursorFollower.value, 'x', {
+    const xTo = gsap.quickTo(cursor.value, 'x', { duration: 0.2, ease: 'power3' })
+    const yTo = gsap.quickTo(cursor.value, 'y', { duration: 0.2, ease: 'power3' })
+    const xFollower = gsap.quickTo(cursorFollower.value, 'x', {
         duration: 0.6,
         ease: 'power3',
     })
-    let yFollower = gsap.quickTo(cursorFollower.value, 'y', {
+    const yFollower = gsap.quickTo(cursorFollower.value, 'y', {
         duration: 0.6,
         ease: 'power3',
     })
@@ -47,7 +47,8 @@ onMounted(() => {
         })
     })
 
-    window.addEventListener('mouseout', () => {
+    window?.addEventListener('mouseout', () => {
+        cursorVisible.value = false
         gsap.to([cursor.value, cursorFollower.value], {
             scale: 1,
             duration: 0.3,
@@ -63,7 +64,6 @@ onMounted(() => {
                 duration: 0.3,
                 css: { backgroundColor: 'rgba(255, 255, 255, 0.3)' },
                 ease: 'power3',
-
             })
         })
         link.addEventListener('mouseleave', () => {

@@ -110,16 +110,5 @@ useSeoMeta({
     display: none !important;
   }
 }
-.cursor{
-    @apply !border-black
-    !bg-slate-700
-    dark:!bg-slate-200
-    dark:border-white
-    !w-2
-    !h-2
 
-}
-.cursor-follower{
-    @apply !border-slate-700 dark:!border-slate-100 ;
-}
 </style>

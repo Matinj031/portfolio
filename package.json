@@ -16,16 +16,18 @@
     "@nuxtjs/i18n": "^9.0.0-rc.2",
     "@nuxtjs/robots": "^5.1.1",
     "@nuxtjs/seo": "^2.0.3",
+    "@types/three": "^0.173.0",
     "gsap": "^3.12.7",
     "lenis": "^1.1.20",
     "nuxt": "^3.14.1592",
     "simplex-noise": "^4.0.3",
+    "three": "^0.173.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.12.2",
     "@antfu/eslint-config": "^4.1.0",
+    "@nuxtjs/tailwindcss": "^6.12.2",
     "@tailwindcss/typography": "^0.5.15",
     "sitemap": "^8.0.0"
   }

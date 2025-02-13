@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-    <div class="container mx-auto max-w-4xl">
+    <div class="container mx-auto ">
         <header class="flex justify-between items-center mt-5">
             <div class="flex items-center md:space-x-12">
                 <NuxtLink
