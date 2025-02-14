@@ -8,9 +8,7 @@
 <script setup lang="ts">
 import * as THREE from 'three'
 import { createNoise3D } from 'simplex-noise'
-import { ref, watch, onMounted, onUnmounted } from 'vue'
-import gsap from 'gsap'
-
+const {$gsap:gsap} = useNuxtApp();
 // Props and emits
 const props = defineProps<{
   currentSection: string

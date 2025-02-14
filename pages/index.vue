@@ -7,18 +7,7 @@
     <main class="relative z-10">
       <!-- Hero Section -->
       <section ref="heroSection" id="hero" class="min-h-screen flex items-center px-8">
-        <div class="container mx-auto">
-          <h1 class="text-7xl font-bold mb-4">
-            <span class="text-[#42ffff]">Creative</span><br />
-            Portfolio
-          </h1>
-          <p class="text-xl mb-8 max-w-2xl">
-            Showcasing innovative designs and creative solutions through immersive 3D experiences
-          </p>
-          <button @click="scrollToSection('projects')" class="bg-[#42ffff] text-[#001616] px-8 py-3 rounded-full font-semibold hover:bg-opacity-80 transition-all">
-            Explore Work →
-          </button>
-        </div>
+        <ThreedText />
       </section>
 
       <!-- Projects Section -->
@@ -28,20 +17,27 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ThreedCardContainer>
             <ThreedCardBody
-                class="bg-white
-                 relative dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:!bg-slate-800 dark:border-white/[0.2] border-black/[0.1] w-full max-w-fit h-auto rounded-xl p-6 border"
+                class="
+                 relative dark:hover:shadow-2xl dark:hover:shadow-[#42FFFF]/[0.2] w-full max-w-fit h-auto rounded-xl p-6 border bg-white/5 backdrop-blur-xs hover:bg-white/10 "
             >
-                <ThreedCardItem :translate-z="50" class="text-xl font-bold text-neutral-600 dark:text-white">
+                <ThreedCardItem 
+                    as="h3"
+                    :translate-z="50" 
+                    class="text-xl font-bold text-white"
+                >
                     Pateh
                 </ThreedCardItem>
-                <ThreedCardItem
+                <ThreedCardItem 
                     as="p"
-                    :translate-z="60"
-                    class="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                    :translate-z="60" 
+                    class="text-neutral-300 text-sm max-w-sm mt-2"
                 >
                     travel agencies for flights, hotels, and car rentals
                 </ThreedCardItem>
-                <ThreedCardItem :translate-z="100" class="w-full mt-4">
+                <ThreedCardItem 
+                    :translate-z="100" 
+                    class="w-full mt-4"
+                >
                     <NuxtImg
                         src="images/pateh.png"
                         class="h-60 w-full object-cover rounded-xl"
@@ -61,24 +57,30 @@
 
         <ThreedCardContainer>
             <ThreedCardBody
-                class="bg-white
-                 relative dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:!bg-slate-800 dark:border-white/[0.2] border-black/[0.1] w-full max-w-fit h-auto rounded-xl p-6 border"
+                class=" relative dark:hover:shadow-2xl dark:hover:shadow-[#42FFFF]/[0.2] w-full max-w-fit h-auto rounded-xl p-6 border bg-white/5 backdrop-blur-xs hover:bg-white/10 "
             >
-                <ThreedCardItem :translate-z="50" class="text-xl font-bold text-neutral-600 dark:text-white">
+                <ThreedCardItem 
+                    as="h3"
+                    :translate-z="50" 
+                    class="text-xl font-bold text-white"
+                >
                     TeamChem
                 </ThreedCardItem>
-                <ThreedCardItem
+                <ThreedCardItem 
                     as="p"
-                    :translate-z="60"
-                    class="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                    :translate-z="60" 
+                    class="text-neutral-300 text-sm max-w-sm mt-2"
                 >
                     Drilling Fluids Additives & Specialty Chemicals
                 </ThreedCardItem>
-                <ThreedCardItem :translate-z="100" class="w-full mt-4">
+                <ThreedCardItem 
+                    :translate-z="100" 
+                    class="w-full mt-4"
+                >
                     <NuxtImg
                         src="images/teamchem.png"
                         class="h-60 w-full object-cover rounded-xl"
-                        alt="Pateh"
+                        alt="TeamChem"
                     />
                 </ThreedCardItem>
                 <div
@@ -93,20 +95,26 @@
         </ThreedCardContainer>
         <ThreedCardContainer>
             <ThreedCardBody
-                class="bg-white
-                 relative dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:!bg-[#002424] dark:border-white/[0.2] border-black/[0.1] w-full max-w-fit h-auto rounded-xl p-6 border"
+                class=" relative dark:hover:shadow-2xl dark:hover:shadow-[#42FFFF]/[0.2] w-full max-w-fit h-auto rounded-xl p-6 border bg-white/5 backdrop-blur-xs hover:bg-white/10 "
             >
-                <ThreedCardItem :translate-z="50" class="text-xl font-bold text-neutral-600 dark:text-white">
+                <ThreedCardItem 
+                    as="h3"
+                    :translate-z="50" 
+                    class="text-xl font-bold text-white"
+                >
                     Discord voice assistant bot
                 </ThreedCardItem>
-                <ThreedCardItem
+                <ThreedCardItem 
                     as="p"
-                    :translate-z="60"
-                    class="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+                    :translate-z="60" 
+                    class="text-neutral-300 text-sm max-w-sm mt-2"
                 >
                     A voice assistant bot for discord servers to help users with their daily tasks  and provide them with information
                 </ThreedCardItem>
-                <ThreedCardItem :translate-z="100" class="w-full mt-4">
+                <ThreedCardItem 
+                    :translate-z="100" 
+                    class="w-full mt-4"
+                >
                     <NuxtImg
                         src="images/voice-assistant.png"
                         class="h-60 w-full object-cover rounded-xl"
@@ -126,63 +134,10 @@
     </div>
         </div>
       </section>
-
-      <!-- Skills Section -->
-      <section ref="skillsSection" id="skills" class="min-h-screen py-32 px-8">
-        <div class="container mx-auto">
-          <h2 class="text-4xl font-bold mb-12">Skills & <span class="text-[#42ffff]">Expertise</span></h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div v-for="skill in skills" :key="skill.id" 
-                 class="skill-card p-6 bg-[#002424] rounded-xl hover:bg-[#003434] transition-colors">
-              <div class="text-[#42ffff] text-4xl mb-4">
-                <component :is="skill.icon" />
-              </div>
-              <h3 class="text-xl font-semibold mb-2">{{ skill.title }}</h3>
-              <p class="text-gray-400">{{ skill.description }}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section ref="contactSection" id="contact" class="min-h-screen py-32 px-8">
-        <div class="container mx-auto">
-          <h2 class="text-4xl font-bold mb-12">Let's <span class="text-[#42ffff]">Connect</span></h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="contact-form bg-[#002424] p-8 rounded-xl">
-              <form @submit.prevent="submitForm">
-                <div class="mb-6">
-                  <input type="text" v-model="form.name" placeholder="Name" 
-                         class="w-full bg-[#001616] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#42ffff]">
-                </div>
-                <div class="mb-6">
-                  <input type="email" v-model="form.email" placeholder="Email" 
-                         class="w-full bg-[#001616] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#42ffff]">
-                </div>
-                <div class="mb-6">
-                  <textarea v-model="form.message" placeholder="Message" rows="4"
-                          class="w-full bg-[#001616] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#42ffff]"></textarea>
-                </div>
-                <button type="submit" 
-                        class="bg-[#42ffff] text-[#001616] px-8 py-3 rounded-full font-semibold hover:bg-opacity-80 transition-all">
-                  Send Message
-                </button>
-              </form>
-            </div>
-            <div class="social-links">
-              <h3 class="text-2xl font-semibold mb-6">Connect on Social Media</h3>
-              <div class="flex space-x-6">
-                <a v-for="social in socials" :key="social.id" :href="social.link"
-                   class="text-[#42ffff] hover:text-white transition-colors">
-                  <component :is="social.icon" class="w-8 h-8" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
+    <Contact-section />
+    <Skills-section />
   </div>
 </template>
 

@@ -1,27 +1,18 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { Draggable } from 'gsap/Draggable';
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
     if (process.client) {
-        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
-
-        // Configure GSAP defaults
-        gsap.config({
-            nullTargetWarn: false,
-            autoSleep: 60,
-            force3D: true,
-            units: {
-                left: '%',
-                top: '%',
-                rotation: 'rad'
-            }
-        })
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, Draggable);
     }
 
     return {
         provide: {
-            gsap
+            gsap,
+            Draggable,
+            ScrollTrigger,
         }
     }
 })

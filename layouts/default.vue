@@ -1,12 +1,12 @@
 <script setup></script>
 
 <template>
-    <div class="container mx-auto ">
-        <header class="flex justify-between items-center mt-5">
+    <div class="mx-auto">
+        <header class="flex justify-between items-center mt-5 fixed top-0 left-0 z-50 w-full px-8">
             <div class="flex items-center md:space-x-12">
                 <NuxtLink
                     to="/"
-                    class="text-xl font-semibold p-2 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    class="text-xl font-semibold"
                 >
                     Matin jahi
                 </NuxtLink>
@@ -15,7 +15,7 @@
                 <color-mode-selector />
             </ClientOnly>
         </header>
-        <main class="p-2 mt-10">
+        <main>
             <slot />
         </main>
     </div>
@@ -24,6 +24,7 @@
 <style>
   * {
     cursor: none !important;
+    user-select: none !important;
   }
 
 body {

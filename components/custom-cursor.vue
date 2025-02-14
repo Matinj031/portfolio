@@ -96,7 +96,7 @@ onMounted(() => {
 .cursor {
   width: 8px;
   height: 8px;
-  background: rgba(255, 255, 255, 0.352);
+  background: #42FFFF;;
   border-radius: 100%;
   position: fixed;
   z-index: 2;
@@ -105,7 +105,7 @@ onMounted(() => {
 .cursor-follower {
   width: 40px;
   height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid #42FFFF;;
   border-radius: 100%;
   position: fixed;
   z-index: 1;

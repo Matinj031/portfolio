@@ -86,6 +86,10 @@ useSeoMeta({
 })
 </script>
 
+  <!--
+  The main layout of the application which includes the Nuxt layout component
+  containing the loading screen, custom cursor, and the Nuxt page component.
+  -->
 <template>
     <NuxtLayout>
         <loading-screen v-if="isLoading" />
