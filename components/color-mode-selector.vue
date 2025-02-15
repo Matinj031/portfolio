@@ -31,11 +31,11 @@ const toggleMode = () => (colorMode.preference = nextMode.value)
 
 <template>
     <div class="flex space-x-2 items-center">
-        <div v-if="showNextModeLabel" class="text-gray-700 dark:text-gray-50 text-xs">
+        <div v-if="showNextModeLabel" class="text-gray-300 dark:text-gray-50 text-xs">
             Change to {{ nextMode }}
         </div>
         <button
-            class="hover:bg-gray-100 dark:hover:bg-gray-500 px-2 py-2 text-center text-gray-500 rounded-full md:rounded-full drop-shadow-sm text-4xl md:text-base"
+            class="hover:bg-gray-500 px-2 py-2 text-center text-gray-500 rounded-full md:rounded-full drop-shadow-sm text-4xl md:text-base"
             @click="toggleMode"
             @mouseenter="showNextModeLabel = true"
             @mouseleave="showNextModeLabel = false"

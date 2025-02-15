@@ -48,14 +48,7 @@ onMounted(() => {
 
         // Hover animation
         const hoverTl = gsap.timeline({ paused: true })
-        hoverTl.to('.text-layer', {
-            color: '#42ffff',
-            textShadow: '0 0 20px rgba(66, 255, 255, 0.5)',
-        })
 
-        // Event listeners
-        textContainer.value.addEventListener('mouseenter', () => hoverTl.play())
-        textContainer.value.addEventListener('mouseleave', () => hoverTl.reverse())
 
         // Click animation
         textContainer.value.addEventListener('click', () => {
@@ -142,16 +135,31 @@ onUnmounted(() => {
     clip-path: inset(0 0 0 0);
 }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
+
+.text-layer {
+  position: relative;
 }
 
-.text-layer:hover {
-    animation: glitch 0.3s infinite;
+.text-layer:nth-child(2),.text-layer::after {
+  margin: 0;
+  background: linear-gradient(90deg in lch longer hue, oklch(105% 90% 0) 0 0);
+  background-size: 500% 100%;
+  animation: blend 30s infinite linear;
+  color: transparent;
+  background-clip: text;
+  
+}
+
+.text-layer::after {
+  content: attr(data-text);
+  filter: blur(8px);
+  position: absolute;
+/*   z-index: -1; */
+  left: 0;
+  mix-blend-mode: plus-lighter;
+}
+
+@keyframes blend {
+  to { background-position: 500% 100%; }
 }
 </style>

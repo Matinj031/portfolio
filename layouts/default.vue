@@ -2,8 +2,8 @@
 
 <template>
     <div class="mx-auto">
-        <header class="flex justify-between items-center mt-5 fixed top-0 left-0 z-50 w-full px-8">
-            <div class="flex items-center md:space-x-12">
+        <header class="flex justify-between items-center py-4 fixed top-0 left-0 z-50 w-full px-8 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all">
+            <div class="flex items-center md:space-x-12 ">
                 <NuxtLink
                     to="/"
                     class="text-xl font-semibold"

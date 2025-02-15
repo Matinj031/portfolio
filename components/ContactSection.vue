@@ -9,7 +9,7 @@
         <div class="contact-form-container"
           :class="{ 'animate-slide-up-fade': isVisible }"
           style="animation-delay: 0ms;">
-          <form @submit.prevent="handleSubmit" class="space-y-6">
+          <form @submit.prevent="handleSubmit" class="h-full flex flex-col justify-between">
             <div class="form-group">
               <label for="name" class="block text-sm font-medium mb-2">Name</label>
               <input
@@ -17,7 +17,7 @@
                 id="name"
                 v-model="form.name"
                 required
-                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-[#42ffff] 
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-[#42FFFF] focus:border-[#42ffff] 
                       focus:ring-1 focus:ring-[#42ffff] transition-all outline-none"
                 :class="{ 'animate-shake': formErrors.name }"
               />
@@ -30,7 +30,7 @@
                 id="email"
                 v-model="form.email"
                 required
-                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-[#42ffff]
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-[#42FFFF] focus:border-[#42ffff]
                       focus:ring-1 focus:ring-[#42ffff] transition-all outline-none"
                 :class="{ 'animate-shake': formErrors.email }"
               />
@@ -43,7 +43,7 @@
                 v-model="form.message"
                 required
                 rows="6"
-                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 focus:border-[#42ffff]
+                class="w-full px-4 py-3 rounded-lg bg-white/5 border border-[#42FFFF] focus:border-[#42ffff]
                       focus:ring-1 focus:ring-[#42ffff] transition-all outline-none resize-none"
                 :class="{ 'animate-shake': formErrors.message }"
               ></textarea>
@@ -71,7 +71,7 @@
         <div class="contact-info-container"
           :class="{ 'animate-slide-up-fade': isVisible }"
           style="animation-delay: 200ms;">
-          <div class="space-y-8">
+          <div class="h-full flex flex-col justify-between">
             <div class="contact-item group">
               <h3 class="text-xl font-semibold mb-4 text-[#42ffff]">Location</h3>
               <p class="text-gray-300 group-hover:text-white transition-colors">
