@@ -3,7 +3,7 @@ const { $gsap: gsap } = useNuxtApp()
 const isReady = ref(false)
 const n = ref(19)
 const timelines = ref<gsap.core.Timeline[]>([])
-const trayRef = ref(null)
+const trayRef = ref<HTMLElement | null>(null)
 const cubesRef = ref<HTMLElement[]>([])
 
 const rots = ref([
@@ -24,82 +24,113 @@ function getFaceStyle(cubeIndex: number, faceIndex: number) {
 
 // Debounced resize handler
 const handleResize = useDebounceFn(() => {
+    if (!trayRef.value || !gsap) return
+    
     const h = n.value * 64
-    gsap?.set(trayRef.value, { height: h })
-    gsap?.set('.pov', { scale: window?.innerHeight / h })
+    gsap.set(trayRef.value, { height: h })
+    
+    const povElement = document.querySelector('.pov')
+    if (povElement) {
+        gsap.set(povElement, { scale: window.innerHeight / h })
+    }
 }, 16)
 
 onBeforeMount(() => {
-    if (process.client) {
+    if (process.client && gsap) {
         gsap.set('body', { overflow: 'hidden' })
     }
 })
 
 onMounted(() => {
-    if (process.client && n.value) {
-    // Initial setup
+    if (!process.client || !n.value || !gsap) return
+
+    // Wait for DOM elements to be ready
+    nextTick(() => {
+        if (!trayRef.value) return
+        
+        // Initial setup
         gsap.set(trayRef.value, { opacity: 0, visibility: 'hidden' })
 
         // Create master timeline
         const masterTl = gsap.timeline()
 
         // Setup faces
-        gsap.set('.face', {
-            z: 200,
-            rotateY: i => rots.value[i % 3]?.ry,
-            transformOrigin: '50% 50% -201px',
+        const faces = document.querySelectorAll('.face')
+        if (faces.length) {
+            gsap.set(faces, {
+                z: 200,
+                rotateY: (i: number) => rots.value[i % 3]?.ry,
+                transformOrigin: '50% 50% -201px',
+            })
+        }
+
+        isReady.value = true
+
+        // Fade in tray
+        masterTl.to(trayRef.value, {
+            opacity: 1,
+            visibility: 'visible',
+            duration: 0.3,
         })
 
-        nextTick(() => {
-            isReady.value = true
-
-            // Fade in tray
-            masterTl.to(trayRef.value, {
-                opacity: 1,
-                visibility: 'visible',
-                duration: 0.3,
+        // Cube animations
+        cubesRef.value.forEach((cube, i) => {
+            if (!cube) return
+            
+            const cubeTl = gsap.timeline({
+                repeat: -1,
+                yoyo: true,
+                defaults: { ease: 'power3.inOut' },
             })
 
-            // Cube animations
-            cubesRef.value.forEach((cube, i) => {
-                const cubeTl = gsap.timeline({
-                    repeat: -1,
-                    yoyo: true,
-                    defaults: { ease: 'power3.inOut' },
+            const cubeFaces = cube.querySelectorAll('.face')
+            
+            cubeTl
+                .fromTo(cube, { rotateY: -90 }, {
+                    rotateY: 90,
+                    duration: 2,
+                    ease: 'power1.inOut',
                 })
+                .fromTo(cubeFaces, 
+                    { 
+                        color: (j: number) => `hsl(${i / n.value * 75 + 130}, 67%,${100 * [rots.value[3]?.a, rots.value[0]?.a, rots.value[1]?.a][j]}%)` 
+                    }, 
+                    { 
+                        color: (j: number) => `hsl(${i / n.value * 75 + 130}, 67%,${100 * [rots.value[0]?.a, rots.value[1]?.a, rots.value[2]?.a][j]}%)` 
+                    }, 
+                    0
+                )
+                .progress(i / n.value)
 
-                cubeTl
-                    .fromTo(cube, { rotateY: -90 }, {
-                        rotateY: 90,
-                        duration: 2,
-                        ease: 'power1.inOut',
-                    })
-                    .fromTo(cube.querySelectorAll('.face'), { color: j => `hsl(${i / n.value * 75 + 130}, 67%,${100 * [rots.value[3]?.a, rots.value[0]?.a, rots.value[1]?.a][j]}%)` }, { color: j => `hsl(${i / n.value * 75 + 130}, 67%,${100 * [rots.value[0]?.a, rots.value[1]?.a, rots.value[2]?.a][j]}%)` }, 0)
-                    .progress(i / n.value)
+            timelines.value.push(cubeTl)
+        })
 
-                timelines.value.push(cubeTl)
-            })
-
-            // Tray animation
+        // Tray animation
+        if (trayRef.value) {
             const trayTl = gsap.timeline({ repeat: -1, yoyo: true })
             trayTl
-                .fromTo(trayRef.value, { yPercent: -3, rotate: -15, scale: 1 }, { yPercent: 3, rotate: 15, scale: 1.2, duration: 2, ease: 'power1.inOut' },
+                .fromTo(trayRef.value, 
+                    { yPercent: -3, rotate: -15, scale: 1 }, 
+                    { yPercent: 3, rotate: 15, scale: 1.2, duration: 2, ease: 'power1.inOut' }
                 )
 
             timelines.value.push(trayTl)
+        }
 
-            // Initialize resize
-            window.addEventListener('resize', handleResize)
-            handleResize()
-        })
-    }
+        // Initialize resize
+        window.addEventListener('resize', handleResize)
+        handleResize()
+    })
 })
 
 onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
     timelines.value.forEach(tl => tl?.kill())
-    gsap.set('body', { overflow: '' })
+    if (gsap) {
+        gsap.set('body', { overflow: '' })
+    }
 })
+
 function useDebounceFn(fn: (...args: any[]) => void, delay: number) {
     let timeoutId: number | null = null
 
@@ -142,6 +173,9 @@ function useDebounceFn(fn: (...args: any[]) => void, delay: number) {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
 .pov {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -149,6 +183,8 @@ function useDebounceFn(fn: (...args: any[]) => void, delay: number) {
   justify-content: center;
   will-change: transform;
   transform: translate3d(0, 0, 0);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 .tray {

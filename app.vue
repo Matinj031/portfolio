@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MorphParticles from '~/components/MorphParticles.vue'
 const { start, finish, isLoading } = useUseLoadingScreen()
 const nuxtApp = useNuxtApp()
 
