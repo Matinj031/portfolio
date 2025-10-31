@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     ssr: true,
@@ -35,12 +37,12 @@ export default defineNuxtConfig({
     },
 
     modules: [
-        '@nuxtjs/tailwindcss',
         '@nuxtjs/color-mode',
         '@nuxt/content',
         '@nuxtjs/robots',
         '@nuxtjs/seo',
         '@nuxt/image',
+        'motion-v/nuxt',
     ],
 
     content: {
@@ -58,5 +60,10 @@ export default defineNuxtConfig({
     },
     colorMode: {
         classSuffix: '',
+    },
+
+    css: ['~/assets/css/main.css'],
+    vite: {
+        plugins: [tailwindcss()],
     },
 })

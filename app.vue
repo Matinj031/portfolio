@@ -93,7 +93,6 @@ useSeoMeta({
   -->
 <template>
     <NuxtLayout>
-        <loading-screen v-if="isLoading" />
         <custom-cursor />
         <NuxtPage />
     </NuxtLayout>
