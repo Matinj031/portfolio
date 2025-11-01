@@ -58,7 +58,7 @@ const styles = computed(() => {
     "--black": "#000",
     "--white": "#fff",
     "--transparent": "transparent",
-    "--animate-aurora": "aurora 60s linear infinite",
+    "--animate-aurora": "aurora 0.1s linear infinite",
   };
 });
 </script>
