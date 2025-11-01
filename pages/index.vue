@@ -54,7 +54,7 @@
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
         <NuxtLink
-          to="/apps"
+          to="/projects"
           class="group relative px-8 py-3 rounded-full bg-white text-black font-medium hover:scale-105 transition-transform duration-200 shadow-lg shadow-white/20"
         >
           View My Work
