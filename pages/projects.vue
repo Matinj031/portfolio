@@ -1,5 +1,5 @@
 <template>
-  <div class="relative min-h-screen py-20 md:py-24 px-4 sm:px-6">
+  <main class="relative min-h-screen py-20 md:py-24 px-4 sm:px-6" role="main">
     <!-- Background Grid -->
     <InteractiveGridPattern
       :class="'fixed inset-0 [mask-image:radial-gradient(600px_circle_at_center,white,transparent)] md:[mask-image:radial-gradient(800px_circle_at_center,white,transparent)]'"
@@ -9,29 +9,52 @@
       squares-class-name="hover:fill-white-50"
     />
 
-    <!-- Content -->
-    <div class="relative z-10 max-w-6xl mx-auto">
-      <!-- Header -->
-      <Motion
-        :initial="{ opacity: 0, y: 20 }"
-        :while-in-view="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.6 }"
-        class="text-center mb-12 md:mb-16"
-      >
-        <h1
-          class="text-4xl sm:text-5xl md:text-7xl font-bold text-black dark:text-white mb-3 md:mb-4 px-4"
-        >
-          Recent Projects
-        </h1>
-        <p
-          class="text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto px-4"
-        >
-          A collection of my latest work and contributions
+    <!-- Loading State -->
+    <div
+      v-if="isLoading"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-sm"
+    >
+      <div class="text-center">
+        <div
+          class="w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"
+        ></div>
+        <p class="text-lg font-medium text-black dark:text-white">
+          Loading projects...
         </p>
-      </Motion>
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
+          {{ loadingProgress }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div v-if="!isLoading" class="relative z-10 max-w-6xl mx-auto">
+      <!-- Header -->
+      <header>
+        <Motion
+          :initial="{ opacity: 0, y: 20 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.6 }"
+          class="text-center mb-12 md:mb-16"
+        >
+          <h1
+            class="text-4xl sm:text-5xl md:text-7xl font-bold text-black dark:text-white mb-3 md:mb-4 px-4"
+          >
+            Recent Projects
+          </h1>
+          <p
+            class="text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto px-4"
+          >
+            A collection of my latest work and contributions in web development
+          </p>
+        </Motion>
+      </header>
 
       <!-- Projects Grid -->
-      <div class="grid gap-4 sm:gap-6 md:gap-8">
+      <section
+        aria-label="Projects showcase"
+        class="grid gap-4 sm:gap-6 md:gap-8"
+      >
         <Motion
           v-for="(project, index) in projects"
           :key="project.id"
@@ -40,8 +63,10 @@
           :transition="{ duration: 0.5, delay: index * 0.1 }"
           class="group relative"
         >
-          <div
+          <article
             class="glassyCard relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 dark:hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5"
+            itemscope
+            itemtype="https://schema.org/CreativeWork"
           >
             <!-- Project Header -->
             <div class="space-y-4 mb-4">
@@ -127,12 +152,13 @@
             <!-- Description -->
             <p
               class="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mb-4 leading-relaxed"
+              itemprop="description"
             >
               {{ project.description }}
             </p>
 
             <!-- Tech Stack -->
-            <div class="flex flex-wrap gap-1.5 sm:gap-2">
+            <div class="flex flex-wrap gap-1.5 sm:gap-2" itemprop="keywords">
               <span
                 v-for="tech in project.tech"
                 :key="tech"
@@ -146,25 +172,21 @@
             <div
               class="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500 pointer-events-none"
             ></div>
-          </div>
+
+            <!-- Hidden metadata for SEO -->
+            <meta itemprop="url" :content="project.demo || project.github" />
+            <meta itemprop="author" content="Matin Jahi" />
+          </article>
         </Motion>
-      </div>
+      </section>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: "Projects - Matin Jahi",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Explore my recent projects and contributions in web development.",
-    },
-  ],
-});
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
+// Projects data - defined first for use in SEO
 const projects = [
   {
     id: 1,
@@ -263,6 +285,247 @@ const projects = [
     github: "https://github.com/Matinj031/Python-SnakeGame",
   },
 ];
+
+// SEO Configuration
+const seoTitle = "Projects - Matin Jahi | Frontend Developer Portfolio";
+const seoDescription =
+  "Explore my recent web development projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and more. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.";
+const seoKeywords =
+  "Matin Jahi projects, frontend developer portfolio, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development";
+const seoImage = "https://matinjahi.netlify.app/og-projects.jpg"; // You can create this image
+const seoUrl = "https://matinjahi.netlify.app/projects";
+
+// State management
+const isLoading = ref(true);
+const loadingProgress = ref("Preparing projects...");
+let preloadAborted = false;
+
+// Preload images cache
+const imageCache = new Map<string, string>();
+
+useHead({
+  title: seoTitle,
+  meta: [
+    // Primary Meta Tags
+    {
+      name: "title",
+      content: seoTitle,
+    },
+    {
+      name: "description",
+      content: seoDescription,
+    },
+    {
+      name: "keywords",
+      content: seoKeywords,
+    },
+    {
+      name: "author",
+      content: "Matin Jahi",
+    },
+    {
+      name: "robots",
+      content: "index, follow",
+    },
+    {
+      name: "language",
+      content: "English",
+    },
+
+    // Open Graph / Facebook
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: seoUrl,
+    },
+    {
+      property: "og:title",
+      content: seoTitle,
+    },
+    {
+      property: "og:description",
+      content: seoDescription,
+    },
+    {
+      property: "og:image",
+      content: seoImage,
+    },
+    {
+      property: "og:site_name",
+      content: "Matin Jahi Portfolio",
+    },
+    {
+      property: "og:locale",
+      content: "en_US",
+    },
+
+    // Twitter
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:url",
+      content: seoUrl,
+    },
+    {
+      name: "twitter:title",
+      content: seoTitle,
+    },
+    {
+      name: "twitter:description",
+      content: seoDescription,
+    },
+    {
+      name: "twitter:image",
+      content: seoImage,
+    },
+    {
+      name: "twitter:creator",
+      content: "@matinjahi",
+    },
+
+    // Additional SEO
+    {
+      name: "theme-color",
+      content: "#667eea",
+    },
+    {
+      name: "msapplication-TileColor",
+      content: "#667eea",
+    },
+  ],
+  link: [
+    {
+      rel: "canonical",
+      href: seoUrl,
+    },
+  ],
+  script: [
+    // JSON-LD Structured Data
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: seoTitle,
+        description: seoDescription,
+        url: seoUrl,
+        author: {
+          "@type": "Person",
+          name: "Matin Jahi",
+          jobTitle: "Frontend Developer",
+          url: "https://matinjahi.netlify.app",
+          sameAs: [
+            "https://github.com/Matinj031",
+            "https://linkedin.com/in/matin-jahi",
+            "https://t.me/Ritalleral",
+          ],
+        },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: projects.map((project, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "CreativeWork",
+              name: project.title,
+              description: project.description,
+              url: project.demo || project.github,
+              dateCreated: project.year,
+              author: {
+                "@type": "Person",
+                name: "Matin Jahi",
+              },
+              keywords: project.tech.join(", "),
+            },
+          })),
+        },
+      }),
+    },
+  ],
+});
+
+// Preload link preview images
+const preloadLinkPreviews = async () => {
+  const projectsWithDemo = projects.filter((p) => p.demo);
+  const total = projectsWithDemo.length;
+  let loaded = 0;
+
+  loadingProgress.value = `Loading previews (0/${total})...`;
+
+  const preloadPromises = projectsWithDemo.map(async (project) => {
+    try {
+      const params = new URLSearchParams({
+        url: project.demo,
+        screenshot: "true",
+        meta: "false",
+        embed: "screenshot.url",
+        colorScheme: "light",
+        "viewport.isMobile": "true",
+        "viewport.deviceScaleFactor": "1",
+        "viewport.width": "1500",
+        "viewport.height": "900",
+      });
+
+      const imageUrl = `https://api.microlink.io/?${params.toString()}`;
+
+      // Preload image
+      await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          imageCache.set(project.demo, imageUrl);
+          loaded++;
+          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
+          resolve(true);
+        };
+        img.onerror = () => {
+          console.warn(`Failed to preload preview for ${project.demo}`);
+          loaded++;
+          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
+          resolve(false);
+        };
+        // Set timeout for slow loading images
+        setTimeout(() => {
+          loaded++;
+          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
+          resolve(false);
+        }, 5000);
+        img.src = imageUrl;
+      });
+    } catch (error) {
+      console.error(`Error preloading ${project.demo}:`, error);
+    }
+  });
+
+  await Promise.all(preloadPromises);
+
+  // Check if component was unmounted during preload
+  if (preloadAborted) return;
+
+  loadingProgress.value = "Ready!";
+
+  // Small delay to show "Ready!" message
+  setTimeout(() => {
+    if (!preloadAborted) {
+      isLoading.value = false;
+    }
+  }, 300);
+};
+
+onMounted(() => {
+  preloadAborted = false;
+  isLoading.value = true;
+  preloadLinkPreviews();
+});
+
+onBeforeUnmount(() => {
+  preloadAborted = true;
+  isLoading.value = true;
+});
 </script>
 
 <style scoped>

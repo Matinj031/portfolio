@@ -24,16 +24,28 @@
           :class="[popClass, { 'transform-gpu': !props.isStatic }]"
         >
           <div
-            class="block rounded-xl border-2 border-transparent bg-white p-1 shadow-lg dark:bg-gray-900"
+            class="block rounded-xl border-2 border-transparent bg-white p-1 shadow-lg dark:bg-gray-900 relative"
           >
+            <!-- Loading Spinner -->
+            <div
+              v-if="isLoading"
+              class="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-gray-900/90 rounded-lg z-10"
+            >
+              <div
+                class="w-8 h-8 border-3 border-blue-500/20 border-t-blue-500 rounded-full animate-spin"
+              ></div>
+            </div>
+
             <img
               :src="previewSrc"
               :width="width"
               :height="height"
-              class="size-full rounded-lg object-cover"
+              class="size-full rounded-lg object-cover transition-opacity duration-300"
+              :class="{ 'opacity-0': isLoading }"
               :style="imageStyle"
               alt="preview"
               @load="handleImageLoad"
+              @error="handleImageError"
             />
           </div>
         </div>
@@ -82,9 +94,17 @@ const isLoading = ref(true);
 const preview = ref<HTMLElement | null>(null);
 const hasPopped = ref(false);
 
-// Generate preview URL
+// Cache for preview images
+const previewCache = new Map<string, string>();
+
+// Generate preview URL with caching
 const previewSrc = computed(() => {
   if (props.isStatic) return props.imageSrc;
+
+  // Check cache first
+  if (previewCache.has(props.url)) {
+    return previewCache.get(props.url);
+  }
 
   const params = new URLSearchParams({
     url: props.url,
@@ -98,7 +118,10 @@ const previewSrc = computed(() => {
     "viewport.height": String(props.height * 3),
   });
 
-  return `https://api.microlink.io/?${params.toString()}`;
+  const imageUrl = `https://api.microlink.io/?${params.toString()}`;
+  previewCache.set(props.url, imageUrl);
+
+  return imageUrl;
 });
 
 // Position tracking
@@ -156,6 +179,7 @@ function handleMouseMove(event: MouseEvent) {
 
 function showPreview() {
   isVisible.value = true;
+  isLoading.value = true; // Reset loading state
   setTimeout(() => {
     hasPopped.value = true;
   }, 50);
@@ -167,6 +191,11 @@ function hidePreview() {
 }
 
 function handleImageLoad() {
+  isLoading.value = false;
+}
+
+function handleImageError() {
+  console.warn(`Failed to load preview for ${props.url}`);
   isLoading.value = false;
 }
 </script>
