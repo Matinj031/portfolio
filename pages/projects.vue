@@ -287,12 +287,12 @@ const projects = [
 ];
 
 // SEO Configuration
-const seoTitle = "Projects - Matin Jahi | Frontend Developer Portfolio";
+const seoTitle = "Projects";
 const seoDescription =
-  "Explore my recent web development projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and more. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.";
+  "Matin Jahi (متین جاهی) Projects Portfolio - Explore my recent web development projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and more. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.";
 const seoKeywords =
-  "Matin Jahi projects, frontend developer portfolio, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development";
-const seoImage = "https://matinjahi.netlify.app/og-projects.jpg"; // You can create this image
+  "Matin Jahi projects, متین جاهی پروژه ها, frontend developer portfolio, نمونه کار برنامه نویس, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development, Isfahan developer projects, پروژه های وب";
+const seoImage = "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg";
 const seoUrl = "https://matinjahi.netlify.app/projects";
 
 // State management

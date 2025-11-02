@@ -1,101 +1,191 @@
 <script setup lang="ts">
-import MorphParticles from '~/components/MorphParticles.vue'
-const { start, finish, isLoading } = useUseLoadingScreen()
-const nuxtApp = useNuxtApp()
+import MorphParticles from "~/components/MorphParticles.vue";
+const { start, finish, isLoading } = useUseLoadingScreen();
+const nuxtApp = useNuxtApp();
 
-nuxtApp.hook('page:start', () => {
-    start()
-})
+nuxtApp.hook("page:start", () => {
+  start();
+});
 
-nuxtApp.hook('page:finish', () => {
-    finish()
-})
+nuxtApp.hook("page:finish", () => {
+  finish();
+});
 
 useHead({
-    titleTemplate: '%s - Matin Jahi Portfolio',
-    htmlAttrs: {
-        lang: 'en',
-        dir: 'ltr',
+  titleTemplate: "%s | Matin Jahi - Frontend Developer",
+  htmlAttrs: {
+    lang: "en",
+    dir: "ltr",
+  },
+  link: [
+    {
+      rel: "icon",
+      type: "image/ico",
+      href: "/images/MatinJahi.ico",
     },
-    link: [
-        {
-            rel: 'icon',
-            type: 'image/ico',
-            href: '/images/MatinJahi.ico',
+    {
+      rel: "alternate",
+      hreflang: "fa",
+      href: "https://matinjahi.netlify.app",
+    },
+    {
+      rel: "alternate",
+      hreflang: "en",
+      href: "https://matinjahi.netlify.app",
+    },
+  ],
+  meta: [
+    {
+      name: "description",
+      content:
+        "Matin Jahi - Frontend Developer Portfolio | متین جاهی - توسعه دهنده فرانت‌اند | Specialized in Vue.js, Nuxt.js, React, TypeScript, and modern web technologies. Building performant, accessible web applications.",
+    },
+    {
+      name: "keywords",
+      content:
+        "Matin Jahi, متین جاهی, Frontend Developer, توسعه دهنده فرانت اند, Vue.js Developer, Nuxt.js Developer, React Developer, TypeScript, JavaScript, Tailwind CSS, GSAP Animation, Three.js, Web Developer Isfahan, برنامه نویس وب, Isfahan Developer, Iran Web Developer, UI/UX Developer, Progressive Web Apps, PWA, Single Page Application, SPA, Responsive Design, Web Performance, Frontend Engineer, Full Stack Developer, Modern Web Technologies, طراحی وب, برنامه نویس جاوا اسکریپت",
+    },
+    {
+      name: "author",
+      content: "Matin Jahi | متین جاهی",
+    },
+    {
+      name: "viewport",
+      content: "width=device-width, initial-scale=1.0",
+    },
+    {
+      name: "geo.region",
+      content: "IR-07",
+    },
+    {
+      name: "geo.placename",
+      content: "Isfahan",
+    },
+    {
+      name: "geo.position",
+      content: "32.6546;51.6680",
+    },
+    {
+      name: "ICBM",
+      content: "32.6546, 51.6680",
+    },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Matin Jahi",
+        alternateName: "متین جاهی",
+        jobTitle: "Frontend Developer",
+        description:
+          "Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. Building performant and accessible web applications.",
+        url: "https://matinjahi.netlify.app",
+        image: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+        sameAs: [
+          "https://linkedin.com/in/matin-jahi",
+          "https://github.com/Matinj031",
+          "https://t.me/Ritalleral/",
+        ],
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Isfahan",
+          addressRegion: "Isfahan Province",
+          addressCountry: "IR",
         },
-    ],
-    meta: [
-        {
-            name: 'description',
-            content:
-        'Discover Matin Jahi\'s portfolio showcasing frontend development expertise using Vue.js, Nuxt.js, and cutting-edge web technologies.',
+        knowsAbout: [
+          "Vue.js",
+          "Nuxt.js",
+          "React",
+          "TypeScript",
+          "JavaScript",
+          "Tailwind CSS",
+          "GSAP",
+          "Three.js",
+          "Frontend Development",
+          "Web Development",
+          "UI/UX Development",
+        ],
+        knowsLanguage: ["English", "Persian"],
+      }),
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Matin Jahi Portfolio",
+        alternateName: "نمونه کار متین جاهی",
+        url: "https://matinjahi.netlify.app",
+        description:
+          "Professional portfolio of Matin Jahi, Frontend Developer specializing in Vue.js and Nuxt.js",
+        inLanguage: ["en", "fa"],
+      }),
+    },
+    {
+      type: "application/ld+json",
+      innerHTML: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: "Matin Jahi - Frontend Development Services",
+        alternateName: "متین جاهی - خدمات توسعه فرانت‌اند",
+        image: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+        url: "https://matinjahi.netlify.app",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Isfahan",
+          addressRegion: "Isfahan Province",
+          addressCountry: "IR",
         },
-        {
-            name: 'keywords',
-            content:
-        'Matin Jahi, frontend developer, Vue.js, Nuxt.js, Tailwind CSS, animations, PWA development, modern web technologies',
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 32.6546,
+          longitude: 51.668,
         },
-        {
-            name: 'author',
-            content: 'Matin Jahi',
+        priceRange: "$$",
+        areaServed: {
+          "@type": "Country",
+          name: "Worldwide",
         },
-        {
-            name: 'viewport',
-            content: 'width=device-width, initial-scale=1.0',
-        },
-    ],
-    script: [
-        {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify({
-                '@context': 'http://schema.org',
-                '@type': 'Person',
-                'name': 'Matin Jahi',
-                'jobTitle': 'Frontend Developer',
-                'description':
-          'Explore the portfolio of Matin Jahi, showcasing expertise in Vue.js, Nuxt.js, and web technologies.',
-                'url': 'https://matin-jahi-test.liara.run/',
-                'sameAs': [
-                    'https://linkedin.com/in/matin-jahi',
-                    'https://github.com/Matinj031',
-                    'https://t.me/Ritalleral/',
-                ],
-                'address': {
-                    '@type': 'PostalAddress',
-                    'addressLocality': 'Isfahan',
-                    'addressCountry': 'IR',
-                },
-            }),
-        },
-    ],
-})
+      }),
+    },
+  ],
+});
 
 useSeoMeta({
-    title: 'Matin Jahi Portfolio',
-    ogTitle: 'Matin Jahi - Frontend Developer Portfolio',
-    description:
-    'Discover Matin Jahi\'s portfolio, showcasing projects and expertise in frontend development using Vue.js, Nuxt.js, and modern web technologies.',
-    ogDescription:
-    'Explore the portfolio of Matin Jahi, a skilled frontend developer specializing in Vue.js, Nuxt.js, and cutting-edge web technologies.',
-    ogImage: 'https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg', // Replace with your image URL
-    twitterCard: 'summary_large_image',
-    ogUrl: 'https://matin-jahi-test.liara.run/', // Replace with your portfolio URL
-    twitterTitle: 'Matin Jahi Portfolio',
-    twitterDescription:
-    'Discover Matin Jahi\'s portfolio and his expertise in frontend development.',
-    twitterImage: 'https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg', // Replace with your image URL
-})
+  title: "Matin Jahi - Frontend Developer Portfolio | متین جاهی",
+  ogTitle: "Matin Jahi - Frontend Developer | Vue.js & Nuxt.js Specialist",
+  description:
+    "Matin Jahi (متین جاهی) - Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, TypeScript, and modern web technologies. Building performant, accessible, and beautiful web applications. Based in Isfahan, Iran.",
+  ogDescription:
+    "Professional Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. View my portfolio of projects and expertise in building performant web applications.",
+  ogImage: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+  ogImageAlt: "Matin Jahi - Frontend Developer Portfolio",
+  twitterCard: "summary_large_image",
+  ogUrl: "https://matinjahi.netlify.app",
+  ogSiteName: "Matin Jahi Portfolio",
+  ogType: "website",
+  ogLocale: "en_US",
+  ogLocaleAlternate: "fa_IR",
+  twitterTitle: "Matin Jahi - Frontend Developer | Vue.js & Nuxt.js",
+  twitterDescription:
+    "Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.",
+  twitterImage: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+  twitterSite: "@MatinJahi",
+  twitterCreator: "@MatinJahi",
+});
 </script>
 
-  <!--
+<!--
   The main layout of the application which includes the Nuxt layout component
   containing the loading screen, custom cursor, and the Nuxt page component.
   -->
 <template>
-    <NuxtLayout>
-        <custom-cursor />
-        <NuxtPage />
-    </NuxtLayout>
+  <NuxtLayout>
+    <custom-cursor />
+    <NuxtPage />
+  </NuxtLayout>
 </template>
 
 <style>
@@ -114,5 +204,4 @@ useSeoMeta({
     display: none !important;
   }
 }
-
 </style>

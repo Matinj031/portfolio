@@ -131,12 +131,17 @@ import VuetifyIcon from "~/components/icons/Vuetify.vue";
 import SwiperJsIcon from "~/components/icons/SwiperJsIcon.vue";
 
 useHead({
-  title: "Matin Jahi - Frontend Developer",
+  title: "Home",
   meta: [
     {
       name: "description",
       content:
-        "Frontend Developer specializing in Vue.js and Nuxt.js. Building modern, performant, and accessible web applications.",
+        "Matin Jahi (متین جاهی) - Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, TypeScript. Building modern, performant, and accessible web applications. Isfahan, Iran.",
+    },
+    {
+      name: "keywords",
+      content:
+        "Matin Jahi, متین جاهی, Frontend Developer Portfolio, Vue.js Developer, Nuxt.js Expert, React Developer, Web Developer Isfahan, برنامه نویس فرانت اند اصفهان",
     },
   ],
 });

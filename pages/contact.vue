@@ -15,6 +15,7 @@
       <div class="w-full max-w-7xl">
         <!-- Title -->
         <Motion
+          v-if="isMounted"
           :initial="{ opacity: 0, y: 50 }"
           :animate="{ opacity: 1, y: 0 }"
           :transition="{ duration: 1 }"
@@ -42,6 +43,7 @@
           <!-- Contact Cards -->
           <div class="lg:col-span-5 space-y-6">
             <Motion
+              v-if="isMounted"
               v-for="(contact, index) in contacts"
               :key="contact.label"
               :initial="{ opacity: 0, x: -100 }"
@@ -106,6 +108,7 @@
 
           <!-- Form -->
           <Motion
+            v-if="isMounted"
             :initial="{ opacity: 0, x: 100 }"
             :animate="{ opacity: 1, x: 0 }"
             :transition="{ duration: 1, delay: 0.6 }"
@@ -308,10 +311,27 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as THREE from "three";
 
+useHead({
+  title: "Contact",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Get in touch with Matin Jahi (متین جاهی) - Frontend Developer. Available for freelance projects, collaborations, and full-time opportunities. Contact via email, Telegram, or LinkedIn.",
+    },
+    {
+      name: "keywords",
+      content:
+        "Contact Matin Jahi, تماس با متین جاهی, hire frontend developer, استخدام برنامه نویس فرانت اند, Vue.js developer for hire, freelance web developer Isfahan, contact web developer Iran",
+    },
+  ],
+});
+
 const canvasContainer = ref<HTMLElement | null>(null);
 const form = ref({ name: "", email: "", subject: "", message: "" });
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
+const isMounted = ref(false);
 
 const contacts = [
   {
@@ -357,6 +377,8 @@ let scene: THREE.Scene,
   particles: THREE.Points,
   animationId: number;
 
+let handleResize: (() => void) | null = null;
+
 const handleSubmit = async () => {
   isSubmitting.value = true;
   await new Promise((r) => setTimeout(r, 2000));
@@ -367,6 +389,9 @@ const handleSubmit = async () => {
 };
 
 onMounted(() => {
+  // Set mounted flag for animations
+  isMounted.value = true;
+
   if (!canvasContainer.value) return;
 
   scene = new THREE.Scene();
@@ -378,15 +403,22 @@ onMounted(() => {
   );
   camera.position.z = 50;
 
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: false, // Disable antialiasing for better performance
+    powerPreference: "high-performance",
+  });
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio
   canvasContainer.value.appendChild(renderer.domElement);
 
   const geometry = new THREE.BufferGeometry();
-  const positions = new Float32Array(2000 * 3);
-  const colors = new Float32Array(2000 * 3);
+  // Reduced from 2000 to 800 particles for better performance
+  const particleCount = 800;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
 
-  for (let i = 0; i < 2000 * 3; i += 3) {
+  for (let i = 0; i < particleCount * 3; i += 3) {
     positions[i] = (Math.random() - 0.5) * 100;
     positions[i + 1] = (Math.random() - 0.5) * 100;
     positions[i + 2] = (Math.random() - 0.5) * 100;
@@ -401,7 +433,7 @@ onMounted(() => {
   geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
   const material = new THREE.PointsMaterial({
-    size: 0.15,
+    size: 0.2, // Slightly larger to compensate for fewer particles
     vertexColors: true,
     transparent: true,
     opacity: 0.8,
@@ -417,11 +449,30 @@ onMounted(() => {
     renderer.render(scene, camera);
   };
   animate();
+
+  // Handle window resize
+  handleResize = () => {
+    if (!camera || !renderer) return;
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
+  window.addEventListener("resize", handleResize);
 });
 
 onBeforeUnmount(() => {
   if (animationId) cancelAnimationFrame(animationId);
-  if (renderer) renderer.dispose();
+  if (renderer) {
+    renderer.dispose();
+    renderer.forceContextLoss();
+  }
+  if (particles) {
+    particles.geometry.dispose();
+    (particles.material as THREE.Material).dispose();
+  }
+  if (handleResize) {
+    window.removeEventListener("resize", handleResize);
+  }
 });
 </script>
 
