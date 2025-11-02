@@ -8,7 +8,7 @@
       :speed="PATTERN_BACKGROUND_SPEED.Slow"
       :mask="PATTERN_BACKGROUND_MASK.EllipseTop"
     >
-      <LiquidGlassMenu container-class="fixed top-3 z-[999999]" :scale="-85" frost="0.001" yChannel="G" lightness="55" border="0.2" blend="overlay">
+      <LiquidGlassMenu container-class="fixed top-3 z-[999999]" :scale="-85" :frost="0.001" yChannel="G" :lightness="55" :border="0.2" blend="overlay">
         <div
           class="w-full min-h-16 py-4 px-12 flex items-center justify-center"
         >

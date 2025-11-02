@@ -9,7 +9,7 @@
         filter: 'blur(0px)',
       }"
       :transition="{
-        delay: 0.3,
+        delay: 1,
         duration: 0.8,
         ease: 'easeInOut',
       }"
@@ -77,30 +77,59 @@
         class="flex flex-wrap items-center justify-center gap-4 mt-8 text-sm text-white/50"
       >
         <span class="flex items-center gap-2">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
+          <VueIcon class="w-5 h-5" />
           Vue.js
         </span>
         <span class="text-white/30">•</span>
         <span class="flex items-center gap-2">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-          </svg>
+          <NuxtIcon class="w-5 h-5" />
           Nuxt.js
         </span>
         <span class="text-white/30">•</span>
-        <span>TypeScript</span>
+        <span class="flex items-center gap-2">
+          <TypeScriptIcon class="w-5 h-5" />
+          TypeScript
+        </span>
         <span class="text-white/30">•</span>
-        <span>Tailwind CSS</span>
+        <span class="flex items-center gap-2">
+          <TailwindIcon class="w-5 h-5" />
+          Tailwind CSS
+        </span>
         <span class="text-white/30">•</span>
-        <span>GSAP</span>
+        <span class="flex items-center gap-2">
+          <ThreeIcon class="w-5 h-5" />
+          Three.js
+        </span>
+        <span class="text-white/30">•</span>
+        <span class="flex items-center gap-2">
+          <GsapIcon class="w-5 h-5" />
+          GSAP
+        </span>
+        <span class="text-white/30">•</span>
+        <span class="flex items-center gap-2">
+          <VuetifyIcon class="w-5 h-5" />
+          Vuetify
+        </span>
+        <span class="text-white/30">•</span>
+        <span class="flex items-center gap-2">
+          <SwiperJsIcon class="w-5 h-5" />
+          SwiperJs
+        </span>
       </div>
     </Motion>
   </AuroraBackground>
 </template>
 
 <script setup lang="ts">
+import VueIcon from "~/components/icons/VueIcon.vue";
+import NuxtIcon from "~/components/icons/NuxtIcon.vue";
+import TypeScriptIcon from "~/components/icons/TypeScriptIcon.vue";
+import TailwindIcon from "~/components/icons/TailwindIcon.vue";
+import ThreeIcon from "~/components/icons/ThreeIcon.vue";
+import GsapIcon from "~/components/icons/GsapIcon.vue";
+import VuetifyIcon from "~/components/icons/Vuetify.vue";
+import SwiperJsIcon from "~/components/icons/SwiperJsIcon.vue";
+
 useHead({
   title: "Matin Jahi - Frontend Developer",
   meta: [
