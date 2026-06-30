@@ -84,4 +84,9 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  runtimeConfig: {
+    // Private keys (only available server-side)
+    resendApiKey: process.env.NUXT_RESEND_API_KEY,
+  },
 });

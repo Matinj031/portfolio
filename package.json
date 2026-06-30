@@ -28,6 +28,7 @@
     "nuxt-og-image": "^6.7.0",
     "playwright-core": "^1.61.0",
     "qss": "^3.0.0",
+    "resend": "^6.16.0",
     "simplex-noise": "^4.0.3",
     "tailwindcss": "^4.1.16",
     "three": "^0.173.0",
