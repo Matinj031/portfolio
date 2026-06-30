@@ -8,8 +8,7 @@
 </template>
 
 <style>
-@import "tailwindcss/theme" reference;
-@import "tailwindcss/utilities" reference;
+@reference "../assets/css/main.css";
 
 * {
   cursor: none !important;

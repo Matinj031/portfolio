@@ -529,9 +529,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-@import "tailwindcss/theme" reference;
-@import "tailwindcss/utilities" reference;
-
 /* Glassy Card Effect */
 .glassyCard {
   background: rgba(255, 255, 255, 0);

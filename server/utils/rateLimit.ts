@@ -9,8 +9,8 @@ interface RateLimitEntry {
 // Store rate limit data in memory
 const rateLimitMap = new Map<string, RateLimitEntry>()
 
-// Clean up old entries every 5 minutes
-setInterval(() => {
+// Clean up old entries every 5 minutes without keeping the Node process alive.
+const cleanupInterval = setInterval(() => {
   const now = Date.now()
   for (const [key, value] of rateLimitMap.entries()) {
     if (now > value.resetTime) {
@@ -18,6 +18,8 @@ setInterval(() => {
     }
   }
 }, 5 * 60 * 1000)
+
+cleanupInterval.unref?.()
 
 export function checkRateLimit(
   identifier: string, 
@@ -69,7 +71,7 @@ export function getRateLimitIdentifier(event: any): string {
   
   if (forwarded) {
     // x-forwarded-for can contain multiple IPs, get the first one
-    return forwarded.split(',')[0].trim()
+    return forwarded.split(',')[0]?.trim() || 'unknown'
   }
   
   if (realIp) {
