@@ -44,9 +44,8 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/i18n',
         '@nuxtjs/color-mode',
-        '@nuxt/content',
+        // '@nuxt/content',
         '@nuxtjs/robots',
-        '@nuxtjs/seo',
         '@nuxt/image',
         'motion-v/nuxt',
     ],
@@ -63,14 +62,14 @@ export default defineNuxtConfig({
         sitemap: 'https://matinjahi.netlify.app/sitemap.xml',
     },
 
-    content: {
-        highlight: {
-            theme: {
-                default: 'min-light',
-                dark: 'min-dark',
-            },
-        },
-    },
+    // content: {
+    //     highlight: {
+    //         theme: {
+    //             default: 'min-light',
+    //             dark: 'min-dark',
+    //         },
+    //     },
+    // },
     nitro: {
         prerender: {
             routes: ['/sitemap.xml'],

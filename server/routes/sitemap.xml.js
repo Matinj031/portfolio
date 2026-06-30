@@ -2,26 +2,29 @@ import { SitemapStream, streamToPromise } from "sitemap";
 
 export default defineEventHandler(async (event) => {
   try {
-    const docs = await queryContent("/").find();
     const sitemap = new SitemapStream({
       hostname: process.env.HOSTNAME || "https://matinjahi.netlify.app",
     });
 
-    // Always add homepage
+    // Add homepage
     sitemap.write({
       url: "/",
+      changefreq: "monthly",
       priority: 1,
     });
 
-    // Add blog posts only if they exist
-    if (docs && docs.length > 0) {
-      docs.forEach((doc) => {
-        sitemap.write({
-          url: doc._path,
-          priority: 0.5,
-        });
-      });
-    }
+    // Add static pages
+    sitemap.write({
+      url: "/projects",
+      changefreq: "monthly",
+      priority: 0.8,
+    });
+
+    sitemap.write({
+      url: "/contact",
+      changefreq: "yearly",
+      priority: 0.5,
+    });
 
     sitemap.end();
     return streamToPromise(sitemap);
