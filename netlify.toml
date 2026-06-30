@@ -4,6 +4,12 @@
 
 [build.environment]
   NODE_VERSION = "24"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Enable caching
+[build.processing]
+  skip_processing = false
 
 [[headers]]
   for = "/_nuxt/*"

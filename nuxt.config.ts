@@ -74,10 +74,13 @@ export default defineNuxtConfig({
     nitro: {
         prerender: {
             routes: ['/sitemap.xml'],
+            crawlLinks: false,
         },
         externals: {
             external: ['better-sqlite3', 'sharp'],
         },
+        minify: true,
+        preset: 'netlify',
     },
     colorMode: {
         classSuffix: '',
@@ -87,10 +90,31 @@ export default defineNuxtConfig({
     vite: {
         plugins: [tailwindcss()],
         optimizeDeps: {
-            include: ['three'],
+            include: [
+                'three',
+                'gsap',
+                'gsap/ScrollTrigger',
+                'gsap/ScrollToPlugin',
+                'gsap/Draggable',
+                'lenis',
+                'clsx',
+                'tailwind-merge',
+                '@unhead/schema-org/vue',
+            ],
         },
         build: {
             target: 'esnext',
+            minify: 'esbuild',
+            cssMinify: 'esbuild',
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'three': ['three'],
+                        'gsap': ['gsap', 'gsap/ScrollTrigger', 'gsap/ScrollToPlugin'],
+                        'vendor': ['@vueuse/core', 'lenis'],
+                    },
+                },
+            },
         },
     },
 
