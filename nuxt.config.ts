@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   ssr: true,
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV !== 'production' },
   app: {
     head: {
       charset: "utf-8",
@@ -14,7 +14,6 @@ export default defineNuxtConfig({
           name: "google-site-verification",
           content: "XOpaSrEBAEL48Ewy6W4gArvI1oW1d5qWVQKcQH3pTgI",
         },
-        { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "format-detection", content: "telephone=no" },
         { name: "theme-color", content: "#ffffff" },
