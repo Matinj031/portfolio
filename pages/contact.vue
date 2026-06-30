@@ -158,8 +158,10 @@
                         type="text"
                         required
                         class="form-input"
+                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.name }"
                         placeholder="John Doe"
                       />
+                      <p v-if="fieldErrors.name" class="error-message">{{ fieldErrors.name }}</p>
                     </div>
                     <div>
                       <label class="form-label">
@@ -183,8 +185,10 @@
                         type="email"
                         required
                         class="form-input"
+                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.email }"
                         placeholder="john@example.com"
                       />
+                      <p v-if="fieldErrors.email" class="error-message">{{ fieldErrors.email }}</p>
                     </div>
                   </div>
 
@@ -210,8 +214,10 @@
                       type="text"
                       required
                       class="form-input"
+                      :class="{ 'border-red-500 focus:border-red-500': fieldErrors.subject }"
                       placeholder="Project Inquiry / Collaboration"
                     />
+                    <p v-if="fieldErrors.subject" class="error-message">{{ fieldErrors.subject }}</p>
                   </div>
 
                   <div>
@@ -236,8 +242,10 @@
                       required
                       rows="6"
                       class="form-input"
+                      :class="{ 'border-red-500 focus:border-red-500': fieldErrors.message }"
                       placeholder="Tell me about your project..."
                     ></textarea>
+                    <p v-if="fieldErrors.message" class="error-message">{{ fieldErrors.message }}</p>
                   </div>
 
                   <button
@@ -297,6 +305,37 @@
                       </div>
                     </div>
                   </div>
+
+                  <div
+                    v-if="showError"
+                    class="p-6 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-content-center"
+                      >
+                        <svg
+                          class="w-6 h-6 text-red-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 class="text-red-300 font-bold">Error!</h4>
+                        <p class="text-red-400/80 text-sm">
+                          {{ errorMessage }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
             </div>
@@ -310,6 +349,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as THREE from "three";
+import type { ContactFormData, ContactFormErrors } from "~/types/contact";
 
 useHead({
   title: "Contact",
@@ -328,9 +368,12 @@ useHead({
 });
 
 const canvasContainer = ref<HTMLElement | null>(null);
-const form = ref({ name: "", email: "", subject: "", message: "" });
+const form = ref<ContactFormData>({ name: "", email: "", subject: "", message: "" });
 const isSubmitting = ref(false);
 const showSuccess = ref(false);
+const showError = ref(false);
+const errorMessage = ref("");
+const fieldErrors = ref<ContactFormErrors>({});
 const isMounted = ref(false);
 
 const contacts = [
@@ -380,12 +423,92 @@ let scene: THREE.Scene,
 let handleResize: (() => void) | null = null;
 
 const handleSubmit = async () => {
+  // Reset errors
+  showError.value = false;
+  showSuccess.value = false;
+  errorMessage.value = "";
+  fieldErrors.value = {};
+  
+  // Client-side validation
+  const errors: ContactFormErrors = {};
+  
+  if (!form.value.name.trim()) {
+    errors.name = "Name is required";
+  } else if (form.value.name.trim().length < 2) {
+    errors.name = "Name must be at least 2 characters";
+  }
+  
+  if (!form.value.email.trim()) {
+    errors.email = "Email is required";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email.trim())) {
+    errors.email = "Please enter a valid email address";
+  }
+  
+  if (!form.value.subject.trim()) {
+    errors.subject = "Subject is required";
+  } else if (form.value.subject.trim().length < 3) {
+    errors.subject = "Subject must be at least 3 characters";
+  }
+  
+  if (!form.value.message.trim()) {
+    errors.message = "Message is required";
+  } else if (form.value.message.trim().length < 10) {
+    errors.message = "Message must be at least 10 characters";
+  }
+  
+  if (Object.keys(errors).length > 0) {
+    fieldErrors.value = errors;
+    return;
+  }
+  
   isSubmitting.value = true;
-  await new Promise((r) => setTimeout(r, 2000));
-  showSuccess.value = true;
-  form.value = { name: "", email: "", subject: "", message: "" };
-  setTimeout(() => (showSuccess.value = false), 5000);
-  isSubmitting.value = false;
+  
+  try {
+    await $fetch("/api/contact", {
+      method: "POST",
+      body: {
+        name: form.value.name,
+        email: form.value.email,
+        subject: form.value.subject,
+        message: form.value.message,
+      },
+    });
+    
+    // Show success message
+    showSuccess.value = true;
+    
+    // Reset form
+    form.value = { name: "", email: "", subject: "", message: "" };
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      showSuccess.value = false;
+    }, 5000);
+    
+  } catch (error: any) {
+    console.error("Failed to send message:", error);
+    
+    // Check if it's a validation error from server
+    if (error.data?.errors) {
+      fieldErrors.value = error.data.errors;
+      errorMessage.value = "Please fix the errors below";
+    } else if (error.statusCode === 429) {
+      // Rate limit error
+      errorMessage.value = error.data?.error || "Too many requests. Please try again later.";
+    } else {
+      // Generic error
+      errorMessage.value = error.data?.error || "Failed to send message. Please try again later.";
+    }
+    
+    showError.value = true;
+    
+    // Hide error message after 7 seconds
+    setTimeout(() => {
+      showError.value = false;
+    }, 7000);
+  } finally {
+    isSubmitting.value = false;
+  }
 };
 
 onMounted(() => {
@@ -564,5 +687,12 @@ onBeforeUnmount(() => {
 .submit-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.error-message {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #ef4444;
+  font-weight: 500;
 }
 </style>
