@@ -1,14 +1,14 @@
 <template>
-  <svg :width="gridWidth" :height="gridHeight" :class="svgClass">
+  <svg :width="String(gridWidth)" :height="String(gridHeight)" :class="svgClass">
     <rect
-      v-for="(_, index) in totalSquares"
-      :key="index"
-      :x="getX(index)"
-      :y="getY(index)"
-      :width="width"
-      :height="height"
-      :class="getRectClass(index)"
-      @mouseenter="handleMouseEnter(index)"
+      v-for="square in squaresData"
+      :key="square.index"
+      :x="square.x"
+      :y="square.y"
+      :width="square.w"
+      :height="square.h"
+      :class="getRectClass(square.index)"
+      @mouseenter="handleMouseEnter(square.index)"
       @mouseleave="handleMouseLeave"
     />
   </svg>
@@ -35,20 +35,26 @@ const props = withDefaults(defineProps<InteractiveGridPatternProps>(), {
 const horizontal = computed(() => props.squares[0]);
 const vertical = computed(() => props.squares[1]);
 
-const totalSquares = computed(() => horizontal.value * vertical.value);
-
 const hoveredSquare = ref<number | null>(null);
 
 const gridWidth = computed(() => props.width * horizontal.value);
 const gridHeight = computed(() => props.height * vertical.value);
 
-function getX(index: number) {
-  return (index % horizontal.value) * props.width;
-}
-
-function getY(index: number) {
-  return Math.floor(index / horizontal.value) * props.height;
-}
+// Pre-compute all square data as strings to avoid DOM property issues
+const squaresData = computed(() => {
+  const total = horizontal.value * vertical.value;
+  const data = [];
+  for (let i = 0; i < total; i++) {
+    data.push({
+      index: i,
+      x: String((i % horizontal.value) * props.width),
+      y: String(Math.floor(i / horizontal.value) * props.height),
+      w: String(props.width),
+      h: String(props.height),
+    });
+  }
+  return data;
+});
 
 const svgClass = computed(() =>
   cn(
