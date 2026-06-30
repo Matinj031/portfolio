@@ -5,12 +5,10 @@
   "engines": {
     "node": ">=24.11.0"
   },
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+   "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "preview": "nuxi preview"
   },
   "dependencies": {
     "@nuxt/content": "^3.14.0",
