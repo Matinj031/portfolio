@@ -1,9 +1,8 @@
-import { serverQueryContent } from "#content/server";
 import { SitemapStream, streamToPromise } from "sitemap";
 
 export default defineEventHandler(async (event) => {
   try {
-    const docs = await serverQueryContent(event).find();
+    const docs = await queryContent("/").find();
     const sitemap = new SitemapStream({
       hostname: process.env.HOSTNAME || "https://matinjahi.netlify.app",
     });

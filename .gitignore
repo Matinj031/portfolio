@@ -22,3 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+
+# Local-only files
+package-lock.json
+.vscode/settings.json

@@ -1,8 +1,0 @@
-{
-  "editor.scrollbar.horizontalScrollbarSize": 20,
-  "editor.scrollbar.verticalScrollbarSize": 35,
-  "editor.smoothScrolling": true,
-  "workbench.editor.titleScrollbarSizing": "large",
-  "editor.scrollbar.horizontal": "visible",
-  "editor.codeActions.triggerOnFocusChange": true
-}
