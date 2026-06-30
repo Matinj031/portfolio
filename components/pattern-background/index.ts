@@ -89,5 +89,3 @@ export const patternBackgroundMaskVariants = cva("bg-background", {
 export type PatternBackgroundMaskVariants = VariantProps<
   typeof patternBackgroundMaskVariants
 >;
-
-export { default as PatternBackground } from "./PatternBackground.vue";

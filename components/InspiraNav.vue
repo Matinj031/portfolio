@@ -140,8 +140,3 @@ const navItems = [
   { name: "Contact", href: "/contact" },
 ];
 </script>
-
-<style scoped>
-@import "tailwindcss/theme" reference;
-@import "tailwindcss/utilities" reference;
-</style>

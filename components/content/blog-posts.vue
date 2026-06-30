@@ -67,8 +67,7 @@ const posts = computed(() => {
 });
 </script>
 <style scoped>
-@import "tailwindcss/theme" reference;
-@import "tailwindcss/utilities" reference;
+@reference "../../assets/css/main.css";
 
 .column {
   @apply flex items-center gap-x-8 py-2 border-b border-b-gray-200 dark:border-gray-700;
