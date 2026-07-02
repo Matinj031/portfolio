@@ -10,7 +10,8 @@
     />
 
     <div class="relative z-10 max-w-6xl mx-auto">
-      <!-- Hero -->
+      <ClientOnly>
+        <!-- Hero -->
       <header>
         <Motion
           :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
@@ -421,6 +422,7 @@
           </div>
         </Motion>
       </section>
+      </ClientOnly>
     </div>
   </main>
 </template>

@@ -1,20 +1,21 @@
 <template>
   <AuroraBackground>
-    <Motion
-      as="div"
-      :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
-      :while-in-view="{
-        opacity: 1,
-        y: 1,
-        filter: 'blur(0px)',
-      }"
-      :transition="{
-        delay: 1,
-        duration: 0.8,
-        ease: 'easeInOut',
-      }"
-      class="relative flex flex-col items-center justify-center gap-6 px-4"
-    >
+    <ClientOnly>
+      <Motion
+        as="div"
+        :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
+        :while-in-view="{
+          opacity: 1,
+          y: 1,
+          filter: 'blur(0px)',
+        }"
+        :transition="{
+          delay: 1,
+          duration: 0.8,
+          ease: 'easeInOut',
+        }"
+        class="relative flex flex-col items-center justify-center gap-6 px-4"
+      >
       <!-- Greeting Badge -->
       <div
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-white/80"
@@ -116,7 +117,8 @@
           SwiperJs
         </span>
       </div>
-    </Motion>
+      </Motion>
+    </ClientOnly>
   </AuroraBackground>
 </template>
 

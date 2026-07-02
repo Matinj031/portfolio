@@ -29,6 +29,7 @@
 
     <!-- Content -->
     <div v-if="!isLoading" class="relative z-10 max-w-6xl mx-auto">
+      <ClientOnly>
       <!-- Header -->
       <header>
         <Motion
@@ -179,6 +180,7 @@
           </article>
         </Motion>
       </section>
+      </ClientOnly>
     </div>
   </main>
 </template>

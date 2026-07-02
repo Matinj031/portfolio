@@ -13,6 +13,7 @@
       class="relative z-10 min-h-screen flex items-center justify-center px-4 py-20"
     >
       <div class="w-full max-w-7xl">
+        <ClientOnly>
         <!-- Title -->
         <Motion
           v-if="isMounted"
@@ -341,6 +342,7 @@
             </div>
           </Motion>
         </div>
+        </ClientOnly>
       </div>
     </div>
   </main>
