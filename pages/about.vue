@@ -111,13 +111,14 @@
           </p>
         </Motion>
 
-        <ol class="relative space-y-6 sm:space-y-8" role="list">
+        <div class="relative">
           <!-- Timeline line -->
           <div
             class="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-purple-500/40 to-pink-500/40 pointer-events-none"
             aria-hidden="true"
           ></div>
 
+          <ol class="space-y-6 sm:space-y-8" role="list">
           <Motion
             v-for="(job, index) in experience"
             :key="job.company"
@@ -182,7 +183,8 @@
               ></div>
             </article>
           </Motion>
-        </ol>
+          </ol>
+        </div>
       </section>
 
       <!-- Skills -->
