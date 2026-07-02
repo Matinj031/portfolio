@@ -1,12 +1,12 @@
 <template>
-  <svg :width="String(gridWidth)" :height="String(gridHeight)" :class="svgClass">
+  <svg :width.attr="String(gridWidth)" :height.attr="String(gridHeight)" :class="svgClass">
     <rect
       v-for="square in squaresData"
       :key="square.index"
-      :x="square.x"
-      :y="square.y"
-      :width="square.w"
-      :height="square.h"
+      :x.attr="square.x"
+      :y.attr="square.y"
+      :width.attr="square.w"
+      :height.attr="square.h"
       :class="getRectClass(square.index)"
       @mouseenter="handleMouseEnter(square.index)"
       @mouseleave="handleMouseLeave"

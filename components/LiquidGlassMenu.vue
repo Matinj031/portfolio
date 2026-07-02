@@ -23,16 +23,16 @@
             y="0"
             width="100%"
             height="100%"
-            :href="displacementDataUri"
+            :href.attr="displacementDataUri"
             result="map"
           />
           <feDisplacementMap
             id="redchannel"
             in="SourceGraphic"
             in2="map"
-            :xChannelSelector="xChannel"
-            :yChannelSelector="yChannel"
-            :scale="scale + rOffset"
+            :xChannelSelector.attr="xChannel"
+            :yChannelSelector.attr="yChannel"
+            :scale.attr="scale + rOffset"
             result="dispRed"
           />
           <feColorMatrix
@@ -45,9 +45,9 @@
             id="greenchannel"
             in="SourceGraphic"
             in2="map"
-            :xChannelSelector="xChannel"
-            :yChannelSelector="yChannel"
-            :scale="scale + gOffset"
+            :xChannelSelector.attr="xChannel"
+            :yChannelSelector.attr="yChannel"
+            :scale.attr="scale + gOffset"
             result="dispGreen"
           />
           <feColorMatrix
@@ -60,9 +60,9 @@
             id="bluechannel"
             in="SourceGraphic"
             in2="map"
-            :xChannelSelector="xChannel"
-            :yChannelSelector="yChannel"
-            :scale="scale + bOffset"
+            :xChannelSelector.attr="xChannel"
+            :yChannelSelector.attr="yChannel"
+            :scale.attr="scale + bOffset"
             result="dispBlue"
           />
           <feColorMatrix
@@ -83,7 +83,7 @@
             mode="screen"
             result="output"
           />
-          <feGaussianBlur :stdDeviation="displace" />
+          <feGaussianBlur :stdDeviation.attr="displace" />
         </filter>
       </defs>
     </svg>
