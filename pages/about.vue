@@ -226,8 +226,7 @@
             >
               <div class="flex items-center gap-3 mb-4">
                 <div
-                  class="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0"
-                  :style="{ background: group.gradient }"
+                  class="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0 outline "
                 >
                   <div v-html="group.icon" class="w-5 h-5"></div>
                 </div>
@@ -245,7 +244,7 @@
                 </span>
               </div>
               <div
-                class="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500 pointer-events-none"
+                class="absolute inset-0 rounded-2xl sm:rounded-3xl bg-linear-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500 pointer-events-none"
               ></div>
             </div>
           </Motion>
@@ -289,8 +288,7 @@
               class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
             >
               <div
-                class="w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
-                :style="{ background: value.gradient }"
+                class="w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 outline"
               >
                 <div v-html="value.icon" class="w-5 h-5"></div>
               </div>
@@ -411,6 +409,21 @@
                     &rarr;
                   </span>
                 </NuxtLink>
+                <a
+                  href="/Matin-Jahi-Resume.pdf"
+                  download="Matin-Jahi-Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium hover:scale-105 transition-transform duration-200 shadow-lg shadow-blue-500/30"
+                  @click.prevent="downloadResume"
+                >
+                  <span class="inline-flex items-center gap-2">
+                    Download CV
+                    <svg class="w-4 h-4 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                  </span>
+                </a>
                 <NuxtLink
                   to="/projects"
                   class="px-8 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-black/20 dark:border-white/20 text-black dark:text-white font-medium hover:bg-white/20 transition-colors duration-200"
@@ -434,6 +447,17 @@ const seoDescription =
   "About Matin Jahi (متین جاهی) - Senior Frontend Developer with 4+ years of experience building fast, scalable, SEO-optimized web applications with Vue.js, Nuxt.js, and TypeScript. Learn about my career journey, skills, and development philosophy.";
 const seoUrl = "https://matinjahi.netlify.app/about";
 const seoImage = "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg";
+
+// Download Resume Function
+const downloadResume = () => {
+  const link = document.createElement('a');
+  link.href = '/Matin-Jahi-Resume.pdf';
+  link.download = 'Matin-Jahi-Resume.pdf';
+  link.target = '_blank';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
 useHead({
   title: seoTitle,
