@@ -85,12 +85,10 @@ export default defineNuxtConfig({
             routes: ['/', '/projects', '/about', '/contact', '/sitemap.xml'],
             crawlLinks: false,
         },
-        externals: {
-            external: ['better-sqlite3', 'sharp'],
-        },
         minify: true,
-        preset: 'netlify',
+        preset: 'static',
     },
+
     colorMode: {
         classSuffix: '',
     },
