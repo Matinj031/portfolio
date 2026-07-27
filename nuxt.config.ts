@@ -16,6 +16,11 @@ export default defineNuxtConfig({
                     name: 'google-site-verification',
                     content: 'XOpaSrEBAEL48Ewy6W4gArvI1oW1d5qWVQKcQH3pTgI',
                 },
+                {
+                    name: 'google-site-verification',
+                    content: 'Y8ktgl9t_18QL0Sq8reWghHFgAzz8tGxxkN43tvXzOM',
+                },
+
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
                 { name: 'format-detection', content: 'telephone=no' },
                 { name: 'theme-color', content: '#ffffff' },
