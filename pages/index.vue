@@ -2,19 +2,20 @@
   <AuroraBackground>
       <Motion
         as="div"
-        :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
-        :while-in-view="{
+        :initial="isMounted ? { opacity: 0, y: 40, filter: 'blur(10px)' } : false"
+        :animate="{
           opacity: 1,
-          y: 1,
+          y: 0,
           filter: 'blur(0px)',
         }"
         :transition="{
-          delay: 1,
+          delay: 0.3,
           duration: 0.8,
           ease: 'easeInOut',
         }"
         class="relative flex flex-col items-center justify-center gap-6 px-4"
       >
+
       <!-- Greeting Badge -->
       <div
         class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-white/80"
@@ -121,8 +122,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
 import VueIcon from "~/components/icons/VueIcon.vue";
 import NuxtIcon from "~/components/icons/NuxtIcon.vue";
+
 import TypeScriptIcon from "~/components/icons/TypeScriptIcon.vue";
 import TailwindIcon from "~/components/icons/TailwindIcon.vue";
 import ThreeIcon from "~/components/icons/ThreeIcon.vue";
@@ -130,7 +133,13 @@ import GsapIcon from "~/components/icons/GsapIcon.vue";
 import VuetifyIcon from "~/components/icons/Vuetify.vue";
 import SwiperJsIcon from "~/components/icons/SwiperJsIcon.vue";
 
+const isMounted = ref(false);
+onMounted(() => {
+  isMounted.value = true;
+});
+
 useHead({
+
   title: "Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)",
   meta: [
     {
