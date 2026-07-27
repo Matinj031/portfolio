@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
+Disallow: /card-demo
+Disallow: /shaders-demo
+
+# Explicitly welcome AI crawlers (deliberate decision for AI-search visibility)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://matinjahi.netlify.app/sitemap.xml
 

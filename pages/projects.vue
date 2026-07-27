@@ -9,31 +9,12 @@
       squares-class-name="hover:fill-white-50"
     />
 
-    <!-- Loading State -->
-    <div
-      v-if="isLoading"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-sm"
-    >
-      <div class="text-center">
-        <div
-          class="w-16 h-16 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"
-        ></div>
-        <p class="text-lg font-medium text-black dark:text-white">
-          Loading projects...
-        </p>
-        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
-          {{ loadingProgress }}
-        </p>
-      </div>
-    </div>
-
     <!-- Content -->
-    <div v-if="!isLoading" class="relative z-10 max-w-6xl mx-auto">
-      <ClientOnly>
+    <div class="relative z-10 max-w-6xl mx-auto">
       <!-- Header -->
       <header>
         <Motion
-          :initial="{ opacity: 0, y: 20 }"
+          :initial="isMounted ? { opacity: 0, y: 20 } : false"
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.6 }"
           class="text-center mb-12 md:mb-16"
@@ -59,7 +40,7 @@
         <Motion
           v-for="(project, index) in projects"
           :key="project.id"
-          :initial="{ opacity: 0, y: 30 }"
+          :initial="isMounted ? { opacity: 0, y: 30 } : false"
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.5, delay: index * 0.1 }"
           class="group relative"
@@ -134,6 +115,7 @@
                   v-if="project.github"
                   :href="project.github"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="p-1.5 sm:p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
                   aria-label="GitHub"
                 >
@@ -180,13 +162,16 @@
           </article>
         </Motion>
       </section>
-      </ClientOnly>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from "vue";
+
+// Gate Motion initial state until after client mount to avoid
+// "animate on null" hydration errors while keeping SSR content visible.
+const isMounted = ref(false);
 
 // Projects data - defined first for use in SEO
 const projects = [
@@ -289,21 +274,17 @@ const projects = [
 ];
 
 // SEO Configuration
-const seoTitle = "Projects";
+const seoTitle = "Projects — Vue.js, Nuxt.js & React | Matin Jahi";
 const seoDescription =
   "Matin Jahi (متین جاهی) Projects Portfolio - Explore my recent web development projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and more. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.";
 const seoKeywords =
   "Matin Jahi projects, متین جاهی پروژه ها, frontend developer portfolio, نمونه کار برنامه نویس, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development, Isfahan developer projects, پروژه های وب";
-const seoImage = "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg";
+const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
 const seoUrl = "https://matinjahi.netlify.app/projects";
 
-// State management
-const isLoading = ref(true);
-const loadingProgress = ref("Preparing projects...");
-let preloadAborted = false;
-
-// Preload images cache
+// Preload images cache (progressive enhancement — content renders immediately in SSR)
 const imageCache = new Map<string, string>();
+let preloadAborted = false;
 
 useHead({
   title: seoTitle,
@@ -410,7 +391,7 @@ useHead({
     // JSON-LD Structured Data
     {
       type: "application/ld+json",
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         name: seoTitle,
@@ -451,13 +432,10 @@ useHead({
   ],
 });
 
-// Preload link preview images
+// Preload link-preview images in the background so hover previews feel instant.
+// This no longer gates rendering — the project list is server-rendered for SEO.
 const preloadLinkPreviews = async () => {
   const projectsWithDemo = projects.filter((p) => p.demo);
-  const total = projectsWithDemo.length;
-  let loaded = 0;
-
-  loadingProgress.value = `Loading previews (0/${total})...`;
 
   const preloadPromises = projectsWithDemo.map(async (project) => {
     try {
@@ -475,27 +453,14 @@ const preloadLinkPreviews = async () => {
 
       const imageUrl = `https://api.microlink.io/?${params.toString()}`;
 
-      // Preload image
-      await new Promise((resolve, reject) => {
+      await new Promise((resolve) => {
         const img = new Image();
         img.onload = () => {
           imageCache.set(project.demo, imageUrl);
-          loaded++;
-          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
           resolve(true);
         };
-        img.onerror = () => {
-          console.warn(`Failed to preload preview for ${project.demo}`);
-          loaded++;
-          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
-          resolve(false);
-        };
-        // Set timeout for slow loading images
-        setTimeout(() => {
-          loaded++;
-          loadingProgress.value = `Loading previews (${loaded}/${total})...`;
-          resolve(false);
-        }, 5000);
+        img.onerror = () => resolve(false);
+        setTimeout(() => resolve(false), 5000);
         img.src = imageUrl;
       });
     } catch (error) {
@@ -504,29 +469,16 @@ const preloadLinkPreviews = async () => {
   });
 
   await Promise.all(preloadPromises);
-
-  // Check if component was unmounted during preload
-  if (preloadAborted) return;
-
-  loadingProgress.value = "Ready!";
-
-  // Small delay to show "Ready!" message
-  setTimeout(() => {
-    if (!preloadAborted) {
-      isLoading.value = false;
-    }
-  }, 300);
 };
 
 onMounted(() => {
+  isMounted.value = true;
   preloadAborted = false;
-  isLoading.value = true;
   preloadLinkPreviews();
 });
 
 onBeforeUnmount(() => {
   preloadAborted = true;
-  isLoading.value = true;
 });
 </script>
 

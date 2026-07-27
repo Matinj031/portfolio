@@ -27,7 +27,6 @@ export default defineNuxtConfig({
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-                { rel: 'canonical', href: 'https://matinjahi.netlify.app' },
                 {
                     rel: 'stylesheet',
                     href: '/fonts/fonts.css',
@@ -46,6 +45,7 @@ export default defineNuxtConfig({
         '@nuxtjs/color-mode',
         // '@nuxt/content',
         '@nuxtjs/robots',
+        '@nuxtjs/sitemap',
         '@nuxt/image',
         'motion-v/nuxt',
     ],
@@ -62,6 +62,16 @@ export default defineNuxtConfig({
         sitemap: 'https://matinjahi.netlify.app/sitemap.xml',
     },
 
+    sitemap: {
+        exclude: ['/card-demo'],
+        urls: [
+            { loc: '/', changefreq: 'monthly', priority: 1 },
+            { loc: '/projects', changefreq: 'monthly', priority: 0.8 },
+            { loc: '/about', changefreq: 'monthly', priority: 0.7 },
+            { loc: '/contact', changefreq: 'yearly', priority: 0.5 },
+        ],
+    },
+
     // content: {
     //     highlight: {
     //         theme: {
@@ -72,7 +82,7 @@ export default defineNuxtConfig({
     // },
     nitro: {
         prerender: {
-            routes: ['/sitemap.xml'],
+            routes: ['/', '/projects', '/about', '/contact', '/sitemap.xml'],
             crawlLinks: false,
         },
         externals: {
