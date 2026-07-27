@@ -6,8 +6,10 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
     app: {
+        baseURL: '/portfolio/',
         head: {
-            charset: 'utf-8',
+
+                    charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
             meta: [
                 {
@@ -51,16 +53,19 @@ export default defineNuxtConfig({
     ],
 
     site: {
-        url: 'https://matinjahi.netlify.app',
+        url: 'https://matinj031.github.io/portfolio',
         name: 'Matin Jahi Portfolio',
         description: 'Matin Jahi (متین جاهی) - Frontend Developer Portfolio',
         defaultLocale: 'en',
     },
 
     robots: {
+        robotsTxt: false,
         allow: '/',
-        sitemap: 'https://matinjahi.netlify.app/sitemap.xml',
+        sitemap: 'https://matinj031.github.io/portfolio/sitemap.xml',
     },
+
+
 
     sitemap: {
         exclude: ['/card-demo'],
@@ -133,5 +138,7 @@ export default defineNuxtConfig({
     i18n: {
         defaultLocale: 'en',
         locales: ['en'],
+        baseUrl: 'https://matinj031.github.io/portfolio',
     },
+
 })
