@@ -24,14 +24,8 @@ useHead({
       href: "/images/MatinJahi.ico",
     },
     {
-      rel: "alternate",
-      hreflang: "fa",
-      href: "https://matinjahi.netlify.app",
-    },
-    {
-      rel: "alternate",
-      hreflang: "en",
-      href: "https://matinjahi.netlify.app",
+      rel: "apple-touch-icon",
+      href: "/images/MatinJahi.ico",
     },
   ],
   meta: [
@@ -82,7 +76,7 @@ useHead({
         description:
           "Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. Building performant and accessible web applications.",
         url: "https://matinjahi.netlify.app",
-        image: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+        image: "https://matinjahi.netlify.app/og-image.jpg",
         sameAs: [
           "https://linkedin.com/in/matin-jahi",
           "https://github.com/Matinj031",
@@ -130,7 +124,7 @@ useHead({
         "@type": "ProfessionalService",
         name: "Matin Jahi - Frontend Development Services",
         alternateName: "متین جاهی - خدمات توسعه فرانت‌اند",
-        image: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+        image: "https://matinjahi.netlify.app/og-image.jpg",
         url: "https://matinjahi.netlify.app",
         address: {
           "@type": "PostalAddress",
@@ -160,7 +154,7 @@ useSeoMeta({
     "Matin Jahi (متین جاهی) - Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, TypeScript, and modern web technologies. Building performant, accessible, and beautiful web applications. Based in Isfahan, Iran.",
   ogDescription:
     "Professional Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. View my portfolio of projects and expertise in building performant web applications.",
-  ogImage: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+  ogImage: "https://matinjahi.netlify.app/og-image.jpg",
   ogImageAlt: "Matin Jahi - Frontend Developer Portfolio",
   twitterCard: "summary_large_image",
   ogUrl: "https://matinjahi.netlify.app",
@@ -171,7 +165,7 @@ useSeoMeta({
   twitterTitle: "Matin Jahi - Frontend Developer | Vue.js & Nuxt.js",
   twitterDescription:
     "Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.",
-  twitterImage: "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg",
+  twitterImage: "https://matinjahi.netlify.app/og-image.jpg",
   twitterSite: "@MatinJahi",
   twitterCreator: "@MatinJahi",
 });

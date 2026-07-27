@@ -1,6 +1,5 @@
 <template>
   <AuroraBackground>
-    <ClientOnly>
       <Motion
         as="div"
         :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
@@ -118,7 +117,6 @@
         </span>
       </div>
       </Motion>
-    </ClientOnly>
   </AuroraBackground>
 </template>
 
@@ -133,7 +131,7 @@ import VuetifyIcon from "~/components/icons/Vuetify.vue";
 import SwiperJsIcon from "~/components/icons/SwiperJsIcon.vue";
 
 useHead({
-  title: "Home",
+  title: "Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)",
   meta: [
     {
       name: "description",
@@ -146,6 +144,7 @@ useHead({
         "Matin Jahi, متین جاهی, Frontend Developer Portfolio, Vue.js Developer, Nuxt.js Expert, React Developer, Web Developer Isfahan, برنامه نویس فرانت اند اصفهان",
     },
   ],
+  link: [{ rel: "canonical", href: "https://matinjahi.netlify.app/" }],
 });
 </script>
 

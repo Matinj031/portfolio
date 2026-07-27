@@ -10,11 +10,10 @@
     />
 
     <div class="relative z-10 max-w-6xl mx-auto">
-      <ClientOnly>
         <!-- Hero -->
       <header>
         <Motion
-          :initial="{ opacity: 0, y: 40, filter: 'blur(10px)' }"
+          :initial="isMounted ? { opacity: 0, y: 40, filter: 'blur(10px)' } : false"
           :while-in-view="{ opacity: 1, y: 0, filter: 'blur(0px)' }"
           :transition="{ duration: 0.8, ease: 'easeInOut' }"
           class="text-center mb-16 md:mb-24 flex flex-col items-center gap-6"
@@ -61,7 +60,7 @@
           <Motion
             v-for="(stat, index) in stats"
             :key="stat.label"
-            :initial="{ opacity: 0, y: 30 }"
+            :initial="isMounted ? { opacity: 0, y: 30 } : false"
             :while-in-view="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
@@ -124,7 +123,7 @@
             v-for="(job, index) in experience"
             :key="job.company"
             as="li"
-            :initial="{ opacity: 0, x: -30 }"
+            :initial="isMounted ? { opacity: 0, x: -30 } : false"
             :while-in-view="{ opacity: 1, x: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
             class="relative pl-12 sm:pl-16"
@@ -217,7 +216,7 @@
           <Motion
             v-for="(group, index) in skillGroups"
             :key="group.title"
-            :initial="{ opacity: 0, y: 30 }"
+            :initial="isMounted ? { opacity: 0, y: 30 } : false"
             :while-in-view="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
@@ -280,7 +279,7 @@
           <Motion
             v-for="(value, index) in philosophy"
             :key="value.title"
-            :initial="{ opacity: 0, y: 30 }"
+            :initial="isMounted ? { opacity: 0, y: 30 } : false"
             :while-in-view="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
@@ -333,7 +332,7 @@
           <Motion
             v-for="(edu, index) in education"
             :key="edu.school"
-            :initial="{ opacity: 0, y: 30 }"
+            :initial="isMounted ? { opacity: 0, y: 30 } : false"
             :while-in-view="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
@@ -369,7 +368,7 @@
       <!-- CTA -->
       <section aria-label="Get in touch">
         <Motion
-          :initial="{ opacity: 0, y: 30, filter: 'blur(6px)' }"
+          :initial="isMounted ? { opacity: 0, y: 30, filter: 'blur(6px)' } : false"
           :while-in-view="{ opacity: 1, y: 0, filter: 'blur(0px)' }"
           :transition="{ duration: 0.7, ease: 'easeInOut' }"
         >
@@ -435,18 +434,26 @@
           </div>
         </Motion>
       </section>
-      </ClientOnly>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
+
+// Gate Motion initial state until after client mount to avoid
+// "animate on null" hydration errors while keeping SSR content visible.
+const isMounted = ref(false);
+onMounted(() => {
+  isMounted.value = true;
+});
+
 // SEO Configuration
-const seoTitle = "About";
+const seoTitle = "About Matin Jahi — Senior Frontend Developer, Isfahan";
 const seoDescription =
   "About Matin Jahi (متین جاهی) - Senior Frontend Developer with 4+ years of experience building fast, scalable, SEO-optimized web applications with Vue.js, Nuxt.js, and TypeScript. Learn about my career journey, skills, and development philosophy.";
 const seoUrl = "https://matinjahi.netlify.app/about";
-const seoImage = "https://i.ibb.co/rdXtHqC/photo-2021-10-04-15-51-52.jpg";
+const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
 
 // Download Resume Function
 const downloadResume = () => {
@@ -482,7 +489,7 @@ useHead({
   script: [
     {
       type: "application/ld+json",
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "AboutPage",
         name: seoTitle,

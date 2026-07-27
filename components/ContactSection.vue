@@ -94,6 +94,7 @@
                   :key="social.name"
                   :href="social.url"
                   target="_blank"
+                  rel="noopener noreferrer"
                   class="p-3 rounded-full bg-white/5 hover:bg-[#42ffff]/10 transition-all
                         group/icon "
                 >

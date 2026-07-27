@@ -1,6 +1,13 @@
 <script setup lang="ts">
+// Internal component demo — excluded from indexing and sitemap.
+// Also disallowed in robots.txt (/card-demo).
 definePageMeta({
     layout: 'default',
+})
+
+useHead({
+    title: 'Card Demo',
+    meta: [{ name: 'robots', content: 'noindex, nofollow' }],
 })
 </script>
 

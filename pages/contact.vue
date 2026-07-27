@@ -1,7 +1,10 @@
 <template>
   <main class="relative min-h-screen overflow-hidden bg-black">
-    <!-- Three.js Canvas -->
-    <div ref="canvasContainer" class="absolute inset-0"></div>
+    <!-- Three.js Canvas (client-only) -->
+    <ClientOnly>
+      <div ref="canvasContainer" class="absolute inset-0"></div>
+    </ClientOnly>
+
 
     <!-- Gradient Overlay -->
     <div
@@ -13,15 +16,14 @@
       class="relative z-10 min-h-screen flex items-center justify-center px-4 py-20"
     >
       <div class="w-full max-w-7xl">
-        <ClientOnly>
         <!-- Title -->
         <Motion
-          v-if="isMounted"
-          :initial="{ opacity: 0, y: 50 }"
+          :initial="isMounted ? { opacity: 0, y: 50 } : false"
           :animate="{ opacity: 1, y: 0 }"
           :transition="{ duration: 1 }"
           class="text-center mb-20"
         >
+
           <div
             class="inline-block mb-6 px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl"
           >
@@ -44,13 +46,13 @@
           <!-- Contact Cards -->
           <div class="lg:col-span-5 space-y-6">
             <Motion
-              v-if="isMounted"
               v-for="(contact, index) in contacts"
               :key="contact.label"
-              :initial="{ opacity: 0, x: -100 }"
+              :initial="isMounted ? { opacity: 0, x: -100 } : false"
               :animate="{ opacity: 1, x: 0 }"
               :transition="{ duration: 0.8, delay: 0.2 + index * 0.1 }"
             >
+
               <a
                 :href="contact.href"
                 :target="contact.external ? '_blank' : undefined"
@@ -109,12 +111,12 @@
 
           <!-- Form -->
           <Motion
-            v-if="isMounted"
-            :initial="{ opacity: 0, x: 100 }"
+            :initial="isMounted ? { opacity: 0, x: 100 } : false"
             :animate="{ opacity: 1, x: 0 }"
             :transition="{ duration: 1, delay: 0.6 }"
             class="lg:col-span-7"
           >
+
             <div class="relative">
               <div
                 class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur-2xl opacity-20"
@@ -342,7 +344,6 @@
             </div>
           </Motion>
         </div>
-        </ClientOnly>
       </div>
     </div>
   </main>
@@ -353,20 +354,32 @@ import { ref, onMounted, onBeforeUnmount } from "vue";
 import * as THREE from "three";
 import type { ContactFormData, ContactFormErrors } from "~/types/contact";
 
+const contactTitle = "Hire Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)";
+const contactDescription =
+  "Get in touch with Matin Jahi (متین جاهی) - Frontend Developer. Available for freelance projects, collaborations, and full-time opportunities. Contact via email, Telegram, or LinkedIn.";
+const contactUrl = "https://matinjahi.netlify.app/contact";
+const contactImage = "https://matinjahi.netlify.app/og-image.jpg";
+
 useHead({
-  title: "Contact",
+  title: contactTitle,
   meta: [
-    {
-      name: "description",
-      content:
-        "Get in touch with Matin Jahi (متین جاهی) - Frontend Developer. Available for freelance projects, collaborations, and full-time opportunities. Contact via email, Telegram, or LinkedIn.",
-    },
+    { name: "description", content: contactDescription },
     {
       name: "keywords",
       content:
         "Contact Matin Jahi, تماس با متین جاهی, hire frontend developer, استخدام برنامه نویس فرانت اند, Vue.js developer for hire, freelance web developer Isfahan, contact web developer Iran",
     },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: contactUrl },
+    { property: "og:title", content: contactTitle },
+    { property: "og:description", content: contactDescription },
+    { property: "og:image", content: contactImage },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: contactTitle },
+    { name: "twitter:description", content: contactDescription },
+    { name: "twitter:image", content: contactImage },
   ],
+  link: [{ rel: "canonical", href: contactUrl }],
 });
 
 const canvasContainer = ref<HTMLElement | null>(null);
@@ -569,11 +582,14 @@ onMounted(() => {
 
   const animate = () => {
     animationId = requestAnimationFrame(animate);
-    particles.rotation.y += 0.0005;
-    particles.rotation.x += 0.0002;
-    renderer.render(scene, camera);
+    if (particles && renderer && scene && camera) {
+      particles.rotation.y += 0.0005;
+      particles.rotation.x += 0.0002;
+      renderer.render(scene, camera);
+    }
   };
   animate();
+
 
   // Handle window resize
   handleResize = () => {

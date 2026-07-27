@@ -1,0 +1,20 @@
+# Matin Jahi — Frontend Developer Portfolio
+
+> Matin Jahi (متین جاهی) is a Senior Frontend Developer based in Isfahan, Iran, specializing in Vue.js, Nuxt.js, React, and TypeScript. He builds performant, accessible, and SEO-optimized web applications with 4+ years of professional experience.
+
+## Pages
+
+- [Home](https://matinjahi.netlify.app/): Introduction, skills, and tech stack — Vue.js, Nuxt.js, React, TypeScript
+- [Projects](https://matinjahi.netlify.app/projects): Portfolio projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and Red Crescent LMS
+- [About](https://matinjahi.netlify.app/about): Career journey, work experience, skills, and development philosophy
+- [Contact](https://matinjahi.netlify.app/contact): Contact form, email, Telegram, and LinkedIn for freelance or full-time opportunities
+
+## Contact & Profiles
+
+- GitHub: https://github.com/Matinj031
+- LinkedIn: https://linkedin.com/in/matin-jahi
+- Telegram: https://t.me/Ritalleral
+
+## Tech Stack
+
+Vue 3, Nuxt 4, TypeScript, Tailwind CSS, Three.js, GSAP, React, Next.js
