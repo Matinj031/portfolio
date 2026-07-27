@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     ],
 
     site: {
-        url: 'https://matinj031.github.io/portfolio',
+        url: 'https://matinj031.github.io',
         name: 'Matin Jahi Portfolio',
         description: 'Matin Jahi (متین جاهی) - Frontend Developer Portfolio',
         defaultLocale: 'en',
@@ -69,6 +69,7 @@ export default defineNuxtConfig({
         allow: '/',
         sitemap: 'https://matinj031.github.io/portfolio/sitemap.xml',
     },
+
 
 
 
@@ -143,7 +144,8 @@ export default defineNuxtConfig({
     i18n: {
         defaultLocale: 'en',
         locales: ['en'],
-        baseUrl: 'https://matinj031.github.io/portfolio',
+        baseUrl: 'https://matinj031.github.io',
     },
+
 
 })
