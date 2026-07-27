@@ -89,7 +89,8 @@
       <!-- Career Journey / Timeline -->
       <section aria-label="Career journey" class="mb-16 md:mb-24">
         <Motion
-          :initial="{ opacity: 0, y: 20 }"
+          :initial="isMounted ? { opacity: 0, y: 20 } : false"
+
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.6 }"
           class="text-center mb-10 md:mb-14"
@@ -190,7 +191,8 @@
       <!-- Skills -->
       <section aria-label="Technical skills" class="mb-16 md:mb-24">
         <Motion
-          :initial="{ opacity: 0, y: 20 }"
+          :initial="isMounted ? { opacity: 0, y: 20 } : false"
+
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.6 }"
           class="text-center mb-10 md:mb-14"
@@ -253,7 +255,8 @@
       <!-- Philosophy -->
       <section aria-label="Development philosophy" class="mb-16 md:mb-24">
         <Motion
-          :initial="{ opacity: 0, y: 20 }"
+          :initial="isMounted ? { opacity: 0, y: 20 } : false"
+
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.6 }"
           class="text-center mb-10 md:mb-14"
@@ -312,7 +315,8 @@
       <!-- Education -->
       <section aria-label="Education" class="mb-16 md:mb-24">
         <Motion
-          :initial="{ opacity: 0, y: 20 }"
+          :initial="isMounted ? { opacity: 0, y: 20 } : false"
+
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.6 }"
           class="text-center mb-10 md:mb-14"
