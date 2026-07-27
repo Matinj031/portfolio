@@ -19,4 +19,6 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://matinj031.github.io/portfolio/sitemap_index.xml
+Sitemap: https://matinj031.github.io/portfolio/sitemap.xml
+
+

@@ -75,13 +75,16 @@ export default defineNuxtConfig({
 
     sitemap: {
         exclude: ['/card-demo'],
+        autoI18n: false,
         urls: [
-            { loc: '/', changefreq: 'monthly', priority: 1 },
-            { loc: '/projects', changefreq: 'monthly', priority: 0.8 },
-            { loc: '/about', changefreq: 'monthly', priority: 0.7 },
-            { loc: '/contact', changefreq: 'yearly', priority: 0.5 },
+            { loc: 'https://matinj031.github.io/portfolio/', changefreq: 'monthly', priority: 1 },
+            { loc: 'https://matinj031.github.io/portfolio/projects', changefreq: 'monthly', priority: 0.8 },
+            { loc: 'https://matinj031.github.io/portfolio/about', changefreq: 'monthly', priority: 0.7 },
+            { loc: 'https://matinj031.github.io/portfolio/contact', changefreq: 'yearly', priority: 0.5 },
         ],
     },
+
+
 
     // content: {
     //     highlight: {
