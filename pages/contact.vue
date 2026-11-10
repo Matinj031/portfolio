@@ -157,7 +157,11 @@
                         Full Name
                       </label>
                       <input
-                        v-model="form.name"
+                        :value="form.name"
+                        @input="onTextInput('name', $event)"
+                        @compositionend="onTextInput('name', $event)"
+                        dir="auto"
+                        autocomplete="name"
                         type="text"
                         required
                         class="form-input"
@@ -213,7 +217,10 @@
                       Subject
                     </label>
                     <input
-                      v-model="form.subject"
+                      :value="form.subject"
+                      @input="onTextInput('subject', $event)"
+                      @compositionend="onTextInput('subject', $event)"
+                      dir="auto"
                       type="text"
                       required
                       class="form-input"
@@ -241,7 +248,10 @@
                       Your Message
                     </label>
                     <textarea
-                      v-model="form.message"
+                      :value="form.message"
+                      @input="onTextInput('message', $event)"
+                      @compositionend="onTextInput('message', $event)"
+                      dir="auto"
                       required
                       rows="6"
                       class="form-input"
@@ -436,6 +446,14 @@ let scene: THREE.Scene,
   animationId: number;
 
 let handleResize: (() => void) | null = null;
+
+// Update the form on every keystroke, including while an IME/keyboard is still
+// composing (common with Persian/Arabic keyboards on mobile). `v-model` skips
+// updates during composition, which left Persian names empty in the form state.
+const onTextInput = (field: keyof ContactFormData, event: Event) => {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  form.value[field] = target.value;
+};
 
 const handleSubmit = async () => {
   // Reset errors
@@ -647,7 +665,10 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Tahoma, "Vazirmatn", Arial, "Noto Sans Arabic", sans-serif;
   font-size: 1rem;
+  text-align: start;
+  unicode-bidi: plaintext;
   transition: all 0.3s;
 }
 

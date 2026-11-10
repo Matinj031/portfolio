@@ -33,7 +33,7 @@ export default defineEventHandler(async (event) => {
       errors.name = 'Name must be at least 2 characters'
     } else if (body.name.trim().length > 100) {
       errors.name = 'Name must not exceed 100 characters'
-    } else if (!/^[\p{L}\s'-]+$/u.test(body.name.trim())) {
+    } else if (!/^[\p{L}\p{M}\s'\-.\u200C\u200D]+$/u.test(body.name.trim())) {
       errors.name = 'Name contains invalid characters'
     }
     
@@ -129,7 +129,7 @@ export default defineEventHandler(async (event) => {
                             <h2 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">
                               👤 From
                             </h2>
-                            <p style="margin: 0; font-size: 18px; font-weight: 600; color: #18181b;">
+                            <p dir="auto" style="margin: 0; font-size: 18px; font-weight: 600; color: #18181b;">
                               ${sanitizedName}
                             </p>
                             <p style="margin: 8px 0 0 0; font-size: 16px; color: #667eea;">
@@ -148,7 +148,7 @@ export default defineEventHandler(async (event) => {
                             <h2 style="margin: 0 0 10px 0; font-size: 16px; font-weight: 600; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">
                               📝 Subject
                             </h2>
-                            <p style="margin: 0; font-size: 18px; font-weight: 600; color: #18181b;">
+                            <p dir="auto" style="margin: 0; font-size: 18px; font-weight: 600; color: #18181b;">
                               ${sanitizedSubject}
                             </p>
                           </td>
@@ -162,7 +162,7 @@ export default defineEventHandler(async (event) => {
                             <h2 style="margin: 0 0 15px 0; font-size: 16px; font-weight: 600; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">
                               💬 Message
                             </h2>
-                            <div style="font-size: 16px; line-height: 1.6; color: #3f3f46; white-space: pre-wrap; word-wrap: break-word;">
+                            <div dir="auto" style="font-size: 16px; line-height: 1.6; color: #3f3f46; white-space: pre-wrap; word-wrap: break-word;">
                               ${sanitizedMessage}
                             </div>
                           </td>
