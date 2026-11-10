@@ -456,7 +456,7 @@ onMounted(() => {
 const seoTitle = "About Matin Jahi — Senior Frontend Developer, Isfahan";
 const seoDescription =
   "About Matin Jahi (متین جاهی) - Senior Frontend Developer with 4+ years of experience building fast, scalable, SEO-optimized web applications with Vue.js, Nuxt.js, and TypeScript. Learn about my career journey, skills, and development philosophy.";
-const seoUrl = "https://matinjahi.netlify.app/about";
+const seoUrl = "https://matinjahi.netlify.app/about/";
 const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
 
 // Download Resume Function
@@ -489,7 +489,7 @@ useHead({
     { name: "twitter:description", content: seoDescription },
     { name: "twitter:image", content: seoImage },
   ],
-  link: [{ rel: "canonical", href: seoUrl }],
+  link: [{ rel: "canonical", href: seoUrl }], // trailing slash matches Netlify 301 target
   script: [
     {
       type: "application/ld+json",

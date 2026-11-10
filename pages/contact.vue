@@ -357,7 +357,7 @@ import type { ContactFormData, ContactFormErrors } from "~/types/contact";
 const contactTitle = "Hire Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)";
 const contactDescription =
   "Get in touch with Matin Jahi (متین جاهی) - Frontend Developer. Available for freelance projects, collaborations, and full-time opportunities. Contact via email, Telegram, or LinkedIn.";
-const contactUrl = "https://matinjahi.netlify.app/contact";
+const contactUrl = "https://matinjahi.netlify.app/contact/";
 const contactImage = "https://matinjahi.netlify.app/og-image.jpg";
 
 useHead({

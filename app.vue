@@ -157,7 +157,7 @@ useSeoMeta({
   ogImage: "https://matinjahi.netlify.app/og-image.jpg",
   ogImageAlt: "Matin Jahi - Frontend Developer Portfolio",
   twitterCard: "summary_large_image",
-  ogUrl: "https://matinjahi.netlify.app",
+  ogUrl: "https://matinjahi.netlify.app/",
   ogSiteName: "Matin Jahi Portfolio",
   ogType: "website",
   ogLocale: "en_US",

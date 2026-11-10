@@ -154,6 +154,7 @@ useHead({
     },
   ],
   link: [{ rel: "canonical", href: "https://matinjahi.netlify.app/" }],
+  // trailing slash is correct for homepage – Netlify serves / without redirect
 });
 </script>
 

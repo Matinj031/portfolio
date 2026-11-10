@@ -2,7 +2,6 @@
   command = "npm run build"
   publish = ".output/public"
 
-
 [build.environment]
   NODE_VERSION = "24"
   NODE_OPTIONS = "--max-old-space-size=4096"
@@ -11,6 +10,25 @@
 # Enable caching
 [build.processing]
   skip_processing = false
+
+# Force trailing slashes to match sitemap and canonical URLs
+[[redirects]]
+  from = "/about"
+  to = "/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/projects"
+  to = "/projects/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact/"
+  status = 301
+  force = true
 
 [[headers]]
   for = "/_nuxt/*"

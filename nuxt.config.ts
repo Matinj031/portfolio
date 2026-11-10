@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     ssr: true,
     devtools: { enabled: process.env.NODE_ENV !== 'production' },
     app: {
-        baseURL: '/portfolio/',
         head: {
 
                     charset: 'utf-8',
@@ -58,33 +57,32 @@ export default defineNuxtConfig({
     ],
 
     site: {
-        url: 'https://matinj031.github.io',
+        url: 'https://matinjahi.netlify.app',
         name: 'Matin Jahi Portfolio',
         description: 'Matin Jahi (متین جاهی) - Frontend Developer Portfolio',
         defaultLocale: 'en',
+        trailingSlash: true,
     },
 
     robots: {
-        robotsTxt: false,
+        robotsTxt: true,
         allow: '/',
-        sitemap: 'https://matinj031.github.io/portfolio/sitemap.xml',
+        disallow: ['/card-demo', '/shaders-demo'],
+        sitemap: 'https://matinjahi.netlify.app/sitemap.xml',
     },
-
-
-
 
     sitemap: {
-        exclude: ['/card-demo'],
+        exclude: ['/card-demo', '/card-demo/'],
         autoI18n: false,
+        // Let @nuxtjs/sitemap auto-discover routes from the app.
+        // Explicit urls with trailing slashes to match Netlify's redirect behavior.
         urls: [
-            { loc: 'https://matinj031.github.io/portfolio/', changefreq: 'monthly', priority: 1 },
-            { loc: 'https://matinj031.github.io/portfolio/projects', changefreq: 'monthly', priority: 0.8 },
-            { loc: 'https://matinj031.github.io/portfolio/about', changefreq: 'monthly', priority: 0.7 },
-            { loc: 'https://matinj031.github.io/portfolio/contact', changefreq: 'yearly', priority: 0.5 },
+            { loc: 'https://matinjahi.netlify.app/', changefreq: 'monthly', priority: 1.0, lastmod: new Date().toISOString().split('T')[0] },
+            { loc: 'https://matinjahi.netlify.app/projects/', changefreq: 'monthly', priority: 0.8, lastmod: new Date().toISOString().split('T')[0] },
+            { loc: 'https://matinjahi.netlify.app/about/', changefreq: 'monthly', priority: 0.7, lastmod: new Date().toISOString().split('T')[0] },
+            { loc: 'https://matinjahi.netlify.app/contact/', changefreq: 'yearly', priority: 0.5, lastmod: new Date().toISOString().split('T')[0] },
         ],
     },
-
-
 
     // content: {
     //     highlight: {
@@ -96,7 +94,7 @@ export default defineNuxtConfig({
     // },
     nitro: {
         prerender: {
-            routes: ['/', '/projects', '/about', '/contact', '/sitemap.xml'],
+            routes: ['/', '/projects/', '/about/', '/contact/', '/sitemap.xml'],
             crawlLinks: false,
         },
         minify: true,
@@ -147,7 +145,7 @@ export default defineNuxtConfig({
     i18n: {
         defaultLocale: 'en',
         locales: ['en'],
-        baseUrl: 'https://matinj031.github.io',
+        baseUrl: 'https://matinjahi.netlify.app',
     },
 
 

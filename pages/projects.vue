@@ -280,7 +280,7 @@ const seoDescription =
 const seoKeywords =
   "Matin Jahi projects, متین جاهی پروژه ها, frontend developer portfolio, نمونه کار برنامه نویس, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development, Isfahan developer projects, پروژه های وب";
 const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
-const seoUrl = "https://matinjahi.netlify.app/projects";
+const seoUrl = "https://matinjahi.netlify.app/projects/";
 
 // Preload images cache (progressive enhancement — content renders immediately in SSR)
 const imageCache = new Map<string, string>();
