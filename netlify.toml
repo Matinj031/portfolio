@@ -11,24 +11,10 @@
 [build.processing]
   skip_processing = false
 
-# Force trailing slashes to match sitemap and canonical URLs
-[[redirects]]
-  from = "/about"
-  to = "/about/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/projects"
-  to = "/projects/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/contact"
-  to = "/contact/"
-  status = 301
-  force = true
+# Note: no trailing-slash redirects here. Netlify ignores trailing slashes when
+# matching redirect rules, so a rule like "/about" -> "/about/" also matches
+# "/about/" and causes an infinite redirect loop. Netlify's Pretty URLs already
+# redirect /about to /about/ because the page is prerendered as about/index.html.
 
 [[headers]]
   for = "/_nuxt/*"
