@@ -1,94 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.21 0.006 285.885);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.705 0.015 286.067);
-  --radius: 0.625rem;
+/* ---------------------------------------------------------------------------
+   Dark mode is driven by the `dark` class on <html>, which @nuxtjs/color-mode
+   keeps in sync with the user's preference (system by default).
+   This makes every existing `dark:` utility follow the toggle instead of the
+   OS media query.
+--------------------------------------------------------------------------- */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Semantic design tokens
+   `:root` / `.light` hold the light palette, `.dark` overrides it.
+   Raw palette values are prefixed with `--` only once; Tailwind utilities are
+   generated from the `@theme inline` bridge below (no self-references).
+--------------------------------------------------------------------------- */
+:root,
+.light {
+  color-scheme: light;
+
+  /* Surfaces */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  --surface: oklch(0.985 0.001 286);
+  --surface-elevated: oklch(0.965 0.002 286);
+
+  /* Content */
+  --foreground: oklch(0.21 0.006 286);
+  --muted-foreground: oklch(0.505 0.013 286);
+
+  /* Lines & interactive */
+  --border: oklch(0.906 0.004 286);
+  --accent: oklch(0.965 0.002 286);
+  --accent-hover: oklch(0.936 0.003 286);
+  --ring: oklch(0.58 0.11 200);
+  --brand: oklch(0.86 0.12 195);
+
+  /* Glass surfaces used by cards across the app */
+  --glass-bg: rgb(255 255 255 / 0.66);
+  --glass-border: rgb(24 24 27 / 0.09);
+  --glass-shadow: 0 4px 30px rgb(24 24 27 / 0.08);
+
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.141 0.005 285.823);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.141 0.005 285.823);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.274 0.006 286.033);
-  --input: oklch(0.274 0.006 286.033);
-  --ring: oklch(0.442 0.017 285.786);
+  color-scheme: dark;
+
+  /* Surfaces — deep neutral charcoal rather than pure black */
+  --background: oklch(0.145 0.005 285.9);
+  --surface: oklch(0.19 0.006 285.9);
+  --surface-elevated: oklch(0.245 0.007 285.95);
+
+  /* Content */
+  --foreground: oklch(0.975 0 0);
+  --muted-foreground: oklch(0.715 0.012 285.9);
+
+  /* Lines & interactive */
+  --border: oklch(0.285 0.006 286);
+  --accent: oklch(0.285 0.006 286);
+  --accent-hover: oklch(0.34 0.008 286);
+  --ring: oklch(0.8 0.12 195);
+  --brand: oklch(0.84 0.13 195);
+
+  /* Glass surfaces */
+  --glass-bg: rgb(255 255 255 / 0.045);
+  --glass-border: rgb(255 255 255 / 0.12);
+  --glass-shadow: 0 4px 30px rgb(0 0 0 / 0.4);
 }
 
+/* ---------------------------------------------------------------------------
+   Tailwind theme bridge — exposes the semantic tokens as utilities
+   (bg-background, text-foreground, border-border, ring-ring, bg-brand, …).
+--------------------------------------------------------------------------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface-elevated);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--foreground);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--surface-elevated);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface-elevated);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-accent-foreground: var(--foreground);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: oklch(0.985 0 0);
   --color-border: var(--border);
-  --color-input: var(--input);
+  --color-input: var(--border);
   --color-ring: var(--ring);
+  --color-brand: var(--brand);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-html {
-  color-scheme: light dark;
-}
-html.dark {
-  color-scheme: dark;
-}
-html.light {
-  color-scheme: light;
 }
 
 @theme inline {
@@ -100,5 +108,31 @@ html.light {
     to {
       background-position: 350% 50%, 350% 50%;
     }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Smooth, subtle theme transitions. Only colour-related properties animate,
+   never layout, so switching never causes shifts or jank.
+--------------------------------------------------------------------------- */
+body {
+  transition:
+    background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }

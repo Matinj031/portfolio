@@ -18,7 +18,7 @@
 
       <!-- Greeting Badge -->
       <div
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-white/80"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/20 text-sm text-neutral-700 dark:text-white/80"
       >
         <span class="relative flex h-2 w-2">
           <span
@@ -33,7 +33,7 @@
 
       <!-- Main Heading -->
       <h1
-        class="text-center text-4xl font-bold md:text-7xl lg:text-8xl dark:text-white max-w-5xl leading-tight"
+        class="text-center text-4xl font-bold md:text-7xl lg:text-8xl text-neutral-900 dark:text-white max-w-5xl leading-tight"
       >
         Crafting beautiful
         <span
@@ -45,7 +45,7 @@
 
       <!-- Subtitle -->
       <p
-        class="text-center text-lg md:text-2xl text-white/70 dark:text-neutral-300 max-w-2xl font-light"
+        class="text-center text-lg md:text-2xl text-neutral-600 dark:text-neutral-300 max-w-2xl font-light"
       >
         Frontend Developer specializing in Vue.js & Nuxt.js
         <br class="hidden md:block" />
@@ -56,7 +56,7 @@
       <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
         <NuxtLink
           to="/projects"
-          class="group relative px-8 py-3 rounded-full bg-white text-black font-medium hover:scale-105 transition-transform duration-200 shadow-lg shadow-white/20"
+          class="group relative px-8 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-black font-medium hover:scale-105 transition-transform duration-200 shadow-lg shadow-black/20 dark:shadow-white/20"
         >
           View My Work
           <span
@@ -67,7 +67,7 @@
         </NuxtLink>
         <NuxtLink
           to="/contact"
-          class="px-8 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium hover:bg-white/20 transition-colors duration-200"
+          class="px-8 py-3 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/20 text-neutral-800 dark:text-white font-medium hover:bg-black/10 dark:hover:bg-white/20 transition-colors duration-200"
         >
           Get in Touch
         </NuxtLink>
@@ -75,43 +75,43 @@
 
       <!-- Tech Stack -->
       <div
-        class="flex flex-wrap items-center justify-center gap-4 mt-8 text-sm text-white/50"
+        class="flex flex-wrap items-center justify-center gap-4 mt-8 text-sm text-neutral-500 dark:text-white/50"
       >
         <span class="flex items-center gap-2">
           <VueIcon class="w-5 h-5" />
           Vue.js
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <NuxtIcon class="w-5 h-5" />
           Nuxt.js
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <TypeScriptIcon class="w-5 h-5" />
           TypeScript
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <TailwindIcon class="w-5 h-5" />
           Tailwind CSS
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <ThreeIcon class="w-5 h-5" />
           Three.js
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <GsapIcon class="w-5 h-5" />
           GSAP
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <VuetifyIcon class="w-5 h-5" />
           Vuetify
         </span>
-        <span class="text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30">•</span>
         <span class="flex items-center gap-2">
           <SwiperJsIcon class="w-5 h-5" />
           SwiperJs

@@ -119,14 +119,14 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative w-full h-screen overflow-hidden dark:bg-gray-900">
+  <div class="relative w-full h-screen overflow-hidden bg-gray-50 dark:bg-gray-900">
     <ParticlesBackground />
     <canvas ref="canvasRef" class="absolute inset-0 w-full h-full" />
     <div class="absolute inset-0 flex flex-col items-center justify-center text-center z-10">
-      <h1 class="text-6xl md:text-8xl font-bold mb-4 text-white hero-title">
+      <h1 class="text-6xl md:text-8xl font-bold mb-4 text-gray-900 dark:text-white hero-title">
         Matin Jahi
       </h1>
-      <p class="text-xl md:text-2xl text-white/90 hero-subtitle">
+      <p class="text-xl md:text-2xl text-gray-700 dark:text-white/90 hero-subtitle">
         Full Stack Developer
       </p>
     </div>

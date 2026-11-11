@@ -58,15 +58,15 @@ const squaresData = computed(() => {
 
 const svgClass = computed(() =>
   cn(
-    "absolute inset-0 h-full w-full border border-gray-400/30",
+    "absolute inset-0 h-full w-full border border-foreground/10",
     props.className
   )
 );
 
 function getRectClass(index: number) {
   return cn(
-    "stroke-gray-400/30 transition-all duration-100 ease-in-out [&:not(:hover)]:duration-1000",
-    hoveredSquare.value === index ? "fill-gray-300/30" : "fill-transparent",
+    "stroke-foreground/10",
+    hoveredSquare.value === index ? "fill-foreground/10" : "fill-transparent",
     props.squaresClassName
   );
 }

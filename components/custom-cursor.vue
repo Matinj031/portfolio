@@ -46,9 +46,8 @@ const handleMouseOut = () => {
 const handleLinkEnter = () => {
     if (!cursor.value || !cursorFollower.value || !gsap) return
     gsap.to([cursor.value, cursorFollower.value], {
-        scale: 1.5,
+        scale: 1.7,
         duration: 0.3,
-        css: { backgroundColor: 'rgba(255, 255, 255, 0.3)' },
         ease: 'power3',
     })
 }
@@ -58,7 +57,6 @@ const handleLinkLeave = () => {
     gsap.to([cursor.value, cursorFollower.value], {
         scale: 1,
         duration: 0.3,
-        css: { backgroundColor: 'unset' },
     })
 }
 
@@ -134,20 +132,21 @@ onBeforeUnmount(() => {
 .cursor {
   width: 8px;
   height: 8px;
-  background: #42FFFF;
+  background: var(--foreground);
   border-radius: 100%;
   position: fixed;
   z-index: 2;
-  mix-blend-mode: difference;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cursor-follower {
   width: 40px;
   height: 40px;
-  border: 1px solid #42FFFF;
+  border: 1.5px solid var(--foreground);
+  background: color-mix(in oklab, var(--foreground) 8%, transparent);
   border-radius: 100%;
   position: fixed;
   z-index: 1;
-  mix-blend-mode: difference;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

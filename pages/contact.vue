@@ -1,5 +1,5 @@
 <template>
-  <main class="relative min-h-screen overflow-hidden bg-black">
+  <main class="relative min-h-screen overflow-hidden bg-background">
     <!-- Three.js Canvas (client-only) -->
     <ClientOnly>
       <div ref="canvasContainer" class="absolute inset-0"></div>
@@ -25,9 +25,9 @@
         >
 
           <div
-            class="inline-block mb-6 px-6 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl"
+            class="inline-block my-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl "
           >
-            <span class="text-purple-300 text-sm font-semibold"
+            <span class="text-purple-600 dark:text-purple-300 text-sm font-semibold"
               >✨ Available for Projects</span
             >
           </div>
@@ -36,7 +36,7 @@
           >
             Get In Touch
           </h1>
-          <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto">
+          <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
             Have an exciting project? Let's create something extraordinary
             together
           </p>
@@ -59,11 +59,11 @@
                 class="contact-card group block relative"
               >
                 <div
-                  class="absolute -inset-0.5 opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500 rounded-3xl"
+                  class="absolute -inset-0.5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 rounded-3xl"
                   :style="{ background: contact.gradient }"
                 ></div>
                 <div
-                  class="relative p-8 rounded-3xl bg-gradient-to-br from-gray-900/95 to-gray-800/95 border border-gray-700/50 backdrop-blur-2xl overflow-hidden"
+                  class="relative p-8 rounded-3xl bg-card/90 border border-border backdrop-blur-2xl overflow-hidden"
                 >
                   <div
                     class="absolute top-0 right-0 w-40 h-40 opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl rounded-full"
@@ -71,26 +71,26 @@
                   ></div>
                   <div class="relative flex items-center gap-5">
                     <div
-                      class="icon-container group-hover:scale-110 group-hover:rotate-6 transition-all duration-500"
+                      class="icon-container group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500"
                       :style="{ background: contact.iconBg }"
                     >
                       <div v-html="contact.icon" class="icon-svg"></div>
                     </div>
                     <div class="flex-1 min-w-0">
                       <p
-                        class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2"
+                        class="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2"
                       >
                         {{ contact.label }}
                       </p>
-                      <p class="text-lg font-bold text-white truncate">
+                      <p class="text-lg font-bold text-foreground truncate">
                         {{ contact.value }}
                       </p>
                     </div>
                     <div
-                      class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-content-center group-hover:bg-white/10 transition-all"
+                      class="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-content-center group-hover:bg-foreground/10 transition-colors"
                     >
                       <svg
-                        class="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all"
+                        class="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-[color,transform]"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -123,16 +123,16 @@
               ></div>
               <form
                 @submit.prevent="handleSubmit"
-                class="relative p-10 rounded-3xl bg-gradient-to-br from-gray-900/98 to-gray-800/98 border border-gray-700/50 backdrop-blur-2xl"
+                class="relative p-10 rounded-3xl bg-card/95 border border-border backdrop-blur-2xl"
               >
                 <div class="mb-10">
                   <div class="flex items-center gap-4 mb-4">
                     <div
                       class="w-1.5 h-12 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 rounded-full"
                     ></div>
-                    <h2 class="text-4xl font-black text-white">Send Message</h2>
+                    <h2 class="text-4xl font-black text-foreground">Send Message</h2>
                   </div>
-                  <p class="text-gray-400 text-sm ml-8">
+                  <p class="text-muted-foreground text-sm ml-8">
                     Fill out the form and I'll get back to you within 24 hours
                   </p>
                 </div>
@@ -301,8 +301,8 @@
                         </svg>
                       </div>
                       <div>
-                        <h4 class="text-green-300 font-bold">Message Sent!</h4>
-                        <p class="text-green-400/80 text-sm">
+                        <h4 class="text-green-600 dark:text-green-300 font-bold">Message Sent!</h4>
+                        <p class="text-green-700 dark:text-green-400/80 text-sm">
                           I'll get back to you within 24 hours
                         </p>
                       </div>
@@ -332,8 +332,8 @@
                         </svg>
                       </div>
                       <div>
-                        <h4 class="text-red-300 font-bold">Error!</h4>
-                        <p class="text-red-400/80 text-sm">
+                        <h4 class="text-red-600 dark:text-red-300 font-bold">Error!</h4>
+                        <p class="text-red-700 dark:text-red-400/80 text-sm">
                           {{ errorMessage }}
                         </p>
                       </div>
@@ -625,7 +625,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
 }
 
 .form-label {
@@ -634,7 +634,7 @@ onBeforeUnmount(() => {
   gap: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(156, 163, 175, 1);
+  color: var(--muted-foreground);
   margin-bottom: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -644,20 +644,21 @@ onBeforeUnmount(() => {
   width: 100%;
   padding: 1rem 1.25rem;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  background: var(--accent);
+  border: 1px solid var(--border);
+  color: var(--foreground);
   font-size: 1rem;
   transition: all 0.3s;
 }
 
 .form-input::placeholder {
-  color: rgba(156, 163, 175, 0.5);
+  color: var(--muted-foreground);
+  opacity: 0.6;
 }
 
 .form-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--accent-hover);
   border-color: rgba(168, 85, 247, 0.5);
   box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
 }

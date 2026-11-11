@@ -1,5 +1,5 @@
 <template>
-  <section class="py-32 px-8 relative" id="skills">
+  <section class="py-32 px-8 relative">
     <div class="container mx-auto">
       <h2 class="text-4xl font-bold mb-16">
         Technical <span class="text-[#42ffff]">Skills</span>
@@ -146,17 +146,5 @@ const technologies = [
 
 .skill-item {
   @apply relative;
-}
-
-.tech-item {
-  transform: translateY(20px);
-  opacity: 0;
-  animation: slide-up-fade 0.5s forwards;
-}
-
-@for $i from 1 through 12 {
-  .tech-item:nth-child(#{$i}) {
-    animation-delay: #{$i * 100}ms;
-  }
 }
 </style>

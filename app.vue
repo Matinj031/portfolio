@@ -3,6 +3,11 @@ import MorphParticles from "~/components/MorphParticles.vue";
 const { start, finish, isLoading } = useUseLoadingScreen();
 const nuxtApp = useNuxtApp();
 
+// Theme handling lives entirely in @nuxtjs/color-mode (see nuxt.config.ts and
+// components/ThemeToggle.vue) — no local theme state is needed here.
+// Theme-swap freezing is prevented by `colorMode.disableTransition: true`,
+// which briefly disables transitions while the `dark`/`light` class is swapped.
+
 nuxtApp.hook("page:start", () => {
   start();
 });
@@ -61,7 +66,7 @@ useHead({
     },
     {
       name: "ICBM",
-      content: "32.6546, 51.6680",
+      content: "32.6546;51.6680",
     },
   ],
   script: [

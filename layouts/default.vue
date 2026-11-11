@@ -16,6 +16,6 @@
 }
 
 body {
-  @apply bg-white dark:bg-gray-900 text-black dark:text-white;
+  @apply bg-background text-foreground;
 }
 </style>

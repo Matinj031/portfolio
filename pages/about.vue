@@ -6,7 +6,7 @@
       :width="100"
       :height="100"
       :squares="[30, 30]"
-      squares-class-name="hover:fill-white-50"
+      squares-class-name="hover:fill-foreground/10"
     />
 
     <div class="relative z-10 max-w-6xl mx-auto">
@@ -19,7 +19,7 @@
           class="text-center mb-16 md:mb-24 flex flex-col items-center gap-6"
         >
           <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-neutral-700 dark:text-white/80"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/20 text-sm text-neutral-700 dark:text-white/80"
           >
             <span class="relative flex h-2 w-2">
               <span
@@ -65,7 +65,7 @@
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
             <div
-              class="glassyCard group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl text-center hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
+              class="glassyCard group relative p-6 sm:p-8 rounded-2xl sm:rounded-3xl text-center hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
             >
               <p
                 class="text-3xl sm:text-4xl md:text-5xl font-black bg-gradient-to-r bg-clip-text text-transparent mb-2"
@@ -131,13 +131,13 @@
           >
             <!-- Timeline dot -->
             <span
-              class="absolute left-4 sm:left-6 top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-white/40"
+              class="absolute left-4 sm:left-6 top-8 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-black/15 dark:border-white/40"
               :style="{ background: job.gradient }"
               aria-hidden="true"
             ></span>
 
             <article
-              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5"
+              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5"
             >
               <div
                 class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4"
@@ -155,7 +155,7 @@
                   </p>
                 </div>
                 <span
-                  class="inline-flex self-start items-center px-3 py-1 rounded-full bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium whitespace-nowrap"
+                  class="inline-flex self-start items-center px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium whitespace-nowrap"
                 >
                   {{ job.period }}
                 </span>
@@ -173,7 +173,7 @@
                 <span
                   v-for="tech in job.tech"
                   :key="tech"
-                  class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
+                  class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
                 >
                   {{ tech }}
                 </span>
@@ -223,11 +223,11 @@
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
             <div
-              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
+              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
             >
               <div class="flex items-center gap-3 mb-4">
                 <div
-                  class="w-10 h-10 rounded-xl flex items-center justify-center text-white flex-shrink-0 outline "
+                  class="w-10 h-10 rounded-xl flex items-center justify-center text-neutral-900 dark:text-white flex-shrink-0 outline "
                 >
                   <div v-html="group.icon" class="w-5 h-5"></div>
                 </div>
@@ -239,7 +239,7 @@
                 <span
                   v-for="skill in group.skills"
                   :key="skill"
-                  class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
+                  class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
                 >
                   {{ skill }}
                 </span>
@@ -287,10 +287,10 @@
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
             <div
-              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
+              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
             >
               <div
-                class="w-10 h-10 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 outline"
+                class="w-10 h-10 rounded-xl flex items-center justify-center text-neutral-900 dark:text-white mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 outline"
               >
                 <div v-html="value.icon" class="w-5 h-5"></div>
               </div>
@@ -341,7 +341,7 @@
             :transition="{ duration: 0.5, delay: index * 0.1 }"
           >
             <div
-              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
+              class="glassyCard group relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5 h-full"
             >
               <div class="flex items-start justify-between gap-3 mb-3">
                 <h3
@@ -350,7 +350,7 @@
                   {{ edu.degree }}
                 </h3>
                 <span
-                  class="inline-flex items-center px-3 py-1 rounded-full bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs font-medium whitespace-nowrap"
+                  class="inline-flex items-center px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs font-medium whitespace-nowrap"
                 >
                   {{ edu.period }}
                 </span>
@@ -429,7 +429,7 @@
                 </a>
                 <NuxtLink
                   to="/projects"
-                  class="px-8 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-black/20 dark:border-white/20 text-black dark:text-white font-medium hover:bg-white/20 transition-colors duration-200"
+                  class="px-8 py-3 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/20 text-black dark:text-white font-medium hover:bg-black/10 dark:hover:bg-white/20 transition-colors duration-200"
                 >
                   View My Work
                 </NuxtLink>
@@ -712,18 +712,19 @@ const education = [
 <style scoped>
 /* Glassy Card Effect — consistent with projects page */
 .glassyCard {
-  background: rgba(255, 255, 255, 0);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.082);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.158);
+  border: 1px solid var(--glass-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Tech Badge Animations — consistent with projects page */
 .tech-badge {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tech-badge::before {
@@ -745,15 +746,9 @@ const education = [
 
 .tech-badge:hover {
   transform: translateY(-2px) scale(1.05);
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.dark .tech-badge:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  background: var(--accent-hover);
+  border-color: var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .tech-badge:hover::before {

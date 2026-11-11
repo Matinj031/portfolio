@@ -102,7 +102,21 @@ export default defineNuxtConfig({
     },
 
     colorMode: {
+        // Toggle a `light` / `dark` class on <html> — matched by the
+        // `@custom-variant dark` rule in assets/css/main.css.
         classSuffix: '',
+        // Follow the OS preference until the user picks a theme explicitly.
+        preference: 'system',
+        fallback: 'light',
+        storage: 'localStorage',
+        storageKey: 'nuxt-color-mode',
+        // CRITICAL: while swapping the theme class would otherwise trigger colour
+        // transitions on hundreds of elements at once — most expensively the
+        // `backdrop-filter: blur()` glassy cards and the 900-rect grid pattern.
+        // The module injects a temporary `* { transition: none !important }` style
+        // around the swap so everything snaps instantly (no 2-3s freeze), then removes
+        // removes it so normal hover interactions stay animated.
+        disableTransition: true,
     },
 
     css: ['~/assets/css/main.css'],

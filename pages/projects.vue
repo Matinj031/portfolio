@@ -6,7 +6,7 @@
       :width="100"
       :height="100"
       :squares="[30, 30]"
-      squares-class-name="hover:fill-white-50"
+      squares-class-name="hover:fill-foreground/10"
     />
 
     <!-- Content -->
@@ -46,7 +46,7 @@
           class="group relative"
         >
           <article
-            class="glassyCard relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-white/5 dark:hover:bg-white/1 hover:border-white/20 dark:hover:border-white/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5"
+            class="glassyCard relative p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl hover:bg-black/5 dark:hover:bg-white/5 hover:border-black/10 dark:hover:border-white/20 transition-colors duration-300 hover:shadow-2xl hover:shadow-black/10 dark:hover:shadow-white/5"
             itemscope
             itemtype="https://schema.org/CreativeWork"
           >
@@ -61,18 +61,18 @@
                   {{ project.icon }}
                 </div>
                 <div class="flex-1 min-w-0">
-                  <linkPreview
+                  <a
                     v-if="project.demo"
-                    :url="project.demo"
-                    :width="500"
-                    :height="300"
+                    :href="project.demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <h3
                       class="text-xl sm:text-2xl font-bold text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors cursor-pointer break-words"
                     >
                       {{ project.title }}
                     </h3>
-                  </linkPreview>
+                  </a>
                   <h3
                     v-else
                     class="text-xl sm:text-2xl font-bold text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors break-words"
@@ -89,11 +89,11 @@
 
               <!-- Links -->
               <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-                <linkPreview
+                <a
                   v-if="project.demo"
-                  :url="project.demo"
-                  :width="400"
-                  :height="250"
+                  :href="project.demo"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs sm:text-sm font-medium hover:scale-105 transition-transform"
                 >
                   <svg
@@ -110,13 +110,13 @@
                     />
                   </svg>
                   Live Demo
-                </linkPreview>
+                </a>
                 <a
                   v-if="project.github"
                   :href="project.github"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="p-1.5 sm:p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
+                  class="p-1.5 sm:p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
                   aria-label="GitHub"
                 >
                   <svg
@@ -145,7 +145,7 @@
               <span
                 v-for="tech in project.tech"
                 :key="tech"
-                class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-white/30 dark:bg-white/10 backdrop-blur-sm border border-white/20 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
+                class="tech-badge px-2.5 sm:px-3 py-1 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200 text-xs sm:text-sm font-medium cursor-default"
               >
                 {{ tech }}
               </span>
@@ -281,10 +281,6 @@ const seoKeywords =
   "Matin Jahi projects, متین جاهی پروژه ها, frontend developer portfolio, نمونه کار برنامه نویس, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development, Isfahan developer projects, پروژه های وب";
 const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
 const seoUrl = "https://matinjahi.netlify.app/projects/";
-
-// Preload images cache (progressive enhancement — content renders immediately in SSR)
-const imageCache = new Map<string, string>();
-let preloadAborted = false;
 
 useHead({
   title: seoTitle,
@@ -432,71 +428,27 @@ useHead({
   ],
 });
 
-// Preload link-preview images in the background so hover previews feel instant.
-// This no longer gates rendering — the project list is server-rendered for SEO.
-const preloadLinkPreviews = async () => {
-  const projectsWithDemo = projects.filter((p) => p.demo);
-
-  const preloadPromises = projectsWithDemo.map(async (project) => {
-    try {
-      const params = new URLSearchParams({
-        url: project.demo,
-        screenshot: "true",
-        meta: "false",
-        embed: "screenshot.url",
-        colorScheme: "light",
-        "viewport.isMobile": "true",
-        "viewport.deviceScaleFactor": "1",
-        "viewport.width": "1500",
-        "viewport.height": "900",
-      });
-
-      const imageUrl = `https://api.microlink.io/?${params.toString()}`;
-
-      await new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          imageCache.set(project.demo, imageUrl);
-          resolve(true);
-        };
-        img.onerror = () => resolve(false);
-        setTimeout(() => resolve(false), 5000);
-        img.src = imageUrl;
-      });
-    } catch (error) {
-      console.error(`Error preloading ${project.demo}:`, error);
-    }
-  });
-
-  await Promise.all(preloadPromises);
-};
-
 onMounted(() => {
   isMounted.value = true;
-  preloadAborted = false;
-  preloadLinkPreviews();
-});
-
-onBeforeUnmount(() => {
-  preloadAborted = true;
 });
 </script>
 
 <style scoped>
 /* Glassy Card Effect */
 .glassyCard {
-  background: rgba(255, 255, 255, 0);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.082);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.158);
+  border: 1px solid var(--glass-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 /* Tech Badge Animations */
 .tech-badge {
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tech-badge::before {
@@ -518,15 +470,9 @@ onBeforeUnmount(() => {
 
 .tech-badge:hover {
   transform: translateY(-2px) scale(1.05);
-  background: rgba(255, 255, 255, 0.5);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.dark .tech-badge:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  background: var(--accent-hover);
+  border-color: var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .tech-badge:hover::before {
