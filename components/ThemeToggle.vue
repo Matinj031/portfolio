@@ -77,7 +77,7 @@ function toggleTheme() {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 9999px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   background-color: var(--glass-bg);
   color: var(--foreground);
   backdrop-filter: blur(8px);
