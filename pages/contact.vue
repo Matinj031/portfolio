@@ -8,32 +8,22 @@
 
     <!-- Gradient Overlay -->
     <div
-      class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/20 pointer-events-none"
-    ></div>
+      class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-transparent to-blue-900/20 pointer-events-none">
+    </div>
 
     <!-- Content -->
-    <div
-      class="relative z-10 min-h-screen flex items-center justify-center px-4 py-20"
-    >
+    <div class="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
       <div class="w-full max-w-7xl">
         <!-- Title -->
-        <Motion
-          :initial="isMounted ? { opacity: 0, y: 50 } : false"
-          :animate="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 1 }"
-          class="text-center mb-20"
-        >
+        <Motion :initial="isMounted ? { opacity: 0, y: 50 } : false" :animate="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 1 }" class="text-center mb-20">
 
           <div
-            class="inline-block my-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl "
-          >
-            <span class="text-purple-600 dark:text-purple-300 text-sm font-semibold"
-              >✨ Available for Projects</span
-            >
+            class="inline-block my-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl ">
+            <span class="text-purple-600 dark:text-purple-300 text-sm font-semibold">✨ Available for Projects</span>
           </div>
           <h1
-            class="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent"
-          >
+            class="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
             Get In Touch
           </h1>
           <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
@@ -45,91 +35,58 @@
         <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mt-16">
           <!-- Contact Cards -->
           <div class="lg:col-span-5 space-y-6">
-            <Motion
-              v-for="(contact, index) in contacts"
-              :key="contact.label"
-              :initial="isMounted ? { opacity: 0, x: -100 } : false"
-              :animate="{ opacity: 1, x: 0 }"
-              :transition="{ duration: 0.8, delay: 0.2 + index * 0.1 }"
-            >
+            <Motion v-for="(contact, index) in contacts" :key="contact.label"
+              :initial="isMounted ? { opacity: 0, x: -100 } : false" :animate="{ opacity: 1, x: 0 }"
+              :transition="{ duration: 0.8, delay: 0.2 + index * 0.1 }">
 
-              <a
-                :href="contact.href"
-                :target="contact.external ? '_blank' : undefined"
-                class="contact-card group block relative"
-              >
+              <div class="contact-card group block relative">
                 <div
                   class="absolute -inset-0.5 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 rounded-3xl"
-                  :style="{ background: contact.gradient }"
-                ></div>
-                <div
-                  class="relative p-8 rounded-3xl bg-card/90 border border-border backdrop-blur-2xl overflow-hidden"
-                >
+                  :style="{ background: contact.gradient }"></div>
+                <div class="relative p-8 rounded-3xl bg-card/90 border border-border backdrop-blur-2xl overflow-hidden">
                   <div
                     class="absolute top-0 right-0 w-40 h-40 opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl rounded-full"
-                    :style="{ background: contact.gradient }"
-                  ></div>
+                    :style="{ background: contact.gradient }"></div>
                   <div class="relative flex items-center gap-5">
                     <div
                       class="icon-container group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500"
-                      :style="{ background: contact.iconBg }"
-                    >
+                      :style="{ background: contact.iconBg }">
                       <div v-html="contact.icon" class="icon-svg"></div>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <p
-                        class="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2"
-                      >
+                      <p class="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">
                         {{ contact.label }}
                       </p>
                       <p class="text-lg font-bold text-foreground truncate">
                         {{ contact.value }}
                       </p>
                     </div>
-                    <div
-                      class="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-content-center group-hover:bg-foreground/10 transition-colors"
-                    >
-                      <svg
-                        class="w-5 h-5 text-muted-foreground group-hover:text-foreground group-hover:translate-x-1 transition-[color,transform]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
+
+                    <InteractiveHoverButton
+                      :href="contact.href"
+                      :target="contact.external ? '_blank' : undefined"
+                      :text="contact.label"
+                    />
                   </div>
                 </div>
-              </a>
+              </div>
             </Motion>
           </div>
 
           <!-- Form -->
-          <Motion
-            :initial="isMounted ? { opacity: 0, x: 100 } : false"
-            :animate="{ opacity: 1, x: 0 }"
-            :transition="{ duration: 1, delay: 0.6 }"
-            class="lg:col-span-7"
-          >
+          <Motion :initial="isMounted ? { opacity: 0, x: 100 } : false" :animate="{ opacity: 1, x: 0 }"
+            :transition="{ duration: 1, delay: 0.6 }" class="lg:col-span-7">
 
             <div class="relative">
               <div
-                class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur-2xl opacity-20"
-              ></div>
-              <form
-                @submit.prevent="handleSubmit"
-                class="relative p-10 rounded-3xl bg-card/95 border border-border backdrop-blur-2xl"
-              >
+                class="absolute -inset-1 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-3xl blur-2xl opacity-20">
+              </div>
+              <form @submit.prevent="handleSubmit"
+                class="relative p-10 rounded-3xl bg-card/95 border border-border backdrop-blur-2xl">
                 <div class="mb-10">
                   <div class="flex items-center gap-4 mb-4">
-                    <div
-                      class="w-1.5 h-12 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 rounded-full"
-                    ></div>
+                    <div class="w-1.5 h-12 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 rounded-full">
+                    </div>
                     <h2 class="text-4xl font-black text-foreground">Send Message</h2>
                   </div>
                   <p class="text-muted-foreground text-sm ml-8">
@@ -141,163 +98,69 @@
                   <div class="grid md:grid-cols-2 gap-6">
                     <div>
                       <label class="form-label">
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                          />
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                         Full Name
                       </label>
-                      <input
-                        v-model="form.name"
-                        type="text"
-                        required
-                        class="form-input"
-                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.name }"
-                        placeholder="John Doe"
-                      />
+                      <input v-model="form.name" type="text" required class="form-input"
+                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.name }" placeholder="John Doe" />
                       <p v-if="fieldErrors.name" class="error-message">{{ fieldErrors.name }}</p>
                     </div>
                     <div>
                       <label class="form-label">
-                        <svg
-                          class="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                          />
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         Email Address
                       </label>
-                      <input
-                        v-model="form.email"
-                        type="email"
-                        required
-                        class="form-input"
+                      <input v-model="form.email" type="email" required class="form-input"
                         :class="{ 'border-red-500 focus:border-red-500': fieldErrors.email }"
-                        placeholder="john@example.com"
-                      />
+                        placeholder="john@example.com" />
                       <p v-if="fieldErrors.email" class="error-message">{{ fieldErrors.email }}</p>
                     </div>
                   </div>
 
                   <div>
                     <label class="form-label">
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                        />
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                       </svg>
                       Subject
                     </label>
-                    <input
-                      v-model="form.subject"
-                      type="text"
-                      required
-                      class="form-input"
+                    <input v-model="form.subject" type="text" required class="form-input"
                       :class="{ 'border-red-500 focus:border-red-500': fieldErrors.subject }"
-                      placeholder="Project Inquiry / Collaboration"
-                    />
+                      placeholder="Project Inquiry / Collaboration" />
                     <p v-if="fieldErrors.subject" class="error-message">{{ fieldErrors.subject }}</p>
                   </div>
 
                   <div>
                     <label class="form-label">
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                        />
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                       </svg>
                       Your Message
                     </label>
-                    <textarea
-                      v-model="form.message"
-                      required
-                      rows="6"
-                      class="form-input"
+                    <textarea v-model="form.message" required rows="6" class="form-input"
                       :class="{ 'border-red-500 focus:border-red-500': fieldErrors.message }"
-                      placeholder="Tell me about your project..."
-                    ></textarea>
+                      placeholder="Tell me about your project..."></textarea>
                     <p v-if="fieldErrors.message" class="error-message">{{ fieldErrors.message }}</p>
                   </div>
 
-                  <button
-                    type="submit"
-                    :disabled="isSubmitting"
-                    class="submit-btn group"
-                  >
-                    <span
-                      class="relative z-10 flex items-center justify-content-center gap-3"
-                    >
-                      <span v-if="!isSubmitting">Send Message</span>
-                      <span v-else>Sending...</span>
-                      <svg
-                        v-if="!isSubmitting"
-                        class="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                  <InteractiveHoverButton type="submit" :disabled="isSubmitting"
+                    :text="isSubmitting ? 'Sending...' : 'Send Message'" class="w-full" />
 
-                  <div
-                    v-if="showSuccess"
-                    class="p-6 rounded-2xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50"
-                  >
+                  <div v-if="showSuccess"
+                    class="p-6 rounded-2xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50">
                     <div class="flex items-center gap-4">
-                      <div
-                        class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-content-center"
-                      >
-                        <svg
-                          class="w-6 h-6 text-green-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
+                      <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-content-center">
+                        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>
@@ -309,26 +172,13 @@
                     </div>
                   </div>
 
-                  <div
-                    v-if="showError"
-                    class="p-6 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50"
-                  >
+                  <div v-if="showError"
+                    class="p-6 rounded-2xl bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/50">
                     <div class="flex items-center gap-4">
-                      <div
-                        class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-content-center"
-                      >
-                        <svg
-                          class="w-6 h-6 text-red-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
+                      <div class="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-content-center">
+                        <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                       </div>
                       <div>
@@ -443,41 +293,41 @@ const handleSubmit = async () => {
   showSuccess.value = false;
   errorMessage.value = "";
   fieldErrors.value = {};
-  
+
   // Client-side validation
   const errors: ContactFormErrors = {};
-  
+
   if (!form.value.name.trim()) {
     errors.name = "Name is required";
   } else if (form.value.name.trim().length < 2) {
     errors.name = "Name must be at least 2 characters";
   }
-  
+
   if (!form.value.email.trim()) {
     errors.email = "Email is required";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email.trim())) {
     errors.email = "Please enter a valid email address";
   }
-  
+
   if (!form.value.subject.trim()) {
     errors.subject = "Subject is required";
   } else if (form.value.subject.trim().length < 3) {
     errors.subject = "Subject must be at least 3 characters";
   }
-  
+
   if (!form.value.message.trim()) {
     errors.message = "Message is required";
   } else if (form.value.message.trim().length < 10) {
     errors.message = "Message must be at least 10 characters";
   }
-  
+
   if (Object.keys(errors).length > 0) {
     fieldErrors.value = errors;
     return;
   }
-  
+
   isSubmitting.value = true;
-  
+
   try {
     await $fetch("/api/contact", {
       method: "POST",
@@ -488,21 +338,21 @@ const handleSubmit = async () => {
         message: form.value.message,
       },
     });
-    
+
     // Show success message
     showSuccess.value = true;
-    
+
     // Reset form
     form.value = { name: "", email: "", subject: "", message: "" };
-    
+
     // Hide success message after 5 seconds
     setTimeout(() => {
       showSuccess.value = false;
     }, 5000);
-    
+
   } catch (error: any) {
     console.error("Failed to send message:", error);
-    
+
     // Check if it's a validation error from server
     if (error.data?.errors) {
       fieldErrors.value = error.data.errors;
@@ -514,9 +364,9 @@ const handleSubmit = async () => {
       // Generic error
       errorMessage.value = error.data?.error || "Failed to send message. Please try again later.";
     }
-    
+
     showError.value = true;
-    
+
     // Hide error message after 7 seconds
     setTimeout(() => {
       showError.value = false;
@@ -661,51 +511,6 @@ onBeforeUnmount(() => {
   background: var(--accent-hover);
   border-color: rgba(168, 85, 247, 0.5);
   box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
-}
-
-.submit-btn {
-  position: relative;
-  width: 100%;
-  padding: 1.25rem 2rem;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, #8b5cf6, #ec4899, #3b82f6);
-  color: white;
-  font-weight: 700;
-  font-size: 1.125rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
-.submit-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-.submit-btn:hover:not(:disabled)::before {
-  left: 100%;
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .error-message {
