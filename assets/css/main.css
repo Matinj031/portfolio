@@ -136,3 +136,41 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Persian (RTL) typography
+   Vazirmatn is applied to Persian documents only. The Latin technical terms
+   embedded in the copy (Vue.js, Nuxt.js, …) still render through the fallback
+   stack, and the English build never downloads or applies Persian type.
+--------------------------------------------------------------------------- */
+:lang(fa) {
+  font-family:
+    "Vazirmatn",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Mixed-direction isolation
+   Inherently LTR tokens (emails, URLs, @handles, code) are wrapped in <bdi> or
+   code/pre so they never reorder the surrounding RTL text flow.
+--------------------------------------------------------------------------- */
+bdi {
+  unicode-bidi: isolate;
+}
+
+code,
+kbd,
+samp,
+pre {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: start;
+}

@@ -1,0 +1,294 @@
+{
+  "site": {
+    "name": "Matin Jahi",
+    "portfolioName": "Matin Jahi Portfolio",
+    "role": "Frontend Developer",
+    "defaultTitle": "Matin Jahi {'|'} Frontend Developer (Vue.js & Nuxt.js)",
+    "defaultDescription": "Matin Jahi (متین جاهی) — Frontend Developer specialising in Vue.js, Nuxt.js, React and TypeScript. Building performant, accessible web applications from Isfahan, Iran."
+  },
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "openMenu": "Toggle navigation menu",
+    "mainLabel": "Main navigation",
+    "mobileLabel": "Mobile navigation",
+    "languageLabel": "Change language",
+    "languageCurrent": "Current language"
+  },
+  "theme": {
+    "toLight": "Switch to light theme",
+    "toDark": "Switch to dark theme"
+  },
+  "common": {
+    "available": "Available for work",
+    "viewWork": "View My Work",
+    "getInTouch": "Get in Touch",
+    "downloadCv": "Download CV",
+    "liveDemo": "Live Demo",
+    "backHome": "Back to Home",
+    "viewProjects": "View Projects",
+    "contactMe": "Contact Me",
+    "sendMessage": "Send Message",
+    "sending": "Sending…",
+    "githubProfile": "GitHub profile"
+  },
+  "home": {
+    "metaTitle": "Matin Jahi {'|'} Frontend Developer (Vue.js & Nuxt.js)",
+    "metaDescription": "Matin Jahi (متین جاهی) — Frontend Developer specialising in Vue.js, Nuxt.js, React and TypeScript. Building modern, performant and accessible web applications. Based in Isfahan, Iran.",
+    "keywords": "Matin Jahi, متین جاهی, frontend developer, Vue.js developer, Nuxt.js developer, React developer, TypeScript, portfolio",
+    "ogTitle": "Matin Jahi {'|'} Frontend Developer — Vue.js & Nuxt.js",
+    "ogDescription": "Frontend Developer specialising in Vue.js, Nuxt.js, React and TypeScript. Explore my portfolio, projects and expertise in building performant web applications.",
+    "badge": "Available for work",
+    "titleLead": "Crafting beautiful",
+    "titleAccent": "web experiences",
+    "subtitleLine1": "Frontend Developer specialising in Vue.js & Nuxt.js",
+    "subtitleLine2": "Building modern, performant, and accessible applications",
+    "techStackLabel": "Primary technologies"
+  },
+  "about": {
+    "metaTitle": "About Matin Jahi — Senior Frontend Developer, Isfahan",
+    "metaDescription": "About Matin Jahi (متین جاهی) — Senior Frontend Developer with 4+ years of experience building fast, scalable, SEO-optimised web applications with Vue.js, Nuxt.js and TypeScript. Explore my career journey, skills and development philosophy.",
+    "keywords": "About Matin Jahi, درباره متین جاهی, senior frontend developer, Vue.js developer, Nuxt.js developer, frontend engineer experience, career journey",
+    "ogTitle": "About Matin Jahi — Senior Frontend Developer",
+    "ogDescription": "Career journey, work experience, core technologies and development philosophy of Matin Jahi, Senior Frontend Developer.",
+    "badge": "Senior Frontend Developer",
+    "titleLead": "Engineering the web with",
+    "titleAccent": "craft & care",
+    "intro": "I'm Matin Jahi, a frontend developer with 4+ years of experience building fast, scalable, SEO-optimised web applications with Vue.js, Nuxt.js and TypeScript — with a strong focus on clean code, accessibility, and delightful motion.",
+    "statsLabel": "Career statistics",
+    "gpaLabel": "GPA",
+    "sections": {
+      "statistics": "Career statistics",
+      "career": "Career journey",
+      "skills": "Technical skills",
+      "philosophy": "Development philosophy",
+      "education": "Education",
+      "contact": "Get in touch"
+    },
+    "stats": [
+      { "value": "4+", "label": "Years of Experience" },
+      { "value": "600K+", "label": "Schools Served on Gamatrain" },
+      { "value": "35%", "label": "Faster Page Loads Delivered" },
+      { "value": "40%", "label": "Faster Feature Delivery" }
+    ],
+    "careerTitleLead": "Career",
+    "careerTitleAccent": "Journey",
+    "careerSubtitle": "From interactive 3D experiences to large-scale EdTech platforms",
+    "skillsTitleLead": "Core",
+    "skillsTitleAccent": "Technologies",
+    "skillsSubtitle": "The tools and disciplines I use to ship production-grade frontends",
+    "philosophyTitleLead": "How I",
+    "philosophyTitleAccent": "Work",
+    "philosophySubtitle": "The principles behind every line of code I write",
+    "educationTitle": "Education",
+    "ctaTitleLead": "Let's build something",
+    "ctaTitleAccent": "extraordinary",
+    "ctaText": "Open to freelance projects, collaborations, and full-time opportunities. Let's talk about your next idea.",
+    "experience": [
+      {
+        "role": "Frontend Developer (Open Source Contributor)",
+        "company": "GamaEdtech (Gamatrain)",
+        "location": "Remote",
+        "period": "Apr 2025 – Present",
+        "highlights": [
+          "Architected scalable features for an open-source Nuxt.js 4 / Vue.js 3 EdTech platform serving 600,000+ registered schools",
+          "Designed an AI-assisted quiz builder and school finder, driving a 25% increase in user session duration",
+          "Integrated Three.js-powered interactive educational content, contributing to a 15% increase in user retention",
+          "Redesigned routing architecture across 15+ core pages, cutting page load times by 35% and improving Core Web Vitals"
+        ],
+        "tech": ["Nuxt 4", "Vue 3", "TypeScript", "Three.js", "Accessibility"]
+      },
+      {
+        "role": "Senior Frontend Developer",
+        "company": "IraniCard (Pateh)",
+        "location": "Isfahan, Iran",
+        "period": "May 2024 – Jan 2025",
+        "highlights": [
+          "Led end-to-end frontend architecture for a leading travel platform, launching 7 core homepage sections in 8 months",
+          "Built a reusable Vue.js 3 component library in a microservices environment, accelerating feature delivery by 40%",
+          "Introduced RxJS for async data flow, reducing race-condition bugs by 65% in real-time search features"
+        ],
+        "tech": ["Vue 3", "RxJS", "Component Library", "Microservices", "Agile"]
+      },
+      {
+        "role": "Frontend Developer",
+        "company": "Eron",
+        "location": "Tehran, Iran",
+        "period": "Apr 2021 – Apr 2023",
+        "highlights": [
+          "Created an interactive 3D product visualisation feature with Three.js and Blender, boosting engagement by 30%",
+          "Built GSAP-driven scroll-triggered animation systems, improving perceived performance and Core Web Vitals by 20%",
+          "Owned a shared Vue.js component library applying WCAG 2.1 standards and SOLID principles"
+        ],
+        "tech": ["Vue.js", "Three.js", "GSAP", "Blender", "WCAG 2.1"]
+      }
+    ],
+    "skillGroups": [
+      {
+        "title": "Frameworks & Languages",
+        "skills": ["Vue.js 2/3", "Nuxt.js 2/3/4", "React", "Next.js", "TypeScript", "JavaScript (ES2022+)", "Quasar"]
+      },
+      {
+        "title": "Styling & UI Systems",
+        "skills": ["Tailwind CSS", "SCSS/Sass", "Vuetify", "Material Design 3", "Figma", "WCAG 2.1", "Semantic HTML"]
+      },
+      {
+        "title": "State, Data & Architecture",
+        "skills": ["Pinia", "Vuex", "VueUse", "RxJS", "REST APIs", "SOLID Principles", "Design Patterns"]
+      },
+      {
+        "title": "Motion, 3D & Tooling",
+        "skills": ["Three.js", "GSAP", "Blender", "Vite.js", "Vitest", "Cypress", "Docker", "CI/CD"]
+      }
+    ],
+    "philosophy": [
+      {
+        "title": "Clean, Maintainable Code",
+        "description": "SOLID principles, rigorous code review ownership, and enforced quality standards. Code should read like it was written by one careful person."
+      },
+      {
+        "title": "Performance First",
+        "description": "Core Web Vitals are a feature, not an afterthought. From routing architecture to animation budgets, every decision is measured against real user experience."
+      },
+      {
+        "title": "Accessible by Default",
+        "description": "WCAG 2.1 standards, semantic HTML, and Section 508-compliant navigation patterns. The web works best when it works for everyone."
+      },
+      {
+        "title": "Motion with Purpose",
+        "description": "GSAP timelines, Three.js scenes, and micro-interactions that improve perceived performance — elegant, restrained, and always at 60 FPS."
+      },
+      {
+        "title": "Reusable Systems",
+        "description": "Component libraries that accelerate whole teams. Build it once, build it right, and cut cross-team integration time in half."
+      },
+      {
+        "title": "Collaboration & Ownership",
+        "description": "Cross-functional work with product, backend, QA, and stakeholders in Agile cycles — championing standards that keep five teams shipping without conflicts."
+      }
+    ],
+    "education": [
+      {
+        "degree": "B.Sc. Computer Engineering — Software",
+        "school": "Shahid Mohsen Mohajer Technical and Vocational University",
+        "location": "Isfahan, Iran",
+        "period": "2023 – 2027 (Expected)",
+        "gpa": "18/20"
+      },
+      {
+        "degree": "A.Sc. Information Technology",
+        "school": "Shahid Shamsipour Technical and Vocational University",
+        "location": "Tehran, Iran",
+        "period": "2021 – 2023",
+        "gpa": "18/20"
+      }
+    ]
+  },
+  "projects": {
+    "metaTitle": "Projects — Vue.js, Nuxt.js & React {'|'} Matin Jahi",
+    "metaDescription": "Matin Jahi (متین جاهی) projects portfolio — recent web development work including the Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot and more. Specialised in Vue.js, Nuxt.js, React and modern web technologies.",
+    "keywords": "Matin Jahi projects, frontend developer portfolio, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, LMS development",
+    "ogTitle": "Projects — Vue.js, Nuxt.js & React {'|'} Matin Jahi",
+    "ogDescription": "A collection of recent web development projects: EdTech platform, flight booking, voice assistant, LMS and more.",
+    "title": "Recent Projects",
+    "subtitle": "A collection of my latest work and contributions in web development",
+    "items": [
+      {
+        "title": "Gamatrain EdTech Platform",
+        "description": "An innovative EdTech platform designed to empower learners and developers through a decentralised, open-source ecosystem. Leverages governance tokens to foster collaboration and rewards.",
+        "tech": ["Vue 3", "Nuxt", "TypeScript", "Tailwind CSS", "Web3"]
+      },
+      {
+        "title": "Pateh - Flight Booking Platform",
+        "description": "A comprehensive online flight ticket booking system for domestic flights in Iran. Features real-time flight search, price comparison, secure payment integration, and 24/7 customer support.",
+        "tech": ["Vue 3", "Nuxt", "TypeScript", "Tailwind CSS", "API Integration"]
+      },
+      {
+        "title": "Voice Assistant Bot",
+        "description": "An intelligent voice assistant platform that provides the assistance you didn't know you needed. Features voice recognition, natural language processing, and automated task execution.",
+        "tech": ["Vue 3", "Nuxt", "AI/ML", "Speech Recognition", "NLP"]
+      },
+      {
+        "title": "Red Crescent LMS",
+        "description": "A comprehensive Learning Management System for Red Crescent training programmes. Features specialised courses in first aid, rescue operations, health & safety, and crisis management with certification.",
+        "tech": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Persian RTL"]
+      },
+      {
+        "title": "AliExpress Clone",
+        "description": "A full-featured e-commerce platform clone of AliExpress, built with Vue.js. Features product browsing, shopping cart, user authentication, and modern UI/UX design.",
+        "tech": ["Vue 3", "Pinia", "Vue Router", "Tailwind CSS"]
+      },
+      {
+        "title": "React Movie App",
+        "description": "A modern movie discovery application built with React. Browse trending movies, search for your favourites, and explore detailed information about films with a sleek interface.",
+        "tech": ["React", "JavaScript", "API Integration", "CSS"]
+      },
+      {
+        "title": "Python Slot Machine",
+        "description": "A simple and fun slot machine game built with Python. Features random number generation, betting system, and colourful terminal interface. Have fun and test your luck!",
+        "tech": ["Python", "Random Module", "Terminal UI"]
+      },
+      {
+        "title": "Python Snake Game",
+        "description": "A classic Snake game implementation using Python and the Tkinter GUI toolkit. Features smooth gameplay, score tracking, and collision detection with a retro gaming feel.",
+        "tech": ["Python", "Tkinter", "Game Development"]
+      }
+    ]
+  },
+  "contact": {
+    "metaTitle": "Hire Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)",
+    "metaDescription": "Get in touch with Matin Jahi (متین جاهی) — Frontend Developer available for freelance projects, collaborations and full-time opportunities. Contact via email, Telegram or LinkedIn.",
+    "keywords": "Contact Matin Jahi, hire frontend developer, freelance Vue.js developer, Nuxt.js developer for hire, web developer Isfahan",
+    "ogTitle": "Hire Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)",
+    "ogDescription": "Available for freelance projects, collaborations and full-time opportunities. Let's talk about your next idea.",
+    "badge": "✨ Available for Projects",
+    "title": "Get In Touch",
+    "subtitle": "Have an exciting project? Let's create something extraordinary together",
+    "formTitle": "Send Message",
+    "formHelp": "Fill out the form and I'll get back to you within 24 hours",
+    "labels": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Your Message"
+    },
+    "placeholders": {
+      "name": "John Doe",
+      "email": "john{'@'}example.com",
+      "subject": "Project Inquiry / Collaboration",
+      "message": "Tell me about your project…"
+    },
+    "errors": {
+      "nameRequired": "Name is required",
+      "nameMin": "Name must be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "subjectRequired": "Subject is required",
+      "subjectMin": "Subject must be at least 3 characters",
+      "messageRequired": "Message is required",
+      "messageMin": "Message must be at least 10 characters",
+      "fixErrors": "Please fix the errors below",
+      "rateLimited": "Too many requests. Please try again later.",
+      "generic": "Failed to send message. Please try again later."
+    },
+    "successTitle": "Message Sent!",
+    "successText": "I'll get back to you within 24 hours",
+    "errorTitle": "Error!",
+    "contactLabels": {
+      "email": "Email",
+      "telegram": "Telegram",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    }
+  },
+  "errorPage": {
+    "notFoundLabel": "Page not found",
+    "genericLabel": "Something went wrong",
+    "notFoundText": "The page you're looking for doesn't exist or has been moved.",
+    "genericText": "An unexpected error occurred.",
+    "recoveryLabel": "Recovery links",
+    "pageTitle": "404 — Matin Jahi"
+  }
+}

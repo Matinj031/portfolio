@@ -28,18 +28,18 @@
             class="relative inline-flex rounded-full h-2 w-2 bg-green-500"
           ></span>
         </span>
-        Available for work
+        {{ $t("home.badge") }}
       </div>
 
       <!-- Main Heading -->
       <h1
         class="text-center text-4xl font-bold md:text-7xl lg:text-8xl text-neutral-900 dark:text-white max-w-5xl leading-tight"
       >
-        Crafting beautiful
+        {{ $t("home.titleLead") }}
         <span
           class="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
         >
-          web experiences
+          {{ $t("home.titleAccent") }}
         </span>
       </h1>
 
@@ -47,71 +47,73 @@
       <p
         class="text-center text-lg md:text-2xl text-neutral-600 dark:text-neutral-300 max-w-2xl font-light"
       >
-        Frontend Developer specializing in Vue.js & Nuxt.js
+        {{ $t("home.subtitleLine1") }}
         <br class="hidden md:block" />
-        Building modern, performant, and accessible applications
+        {{ $t("home.subtitleLine2") }}
       </p>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
         <NuxtLink
-          to="/projects"
+          :to="localePath('/projects')"
           class="group relative px-8 py-3 rounded-full bg-neutral-900 text-white dark:bg-white dark:text-black font-medium hover:scale-105 transition-transform duration-200 shadow-lg shadow-black/20 dark:shadow-white/20"
         >
-          View My Work
+          {{ $t("common.viewWork") }}
           <span
-            class="inline-block ml-2 group-hover:translate-x-1 transition-transform"
+            class="inline-block ms-2 transition-transform group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180"
+            aria-hidden="true"
           >
             →
           </span>
         </NuxtLink>
         <NuxtLink
-          to="/contact"
+          :to="localePath('/contact')"
           class="px-8 py-3 rounded-full bg-black/5 dark:bg-white/10 backdrop-blur-sm border border-black/10 dark:border-white/20 text-neutral-800 dark:text-white font-medium hover:bg-black/10 dark:hover:bg-white/20 transition-colors duration-200"
         >
-          Get in Touch
+          {{ $t("common.getInTouch") }}
         </NuxtLink>
       </div>
 
       <!-- Tech Stack -->
       <div
         class="flex flex-wrap items-center justify-center gap-4 mt-8 text-sm text-neutral-500 dark:text-white/50"
+        :aria-label="$t('home.techStackLabel')"
       >
         <span class="flex items-center gap-2">
           <VueIcon class="w-5 h-5" />
           Vue.js
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <NuxtIcon class="w-5 h-5" />
           Nuxt.js
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <TypeScriptIcon class="w-5 h-5" />
           TypeScript
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <TailwindIcon class="w-5 h-5" />
           Tailwind CSS
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <ThreeIcon class="w-5 h-5" />
           Three.js
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <GsapIcon class="w-5 h-5" />
           GSAP
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <VuetifyIcon class="w-5 h-5" />
           Vuetify
         </span>
-        <span class="text-neutral-300 dark:text-white/30">•</span>
+        <span class="text-neutral-300 dark:text-white/30" aria-hidden="true">•</span>
         <span class="flex items-center gap-2">
           <SwiperJsIcon class="w-5 h-5" />
           SwiperJs
@@ -133,28 +135,32 @@ import GsapIcon from "~/components/icons/GsapIcon.vue";
 import VuetifyIcon from "~/components/icons/Vuetify.vue";
 import SwiperJsIcon from "~/components/icons/SwiperJsIcon.vue";
 
+const { t } = useI18n();
+const localePath = useLocalePath();
+
 const isMounted = ref(false);
 onMounted(() => {
   isMounted.value = true;
 });
 
-useHead({
-
-  title: "Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Matin Jahi (متین جاهی) - Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, TypeScript. Building modern, performant, and accessible web applications. Isfahan, Iran.",
+// Per-locale SEO (self canonical + reciprocal hreflang + og:locale) + ProfilePage.
+useLocalizedSeo("home", {
+  schema: ({ url, locale }) => ({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: t("home.metaTitle"),
+    description: t("home.metaDescription"),
+    url,
+    inLanguage: locale,
+    mainEntity: {
+      "@type": "Person",
+      "@id": "https://matinjahi.netlify.app/#person",
+      name: "Matin Jahi",
+      alternateName: "متین جاهی",
+      jobTitle: t("site.role"),
+      url: "https://matinjahi.netlify.app",
     },
-    {
-      name: "keywords",
-      content:
-        "Matin Jahi, متین جاهی, Frontend Developer Portfolio, Vue.js Developer, Nuxt.js Expert, React Developer, Web Developer Isfahan, برنامه نویس فرانت اند اصفهان",
-    },
-  ],
-  link: [{ rel: "canonical", href: "https://matinjahi.netlify.app/" }],
-  // trailing slash is correct for homepage – Netlify serves / without redirect
+  }),
 });
 </script>
 

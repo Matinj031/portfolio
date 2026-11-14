@@ -22,19 +22,19 @@
           <h1
             class="text-4xl sm:text-5xl md:text-7xl font-bold text-black dark:text-white mb-3 md:mb-4 px-4"
           >
-            Recent Projects
+            {{ $t("projects.title") }}
           </h1>
           <p
             class="text-base sm:text-lg md:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto px-4"
           >
-            A collection of my latest work and contributions in web development
+            {{ $t("projects.subtitle") }}
           </p>
         </Motion>
       </header>
 
       <!-- Projects Grid -->
       <section
-        aria-label="Projects showcase"
+        :aria-label="$t('projects.title')"
         class="grid gap-4 sm:gap-6 md:gap-8"
       >
         <Motion
@@ -97,7 +97,7 @@
                   class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs sm:text-sm font-medium hover:scale-105 transition-transform"
                 >
                   <svg
-                    class="w-3 h-3 sm:w-4 sm:h-4"
+                    class="w-3 h-3 sm:w-4 sm:h-4 rtl:rotate-180"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -109,7 +109,7 @@
                       d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                     />
                   </svg>
-                  Live Demo
+                  {{ $t("common.liveDemo") }}
                 </a>
                 <a
                   v-if="project.github"
@@ -117,7 +117,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="p-1.5 sm:p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
-                  aria-label="GitHub"
+                  :aria-label="$t('common.githubProfile')"
                 >
                   <svg
                     class="w-4 h-4 sm:w-5 sm:h-5"
@@ -158,7 +158,7 @@
 
             <!-- Hidden metadata for SEO -->
             <meta itemprop="url" :content="project.demo || project.github" />
-            <meta itemprop="author" content="Matin Jahi" />
+            <meta itemprop="author" :content="$t('site.name')" />
           </article>
         </Motion>
       </section>
@@ -167,265 +167,138 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted } from "vue";
+
+const { t, te } = useI18n();
+
+// `tm()` returns compiled message AST descriptors (not strings), so nested
+// arrays/objects must be resolved field-by-field with `t()` to get plain text.
+const readStringArray = (base: string): string[] => {
+  const arr: string[] = [];
+  let i = 0;
+  while (te(`${base}.${i}`)) {
+    arr.push(String(t(`${base}.${i}`)));
+    i++;
+  }
+  return arr;
+};
 
 // Gate Motion initial state until after client mount to avoid
 // "animate on null" hydration errors while keeping SSR content visible.
 const isMounted = ref(false);
 
-// Projects data - defined first for use in SEO
-const projects = [
+// Language-neutral presentation data (icons, gradients, years, links) stays in
+// code so the locale dictionaries only ever contain translatable copy.
+const decorations = [
   {
     id: 1,
-    title: "Gamatrain EdTech Platform",
     year: "2024",
     icon: "🎓",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    description:
-      "An innovative EdTech platform designed to empower learners and developers through a decentralized, open-source ecosystem. Leverages governance tokens to foster collaboration and rewards.",
-    tech: ["Vue 3", "Nuxt", "TypeScript", "Tailwind CSS", "Web3"],
     demo: "https://gamatrain.com",
     github: "https://github.com/GamaEdtech/gamatrain-front",
   },
   {
     id: 2,
-    title: "Pateh - Flight Booking Platform",
     year: "2024",
     icon: "✈️",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    description:
-      "A comprehensive online flight ticket booking system for domestic flights in Iran. Features real-time flight search, price comparison, secure payment integration, and 24/7 customer support.",
-    tech: ["Vue 3", "Nuxt", "TypeScript", "Tailwind CSS", "API Integration"],
     demo: "https://www.pateh.com",
     github: "",
   },
   {
     id: 3,
-    title: "Voice Assistant Bot",
     year: "2024",
     icon: "🎙️",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    description:
-      "An intelligent voice assistant platform that provides the assistance you didn't know you needed. Features voice recognition, natural language processing, and automated task execution.",
-    tech: ["Vue 3", "Nuxt", "AI/ML", "Speech Recognition", "NLP"],
     demo: "https://voice-assistant.bot",
     github: "",
   },
   {
     id: 4,
-    title: "Red Crescent LMS",
     year: "2024",
     icon: "❤️",
     gradient: "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)",
-    description:
-      "A comprehensive Learning Management System for Red Crescent training programs. Features specialized courses in first aid, rescue operations, health & safety, and crisis management with certification.",
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Persian RTL"],
     demo: "https://red-crescent-lms-lp2i.vercel.app",
     github: "",
   },
   {
     id: 5,
-    title: "AliExpress Clone",
     year: "2024",
     icon: "🛒",
     gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    description:
-      "A full-featured e-commerce platform clone of AliExpress, built with Vue.js. Features product browsing, shopping cart, user authentication, and modern UI/UX design.",
-    tech: ["Vue 3", "Pinia", "Vue Router", "Tailwind CSS"],
     demo: "",
     github: "https://github.com/Matinj031/AliExpress-clone-v1",
   },
   {
     id: 6,
-    title: "React Movie App",
     year: "2024",
     icon: "🎬",
     gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    description:
-      "A modern movie discovery application built with React. Browse trending movies, search for your favorites, and explore detailed information about films with a sleek interface.",
-    tech: ["React", "JavaScript", "API Integration", "CSS"],
     demo: "",
     github: "https://github.com/Matinj031/ReactMovieApp",
   },
   {
     id: 7,
-    title: "Python Slot Machine",
     year: "2023",
     icon: "🎰",
     gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    description:
-      "A simple and fun slot machine game built with Python. Features random number generation, betting system, and colorful terminal interface. Have fun and test your luck!",
-    tech: ["Python", "Random Module", "Terminal UI"],
     demo: "",
     github: "https://github.com/Matinj031/Python-Slot-Machine",
   },
   {
     id: 8,
-    title: "Python Snake Game",
     year: "2023",
     icon: "🐍",
     gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
-    description:
-      "A classic Snake game implementation using Python and Tkinter GUI toolkit. Features smooth gameplay, score tracking, and collision detection with a retro gaming feel.",
-    tech: ["Python", "Tkinter", "Game Development"],
     demo: "",
     github: "https://github.com/Matinj031/Python-SnakeGame",
   },
 ];
 
-// SEO Configuration
-const seoTitle = "Projects — Vue.js, Nuxt.js & React | Matin Jahi";
-const seoDescription =
-  "Matin Jahi (متین جاهی) Projects Portfolio - Explore my recent web development projects including Gamatrain EdTech Platform, Pateh Flight Booking, Voice Assistant Bot, and more. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.";
-const seoKeywords =
-  "Matin Jahi projects, متین جاهی پروژه ها, frontend developer portfolio, نمونه کار برنامه نویس, Vue.js projects, Nuxt.js applications, React projects, web development portfolio, EdTech platform, flight booking system, voice assistant, LMS development, Isfahan developer projects, پروژه های وب";
-const seoImage = "https://matinjahi.netlify.app/og-image.jpg";
-const seoUrl = "https://matinjahi.netlify.app/projects/";
+interface ProjectItem {
+  title: string;
+  description: string;
+  tech: string[];
+}
 
-useHead({
-  title: seoTitle,
-  meta: [
-    // Primary Meta Tags
-    {
-      name: "title",
-      content: seoTitle,
-    },
-    {
-      name: "description",
-      content: seoDescription,
-    },
-    {
-      name: "keywords",
-      content: seoKeywords,
-    },
-    {
-      name: "author",
-      content: "Matin Jahi",
-    },
-    {
-      name: "robots",
-      content: "index, follow",
-    },
-    {
-      name: "language",
-      content: "English",
-    },
+// Localized copy merged with the neutral decoration, index-aligned.
+const projects = computed<ProjectItem[]>(() =>
+  decorations.map((dec, index) => ({
+    ...dec,
+    title: t(`projects.items.${index}.title`),
+    description: t(`projects.items.${index}.description`),
+    tech: readStringArray(`projects.items.${index}.tech`),
+  })),
+);
 
-    // Open Graph / Facebook
-    {
-      property: "og:type",
-      content: "website",
-    },
-    {
-      property: "og:url",
-      content: seoUrl,
-    },
-    {
-      property: "og:title",
-      content: seoTitle,
-    },
-    {
-      property: "og:description",
-      content: seoDescription,
-    },
-    {
-      property: "og:image",
-      content: seoImage,
-    },
-    {
-      property: "og:site_name",
-      content: "Matin Jahi Portfolio",
-    },
-    {
-      property: "og:locale",
-      content: "en_US",
-    },
-
-    // Twitter
-    {
-      name: "twitter:card",
-      content: "summary_large_image",
-    },
-    {
-      name: "twitter:url",
-      content: seoUrl,
-    },
-    {
-      name: "twitter:title",
-      content: seoTitle,
-    },
-    {
-      name: "twitter:description",
-      content: seoDescription,
-    },
-    {
-      name: "twitter:image",
-      content: seoImage,
-    },
-    {
-      name: "twitter:creator",
-      content: "@matinjahi",
-    },
-
-    // Additional SEO
-    {
-      name: "theme-color",
-      content: "#667eea",
-    },
-    {
-      name: "msapplication-TileColor",
-      content: "#667eea",
-    },
-  ],
-  link: [
-    {
-      rel: "canonical",
-      href: seoUrl,
-    },
-  ],
-  script: [
-    // JSON-LD Structured Data
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        name: seoTitle,
-        description: seoDescription,
-        url: seoUrl,
-        author: {
-          "@type": "Person",
-          name: "Matin Jahi",
-          jobTitle: "Frontend Developer",
-          url: "https://matinjahi.netlify.app",
-          sameAs: [
-            "https://github.com/Matinj031",
-            "https://linkedin.com/in/matin-jahi",
-            "https://t.me/Ritalleral",
-          ],
+useLocalizedSeo("projects", {
+  schema: ({ url, locale }) => ({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: t("projects.metaTitle"),
+    description: t("projects.metaDescription"),
+    url,
+    inLanguage: locale,
+    isPartOf: { "@id": "https://matinjahi.netlify.app/#website" },
+    about: { "@id": "https://matinjahi.netlify.app/#person" },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.value.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: project.title,
+          description: project.description,
+          url: project.demo || project.github,
+          dateCreated: project.year,
+          author: { "@type": "Person", name: t("site.name") },
+          keywords: project.tech.join(", "),
         },
-        mainEntity: {
-          "@type": "ItemList",
-          itemListElement: projects.map((project, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            item: {
-              "@type": "CreativeWork",
-              name: project.title,
-              description: project.description,
-              url: project.demo || project.github,
-              dateCreated: project.year,
-              author: {
-                "@type": "Person",
-                name: "Matin Jahi",
-              },
-              keywords: project.tech.join(", "),
-            },
-          })),
-        },
-      }),
+      })),
     },
-  ],
+  }),
 });
 
 onMounted(() => {

@@ -16,6 +16,14 @@
 # "/about/" and causes an infinite redirect loop. Netlify's Pretty URLs already
 # redirect /about to /about/ because the page is prerendered as about/index.html.
 
+# The static build emits a multi-sitemap index at /sitemap_index.xml (referenced
+# by robots.txt). Some crawlers/tools probe the conventional /sitemap.xml, so
+# point it at the index instead of returning a 404.
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap_index.xml"
+  status = 301
+
 [[headers]]
   for = "/_nuxt/*"
   [headers.values]

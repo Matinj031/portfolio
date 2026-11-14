@@ -38,9 +38,9 @@ export default defineNuxtConfig({
                     href: '/fonts/fonts.css',
                 },
             ],
-            htmlAttrs: {
-                lang: 'en',
-            },
+            // NOTE: `htmlAttrs.lang` / `dir` are set per-locale in `app.vue`
+            // (see useLocalizedHead) so the correct values are baked into the
+            // prerendered HTML of every route instead of a static `en`.
         },
 
         pageTransition: { name: 'page', mode: 'out-in' },
@@ -67,21 +67,21 @@ export default defineNuxtConfig({
     robots: {
         robotsTxt: true,
         allow: '/',
-        disallow: ['/card-demo', '/shaders-demo'],
-        sitemap: 'https://matinjahi.netlify.app/sitemap.xml',
+        // The robots module expands each entry into its localized variants
+        // (it already emits `Disallow: /fa/card-demo`), so only the default
+        // path is listed here to avoid duplicate directives.
+        disallow: ['/card-demo'],
+        // The sitemap module injects the correct `<Sitemap>` directive
+        // (`/sitemap_index.xml` for multi-sitemaps) so it is not duplicated here.
     },
 
     sitemap: {
-        exclude: ['/card-demo', '/card-demo/'],
-        autoI18n: false,
-        // Let @nuxtjs/sitemap auto-discover routes from the app.
-        // Explicit urls with trailing slashes to match Netlify's redirect behavior.
-        urls: [
-            { loc: 'https://matinjahi.netlify.app/', changefreq: 'monthly', priority: 1.0, lastmod: new Date().toISOString().split('T')[0] },
-            { loc: 'https://matinjahi.netlify.app/projects/', changefreq: 'monthly', priority: 0.8, lastmod: new Date().toISOString().split('T')[0] },
-            { loc: 'https://matinjahi.netlify.app/about/', changefreq: 'monthly', priority: 0.7, lastmod: new Date().toISOString().split('T')[0] },
-            { loc: 'https://matinjahi.netlify.app/contact/', changefreq: 'yearly', priority: 0.5, lastmod: new Date().toISOString().split('T')[0] },
-        ],
+        // `autoI18n` is enabled automatically because @nuxtjs/i18n is installed:
+        // this produces /__sitemap__/en.xml and /__sitemap__/fa.xml plus a
+        // /sitemap_index.xml, each entry carrying reciprocal hreflang alternates.
+        exclude: ['/card-demo', '/card-demo/', '/fa/card-demo', '/fa/card-demo/'],
+        autoLastmod: true,
+        xsl: false,
     },
 
     // content: {
@@ -94,7 +94,19 @@ export default defineNuxtConfig({
     // },
     nitro: {
         prerender: {
-            routes: ['/', '/projects/', '/about/', '/contact/', '/sitemap.xml'],
+            routes: [
+                '/',
+                '/projects/',
+                '/about/',
+                '/contact/',
+                '/fa/',
+                '/fa/projects/',
+                '/fa/about/',
+                '/fa/contact/',
+                // Triggers the sitemap module to prerender the sitemap index and
+                // the per-locale /__sitemap__/*.xml files at build time.
+                '/sitemap.xml',
+            ],
             crawlLinks: false,
         },
         minify: true,
@@ -157,10 +169,36 @@ export default defineNuxtConfig({
     },
 
     i18n: {
+        // English keeps the existing, already-indexed URLs (`/`, `/about`, …).
+        // Persian lives under the `/fa` prefix (`/fa/`, `/fa/about`, …).
+        strategy: 'prefix_except_default',
         defaultLocale: 'en',
-        locales: ['en'],
+        locales: [
+            {
+                code: 'en',
+                language: 'en',
+                name: 'English',
+                dir: 'ltr',
+                file: 'en.json',
+            },
+            {
+                code: 'fa',
+                language: 'fa',
+                name: 'فارسی',
+                dir: 'rtl',
+                file: 'fa.json',
+            },
+        ],
+        // Resolved relative to `<rootDir>/i18n` → `i18n/locales/*.json`.
+        langDir: 'locales',
         baseUrl: 'https://matinjahi.netlify.app',
+        // Emit canonical/hreflang URLs with the trailing slash that Netlify's
+        // Pretty URLs actually serve, so markup and sitemap stay consistent.
+        trailingSlash: true,
+        // Never auto-redirect by Accept-Language / IP: both language versions
+        // must stay independently crawlable and directly reachable.
+        detectBrowserLanguage: false,
+        // Locale messages are code-split per locale by default, so only the
+        // active dictionary is fetched on the client — no bundling overrides.
     },
-
-
 })

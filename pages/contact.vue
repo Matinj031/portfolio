@@ -20,23 +20,22 @@
 
           <div
             class="inline-block my-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 backdrop-blur-xl ">
-            <span class="text-purple-600 dark:text-purple-300 text-sm font-semibold">✨ Available for Projects</span>
+            <span class="text-purple-600 dark:text-purple-300 text-sm font-semibold">{{ $t("contact.badge") }}</span>
           </div>
           <h1
             class="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-            Get In Touch
+            {{ $t("contact.title") }}
           </h1>
           <p class="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            Have an exciting project? Let's create something extraordinary
-            together
+            {{ $t("contact.subtitle") }}
           </p>
         </Motion>
 
         <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mt-16">
           <!-- Contact Cards -->
           <div class="lg:col-span-5 space-y-6">
-            <Motion v-for="(contact, index) in contacts" :key="contact.label"
-              :initial="isMounted ? { opacity: 0, x: -100 } : false" :animate="{ opacity: 1, x: 0 }"
+            <Motion v-for="(contact, index) in contacts" :key="contact.key"
+              :initial="isMounted ? { opacity: 0, x: isRtl ? 100 : -100 } : false" :animate="{ opacity: 1, x: 0 }"
               :transition="{ duration: 0.8, delay: 0.2 + index * 0.1 }">
 
               <div class="contact-card group block relative">
@@ -45,7 +44,7 @@
                   :style="{ background: contact.gradient }"></div>
                 <div class="relative p-8 rounded-3xl bg-card/90 border border-border backdrop-blur-2xl overflow-hidden">
                   <div
-                    class="absolute top-0 right-0 w-40 h-40 opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl rounded-full"
+                    class="absolute top-0 end-0 w-40 h-40 opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-3xl rounded-full"
                     :style="{ background: contact.gradient }"></div>
                   <div class="relative flex items-center gap-5">
                     <div
@@ -58,7 +57,7 @@
                         {{ contact.label }}
                       </p>
                       <p class="text-lg font-bold text-foreground truncate">
-                        {{ contact.value }}
+                        <bdi dir="ltr">{{ contact.value }}</bdi>
                       </p>
                     </div>
 
@@ -74,7 +73,7 @@
           </div>
 
           <!-- Form -->
-          <Motion :initial="isMounted ? { opacity: 0, x: 100 } : false" :animate="{ opacity: 1, x: 0 }"
+          <Motion :initial="isMounted ? { opacity: 0, x: isRtl ? -100 : 100 } : false" :animate="{ opacity: 1, x: 0 }"
             :transition="{ duration: 1, delay: 0.6 }" class="lg:col-span-7">
 
             <div class="relative">
@@ -87,10 +86,10 @@
                   <div class="flex items-center gap-4 mb-4">
                     <div class="w-1.5 h-12 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 rounded-full">
                     </div>
-                    <h2 class="text-4xl font-black text-foreground">Send Message</h2>
+                    <h2 class="text-4xl font-black text-foreground">{{ $t("contact.formTitle") }}</h2>
                   </div>
-                  <p class="text-muted-foreground text-sm ml-8">
-                    Fill out the form and I'll get back to you within 24 hours
+                  <p class="text-muted-foreground text-sm ms-8">
+                    {{ $t("contact.formHelp") }}
                   </p>
                 </div>
 
@@ -102,10 +101,11 @@
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        Full Name
+                        {{ $t("contact.labels.name") }}
                       </label>
                       <input v-model="form.name" type="text" required class="form-input"
-                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.name }" placeholder="John Doe" />
+                        :class="{ 'border-red-500 focus:border-red-500': fieldErrors.name }"
+                        :placeholder="$t('contact.placeholders.name')" />
                       <p v-if="fieldErrors.name" class="error-message">{{ fieldErrors.name }}</p>
                     </div>
                     <div>
@@ -114,11 +114,11 @@
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        Email Address
+                        {{ $t("contact.labels.email") }}
                       </label>
                       <input v-model="form.email" type="email" required class="form-input"
                         :class="{ 'border-red-500 focus:border-red-500': fieldErrors.email }"
-                        placeholder="john@example.com" />
+                        :placeholder="$t('contact.placeholders.email')" />
                       <p v-if="fieldErrors.email" class="error-message">{{ fieldErrors.email }}</p>
                     </div>
                   </div>
@@ -129,11 +129,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                       </svg>
-                      Subject
+                      {{ $t("contact.labels.subject") }}
                     </label>
                     <input v-model="form.subject" type="text" required class="form-input"
                       :class="{ 'border-red-500 focus:border-red-500': fieldErrors.subject }"
-                      placeholder="Project Inquiry / Collaboration" />
+                      :placeholder="$t('contact.placeholders.subject')" />
                     <p v-if="fieldErrors.subject" class="error-message">{{ fieldErrors.subject }}</p>
                   </div>
 
@@ -143,16 +143,16 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                       </svg>
-                      Your Message
+                      {{ $t("contact.labels.message") }}
                     </label>
                     <textarea v-model="form.message" required rows="6" class="form-input"
                       :class="{ 'border-red-500 focus:border-red-500': fieldErrors.message }"
-                      placeholder="Tell me about your project..."></textarea>
+                      :placeholder="$t('contact.placeholders.message')"></textarea>
                     <p v-if="fieldErrors.message" class="error-message">{{ fieldErrors.message }}</p>
                   </div>
 
                   <InteractiveHoverButton type="submit" :disabled="isSubmitting"
-                    :text="isSubmitting ? 'Sending...' : 'Send Message'" class="w-full" />
+                    :text="isSubmitting ? $t('common.sending') : $t('common.sendMessage')" class="w-full" />
 
                   <div v-if="showSuccess"
                     class="p-6 rounded-2xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/50">
@@ -164,9 +164,9 @@
                         </svg>
                       </div>
                       <div>
-                        <h4 class="text-green-600 dark:text-green-300 font-bold">Message Sent!</h4>
+                        <h4 class="text-green-600 dark:text-green-300 font-bold">{{ $t("contact.successTitle") }}</h4>
                         <p class="text-green-700 dark:text-green-400/80 text-sm">
-                          I'll get back to you within 24 hours
+                          {{ $t("contact.successText") }}
                         </p>
                       </div>
                     </div>
@@ -182,7 +182,7 @@
                         </svg>
                       </div>
                       <div>
-                        <h4 class="text-red-600 dark:text-red-300 font-bold">Error!</h4>
+                        <h4 class="text-red-600 dark:text-red-300 font-bold">{{ $t("contact.errorTitle") }}</h4>
                         <p class="text-red-700 dark:text-red-400/80 text-sm">
                           {{ errorMessage }}
                         </p>
@@ -200,37 +200,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import * as THREE from "three";
 import type { ContactFormData, ContactFormErrors } from "~/types/contact";
 
-const contactTitle = "Hire Matin Jahi — Frontend Developer (Vue.js & Nuxt.js)";
-const contactDescription =
-  "Get in touch with Matin Jahi (متین جاهی) - Frontend Developer. Available for freelance projects, collaborations, and full-time opportunities. Contact via email, Telegram, or LinkedIn.";
-const contactUrl = "https://matinjahi.netlify.app/contact/";
-const contactImage = "https://matinjahi.netlify.app/og-image.jpg";
+const { t, locale } = useI18n();
 
-useHead({
-  title: contactTitle,
-  meta: [
-    { name: "description", content: contactDescription },
-    {
-      name: "keywords",
-      content:
-        "Contact Matin Jahi, تماس با متین جاهی, hire frontend developer, استخدام برنامه نویس فرانت اند, Vue.js developer for hire, freelance web developer Isfahan, contact web developer Iran",
-    },
-    { property: "og:type", content: "website" },
-    { property: "og:url", content: contactUrl },
-    { property: "og:title", content: contactTitle },
-    { property: "og:description", content: contactDescription },
-    { property: "og:image", content: contactImage },
-    { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: contactTitle },
-    { name: "twitter:description", content: contactDescription },
-    { name: "twitter:image", content: contactImage },
-  ],
-  link: [{ rel: "canonical", href: contactUrl }],
-});
+const isRtl = computed(() => locale.value === "fa");
 
 const canvasContainer = ref<HTMLElement | null>(null);
 const form = ref<ContactFormData>({ name: "", email: "", subject: "", message: "" });
@@ -241,9 +217,11 @@ const errorMessage = ref("");
 const fieldErrors = ref<ContactFormErrors>({});
 const isMounted = ref(false);
 
-const contacts = [
+// Language-neutral decoration (icons, gradients, links) plus the factual
+// contact values, which are never translated. Only the label is localized.
+const contactChannels = [
   {
-    label: "Email",
+    key: "email",
     value: "matinjahi@gmail.com",
     href: "mailto:matinjahi@gmail.com",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
@@ -251,7 +229,7 @@ const contacts = [
     icon: '<svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
   },
   {
-    label: "Telegram",
+    key: "telegram",
     value: "@Ritalleral",
     href: "https://t.me/Ritalleral",
     external: true,
@@ -260,7 +238,7 @@ const contacts = [
     icon: '<svg class="w-6 h-6 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>',
   },
   {
-    label: "GitHub",
+    key: "github",
     value: "@Matinj031",
     href: "https://github.com/Matinj031",
     external: true,
@@ -269,7 +247,7 @@ const contacts = [
     icon: '<svg class="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
   },
   {
-    label: "LinkedIn",
+    key: "linkedin",
     value: "Matin Jahi",
     href: "https://linkedin.com/in/matin-jahi",
     external: true,
@@ -278,6 +256,26 @@ const contacts = [
     icon: '<svg class="w-6 h-6 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
   },
 ];
+
+const contacts = computed(() =>
+  contactChannels.map((channel) => ({
+    ...channel,
+    label: t(`contact.contactLabels.${channel.key}`),
+  })),
+);
+
+useLocalizedSeo("contact", {
+  schema: ({ url, locale: currentLocale }) => ({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: t("contact.metaTitle"),
+    description: t("contact.metaDescription"),
+    url,
+    inLanguage: currentLocale,
+    isPartOf: { "@id": "https://matinjahi.netlify.app/#website" },
+    about: { "@id": "https://matinjahi.netlify.app/#person" },
+  }),
+});
 
 let scene: THREE.Scene,
   camera: THREE.PerspectiveCamera,
@@ -298,27 +296,27 @@ const handleSubmit = async () => {
   const errors: ContactFormErrors = {};
 
   if (!form.value.name.trim()) {
-    errors.name = "Name is required";
+    errors.name = t("contact.errors.nameRequired");
   } else if (form.value.name.trim().length < 2) {
-    errors.name = "Name must be at least 2 characters";
+    errors.name = t("contact.errors.nameMin");
   }
 
   if (!form.value.email.trim()) {
-    errors.email = "Email is required";
+    errors.email = t("contact.errors.emailRequired");
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email.trim())) {
-    errors.email = "Please enter a valid email address";
+    errors.email = t("contact.errors.emailInvalid");
   }
 
   if (!form.value.subject.trim()) {
-    errors.subject = "Subject is required";
+    errors.subject = t("contact.errors.subjectRequired");
   } else if (form.value.subject.trim().length < 3) {
-    errors.subject = "Subject must be at least 3 characters";
+    errors.subject = t("contact.errors.subjectMin");
   }
 
   if (!form.value.message.trim()) {
-    errors.message = "Message is required";
+    errors.message = t("contact.errors.messageRequired");
   } else if (form.value.message.trim().length < 10) {
-    errors.message = "Message must be at least 10 characters";
+    errors.message = t("contact.errors.messageMin");
   }
 
   if (Object.keys(errors).length > 0) {
@@ -356,13 +354,13 @@ const handleSubmit = async () => {
     // Check if it's a validation error from server
     if (error.data?.errors) {
       fieldErrors.value = error.data.errors;
-      errorMessage.value = "Please fix the errors below";
+      errorMessage.value = t("contact.errors.fixErrors");
     } else if (error.statusCode === 429) {
       // Rate limit error
-      errorMessage.value = error.data?.error || "Too many requests. Please try again later.";
+      errorMessage.value = error.data?.error || t("contact.errors.rateLimited");
     } else {
       // Generic error
-      errorMessage.value = error.data?.error || "Failed to send message. Please try again later.";
+      errorMessage.value = error.data?.error || t("contact.errors.generic");
     }
 
     showError.value = true;

@@ -1,12 +1,36 @@
 <script setup lang="ts">
 import MorphParticles from "~/components/MorphParticles.vue";
+
 const { start, finish, isLoading } = useUseLoadingScreen();
 const nuxtApp = useNuxtApp();
+const { t, locale } = useI18n();
 
-// Theme handling lives entirely in @nuxtjs/color-mode (see nuxt.config.ts and
-// components/ThemeToggle.vue) — no local theme state is needed here.
-// Theme-swap freezing is prevented by `colorMode.disableTransition: true`,
-// which briefly disables transitions while the `dark`/`light` class is swapped.
+const SITE_URL = "https://matinjahi.netlify.app";
+
+// Locale-aware <html lang> / dir. These are baked into the prerendered HTML of
+// every route (see nuxt.config.ts) instead of a static `en`/`ltr`.
+const i18nHead = useLocaleHead({ dir: true, lang: true, seo: false });
+
+const sameAs = [
+  "https://linkedin.com/in/matin-jahi",
+  "https://github.com/Matinj031",
+  "https://t.me/Ritalleral/",
+];
+
+// Language-neutral — technology names stay in their original Latin form.
+const knowsAbout = [
+  "Vue.js",
+  "Nuxt.js",
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "Tailwind CSS",
+  "GSAP",
+  "Three.js",
+  "Frontend Development",
+  "Web Development",
+  "UI/UX Development",
+];
 
 nuxtApp.hook("page:start", () => {
   start();
@@ -16,163 +40,114 @@ nuxtApp.hook("page:finish", () => {
   finish();
 });
 
-useHead({
-  titleTemplate: "%s | Matin Jahi - Frontend Developer",
-  htmlAttrs: {
-    lang: "en",
-    dir: "ltr",
-  },
-  link: [
-    {
-      rel: "icon",
-      type: "image/ico",
-      href: "/images/MatinJahi.ico",
-    },
-    {
-      rel: "apple-touch-icon",
-      href: "/images/MatinJahi.ico",
-    },
-  ],
-  meta: [
-    {
-      name: "description",
-      content:
-        "Matin Jahi - Frontend Developer Portfolio | متین جاهی - توسعه دهنده فرانت‌اند | Specialized in Vue.js, Nuxt.js, React, TypeScript, and modern web technologies. Building performant, accessible web applications.",
-    },
-    {
-      name: "keywords",
-      content:
-        "Matin Jahi, متین جاهی, Frontend Developer, توسعه دهنده فرانت اند, Vue.js Developer, Nuxt.js Developer, React Developer, TypeScript, JavaScript, Tailwind CSS, GSAP Animation, Three.js, Web Developer Isfahan, برنامه نویس وب, Isfahan Developer, Iran Web Developer, UI/UX Developer, Progressive Web Apps, PWA, Single Page Application, SPA, Responsive Design, Web Performance, Frontend Engineer, Full Stack Developer, Modern Web Technologies, طراحی وب, برنامه نویس جاوا اسکریپت",
-    },
-    {
-      name: "author",
-      content: "Matin Jahi | متین جاهی",
-    },
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1.0",
-    },
-    {
-      name: "geo.region",
-      content: "IR-07",
-    },
-    {
-      name: "geo.placename",
-      content: "Isfahan",
-    },
-    {
-      name: "geo.position",
-      content: "32.6546;51.6680",
-    },
-    {
-      name: "ICBM",
-      content: "32.6546;51.6680",
-    },
-  ],
-  script: [
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        name: "Matin Jahi",
-        alternateName: "متین جاهی",
-        jobTitle: "Frontend Developer",
-        description:
-          "Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. Building performant and accessible web applications.",
-        url: "https://matinjahi.netlify.app",
-        image: "https://matinjahi.netlify.app/og-image.jpg",
-        sameAs: [
-          "https://linkedin.com/in/matin-jahi",
-          "https://github.com/Matinj031",
-          "https://t.me/Ritalleral/",
-        ],
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Isfahan",
-          addressRegion: "Isfahan Province",
-          addressCountry: "IR",
-        },
-        knowsAbout: [
-          "Vue.js",
-          "Nuxt.js",
-          "React",
-          "TypeScript",
-          "JavaScript",
-          "Tailwind CSS",
-          "GSAP",
-          "Three.js",
-          "Frontend Development",
-          "Web Development",
-          "UI/UX Development",
-        ],
-        knowsLanguage: ["English", "Persian"],
-      }),
-    },
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: "Matin Jahi Portfolio",
-        alternateName: "نمونه کار متین جاهی",
-        url: "https://matinjahi.netlify.app",
-        description:
-          "Professional portfolio of Matin Jahi, Frontend Developer specializing in Vue.js and Nuxt.js",
-        inLanguage: ["en", "fa"],
-      }),
-    },
-    {
-      type: "application/ld+json",
-      innerHTML: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        name: "Matin Jahi - Frontend Development Services",
-        alternateName: "متین جاهی - خدمات توسعه فرانت‌اند",
-        image: "https://matinjahi.netlify.app/og-image.jpg",
-        url: "https://matinjahi.netlify.app",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Isfahan",
-          addressRegion: "Isfahan Province",
-          addressCountry: "IR",
-        },
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: 32.6546,
-          longitude: 51.668,
-        },
-        priceRange: "$$",
-        areaServed: {
-          "@type": "Country",
-          name: "Worldwide",
-        },
-      }),
-    },
-  ],
-});
+useHead(() => {
+  const lang = String(locale.value);
+  const isPersian = lang === "fa";
 
-useSeoMeta({
-  title: "Matin Jahi - Frontend Developer Portfolio | متین جاهی",
-  ogTitle: "Matin Jahi - Frontend Developer | Vue.js & Nuxt.js Specialist",
-  description:
-    "Matin Jahi (متین جاهی) - Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, TypeScript, and modern web technologies. Building performant, accessible, and beautiful web applications. Based in Isfahan, Iran.",
-  ogDescription:
-    "Professional Frontend Developer specializing in Vue.js, Nuxt.js, React, and modern web technologies. View my portfolio of projects and expertise in building performant web applications.",
-  ogImage: "https://matinjahi.netlify.app/og-image.jpg",
-  ogImageAlt: "Matin Jahi - Frontend Developer Portfolio",
-  twitterCard: "summary_large_image",
-  ogUrl: "https://matinjahi.netlify.app/",
-  ogSiteName: "Matin Jahi Portfolio",
-  ogType: "website",
-  ogLocale: "en_US",
-  ogLocaleAlternate: "fa_IR",
-  twitterTitle: "Matin Jahi - Frontend Developer | Vue.js & Nuxt.js",
-  twitterDescription:
-    "Professional Frontend Developer Portfolio. Specialized in Vue.js, Nuxt.js, React, and modern web technologies.",
-  twitterImage: "https://matinjahi.netlify.app/og-image.jpg",
-  twitterSite: "@MatinJahi",
-  twitterCreator: "@MatinJahi",
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
+    name: "Matin Jahi",
+    alternateName: "متین جاهی",
+    jobTitle: t("site.role"),
+    description: t("site.defaultDescription"),
+    url: SITE_URL,
+    image: `${SITE_URL}/og-image.jpg`,
+    sameAs,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Isfahan",
+      addressRegion: "Isfahan Province",
+      addressCountry: "IR",
+    },
+    knowsAbout,
+    knowsLanguage: ["English", "Persian"],
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: t("site.portfolioName"),
+    url: SITE_URL,
+    description: t("site.defaultDescription"),
+    inLanguage: lang,
+    publisher: { "@id": `${SITE_URL}/#person` },
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Matin Jahi - Frontend Development Services",
+    alternateName: "متین جاهی - خدمات توسعه فرانت‌اند",
+    image: `${SITE_URL}/og-image.jpg`,
+    url: SITE_URL,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Isfahan",
+      addressRegion: "Isfahan Province",
+      addressCountry: "IR",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 32.6546,
+      longitude: 51.668,
+    },
+    priceRange: "$$",
+    areaServed: { "@type": "Country", name: "Worldwide" },
+  };
+
+  return {
+    htmlAttrs: i18nHead.value.htmlAttrs,
+    title: t("site.defaultTitle"),
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", href: "/images/MatinJahi.ico" },
+      // Persian typography — only requested for the Persian version so the
+      // English pages don't pay for it.
+      ...(isPersian
+        ? [
+            { rel: "preconnect", href: "https://fonts.googleapis.com" },
+            {
+              rel: "preconnect",
+              href: "https://fonts.gstatic.com",
+              crossorigin: "anonymous",
+            },
+            {
+              rel: "stylesheet",
+              href: "https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap",
+            },
+          ]
+        : []),
+    ],
+    meta: [
+      { name: "description", content: t("site.defaultDescription") },
+      { name: "author", content: "Matin Jahi | متین جاهی" },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { name: "geo.region", content: "IR-07" },
+      { name: "geo.placename", content: "Isfahan" },
+      { name: "geo.position", content: "32.6546;51.6680" },
+      { name: "ICBM", content: "32.6546;51.6680" },
+    ],
+    script: [
+      {
+        key: "ld-person",
+        type: "application/ld+json",
+        innerHTML: JSON.stringify(personSchema),
+      },
+      {
+        key: "ld-website",
+        type: "application/ld+json",
+        innerHTML: JSON.stringify(websiteSchema),
+      },
+      {
+        key: "ld-service",
+        type: "application/ld+json",
+        innerHTML: JSON.stringify(serviceSchema),
+      },
+    ],
+  };
 });
 </script>
 

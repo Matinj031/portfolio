@@ -135,6 +135,8 @@ onBeforeUnmount(() => {
   background: var(--foreground);
   border-radius: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 2;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -146,6 +148,8 @@ onBeforeUnmount(() => {
   background: color-mix(in oklab, var(--foreground) 8%, transparent);
   border-radius: 100%;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1;
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }

@@ -8,6 +8,7 @@
  * on mount, when the real preference is known.
  */
 const colorMode = useColorMode()
+const { t } = useI18n()
 
 const isDark = ref(false)
 
@@ -23,15 +24,17 @@ onMounted(() => {
 function toggleTheme() {
   colorMode.preference = isDark.value ? 'light' : 'dark'
 }
+
+const label = computed(() => (isDark.value ? t('theme.toLight') : t('theme.toDark')))
 </script>
 
 <template>
   <button
     type="button"
     class="theme-toggle"
-    :aria-label="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+    :aria-label="label"
     :aria-pressed="isDark"
-    :title="isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+    :title="label"
     @click="toggleTheme"
   >
     <!-- Sun (shown in light mode) -->
